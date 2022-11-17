@@ -3,13 +3,28 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class User {
-	private String fileName;
+	private String fileName; //May be removed
 	private String username;
 	private String password;
 	private ArrayList<String> timetable;
 
 	public User() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	//
+	public User(String fileName) {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(fileName));
+			this.username = reader.readLine();
+			this.password = reader.readLine();
+			System.out.println(username);
+			System.out.println(password);
+		} catch (FileNotFoundException fnf) {
+			fnf.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 
 	public static void readFile(String x) {
@@ -30,7 +45,7 @@ public class User {
 		}
 		
 	}
-	public static void writeFile(String x) {
+	/*public static void writeFile(String x) {
 		try {
 			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter(x)));
 			writer.print("b");
@@ -39,20 +54,23 @@ public class User {
 			System.out.print(e);
 			e.printStackTrace();
 		}
-	}
-	public void saveToFile(String x) {
+	}*/
+	public void saveToFile(String filename) {
 		try {
-			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter(x)));
-			writer.println(fileName);
+			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter(filename)));
 			writer.println(username);
 			writer.println(password);
 			writer.close();
-		} catch (IOException e) {
-			System.out.print(e);
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			System.out.print(ioe);
+			ioe.printStackTrace();
 		}
 	}
+
 	
+	
+	
+	// Getters and setters below
 	String getFileName() {
 		return fileName;
 	}
