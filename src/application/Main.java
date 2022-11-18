@@ -23,7 +23,7 @@ public class Main {
 		System.out.println(test.getUsername());
 		test.setPassword("da boi");
 		System.out.println(test.getPassword());
-		test.saveToFile("src/ThatFile");
+		test.saveToFile("src/daFile");
 		
 	    long duration = 0;
 	    LocalTime start = LocalTime.MIN;

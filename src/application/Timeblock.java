@@ -15,6 +15,12 @@ public class Timeblock {
 		this.end = LocalTime.MAX;
 		this.duration = start.until(end, ChronoUnit.SECONDS);
 	}
+	
+	public Timeblock(LocalTime start, LocalTime end, String namelabel) {
+		this.start = start;
+		this.end = end;
+		this.namelabel = namelabel;
+	}
 
 	LocalTime getStart() {
 		return start;
