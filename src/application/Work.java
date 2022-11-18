@@ -1,8 +1,8 @@
 package application;
 
-public class FileIO {
+public class Work extends Timeblock {
 
-	public FileIO() {
+	public Work() {
 		// TODO Auto-generated constructor stub
 	}
 
