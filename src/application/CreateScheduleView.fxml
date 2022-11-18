@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController" />
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="How many tasks do you have planned through out the day">
+               <HBox.margin>
+                  <Insets left="20.0" top="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="tasksPlannedChoiceBox" prefWidth="150.0">
+            
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+              		
+              		<Integer fx:value="1" />
+              		<Integer fx:value="2" />
+              		<Integer fx:value="3" />
+              		<Integer fx:value="4" />
+              		<Integer fx:value="5" />
+              		<Integer fx:value="6" />
+              		<Integer fx:value="7" />
+              		<Integer fx:value="8" />
+              		<Integer fx:value="9" />
+              		<Integer fx:value="10" />
+              		<Integer fx:value="11" />
+              		<Integer fx:value="12" />
+              		<Integer fx:value="13" />
+              		<Integer fx:value="14" />
+              		<Integer fx:value="15" />
+              		
+              		
+              </FXCollections>
+            </items>
+               <HBox.margin>
+                  <Insets left="20.0" top="50.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
