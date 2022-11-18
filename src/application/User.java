@@ -9,7 +9,6 @@ public class User {
 	private ArrayList<String> timetable;
 
 	public User() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	//
@@ -20,41 +19,15 @@ public class User {
 			this.password = reader.readLine();
 			System.out.println(username);
 			System.out.println(password);
+			reader.close();
 		} catch (FileNotFoundException fnf) {
+			//
 			fnf.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
 
-	public static void readFile(String x) {
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(x));
-			String line = reader.readLine();
-			while (line != null) {
-				System.out.println(line);
-				line = reader.readLine();
-			}
-			
-		} catch (FileNotFoundException fnf){
-			System.out.print(fnf);
-			fnf.printStackTrace();
-		} catch (IOException ioe) {
-			System.out.print(ioe);
-			ioe.printStackTrace();
-		}
-		
-	}
-	/*public static void writeFile(String x) {
-		try {
-			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter(x)));
-			writer.print("b");
-			writer.close();
-		} catch (IOException e) {
-			System.out.print(e);
-			e.printStackTrace();
-		}
-	}*/
 	public void saveToFile(String filename) {
 		try {
 			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter(filename)));
