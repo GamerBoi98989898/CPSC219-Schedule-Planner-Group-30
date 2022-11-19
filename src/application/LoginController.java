@@ -1,17 +1,25 @@
  package application;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginController {
+	
+	@FXML
+	private ChoiceBox<Integer> tasksPlannedChoiceBox;
 	
 	Stage applicationStage;
 	
@@ -88,6 +96,21 @@ public class LoginController {
 		}
 		
 
+	}
+	public void createSchedule(ActionEvent event) {
+		int rowsOfPlannedTasks = tasksPlannedChoiceBox.getValue();
+		int tasksRows = 0;
+		
+		VBox scheduledTasksContainer = new VBox();
+		
+		ArrayList<TextField> taskPlannedChoiceBox = new ArrayList<TextField>();
+    	while(tasksRows<rowsOfPlannedTasks){
+    	
+    	HBox tasksContainer = new HBox();
+    	Label taskName = new Label("Task Planned");
+    	
+		ChoiceBox taskOptionChoiceBox = new ChoiceBox();
+	
 	}
 	
 	

@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.collections.*?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
@@ -44,13 +44,12 @@
                   <Insets left="20.0" top="25.0" />
                </HBox.margin>
             </ChoiceBox>
-            <Button mnemonicParsing="false" text="Schedule">
+            <Button mnemonicParsing="false" onAction="#createSchedule" text="Schedule">
                <HBox.margin>
                   <Insets left="30.0" top="25.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" />
    </children>
 </VBox>
