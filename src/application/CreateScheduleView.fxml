@@ -11,7 +11,10 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.Integer?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppController">
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppController">
+
    <children>
       <Label text="Plan Your Day!">
          <font>
@@ -210,7 +213,10 @@
             <Insets left="20.0" top="20.0" />
          </VBox.margin>
       </Button>
-      <Button mnemonicParsing="false"  text="Done">
+
+      <Button mnemonicParsing="false" onAction="#createSchedule" text="Done">
+      
+
          <VBox.margin>
             <Insets left="20.0" top="20.0" />
          </VBox.margin>
