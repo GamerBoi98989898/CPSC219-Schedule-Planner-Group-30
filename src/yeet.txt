@@ -1,7 +1,0 @@
-username
-password
-sun
-11:00,things,12:00
-mon
-:
-end
