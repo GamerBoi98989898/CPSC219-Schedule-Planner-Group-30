@@ -1,40 +1,35 @@
 package application;
-	
+
+
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-
+import javafx.stage.Stage;
 
 public class Main extends Application {
 	@Override
-	public void start(Stage primaryStage) {
-		try {
-			
-			FXMLLoader loader = new FXMLLoader();
-			VBox root = loader.load(new FileInputStream("src/application/LoginView.fxml"));
-			LoginController controller = (LoginController)loader.getController();
-			controller.applicationStage = primaryStage;
-			
-			// Window Size
-			Scene scene = new Scene(root, 600, 400);
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Schedule Planner App");
-			primaryStage.show();
-			
-		} 
+	public void start(Stage primaryStage) throws IOException {
 		
-		catch(Exception e) {
-			
-			e.printStackTrace();
-		}
+		Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+		
+		
+		
+		primaryStage.setTitle("Schedule Planner App");
+		primaryStage.setScene(new Scene(root, 600, 400));
+		
+		primaryStage.show();
+		
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }
+
 
