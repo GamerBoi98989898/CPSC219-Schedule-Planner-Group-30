@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.collections.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.Integer?>
+
 
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppController">
+
    <children>
       <Label text="Plan Your Day!">
          <font>
@@ -35,9 +39,8 @@
       </Label>
       <HBox prefHeight="55.0" prefWidth="200.0">
          <children>
-            <ChoiceBox fx:id="startHourChoiceBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="33.0">
-               <HBox.margin>
-               <items>
+            <ChoiceBox fx:id="startHourChoiceBox" prefHeight="22.0" prefWidth="33.0">
+                           <items>
               <FXCollections fx:factory="observableArrayList">
               
               		<Integer fx:value="0" />
@@ -64,15 +67,26 @@
               		<Integer fx:value="21" />
               		<Integer fx:value="22" />
               		<Integer fx:value="23" />
-              		
-              		
-              		
-              		
+         
               </FXCollections>
             </items>
-                  <Insets left="20.0" top="10.0" />
+            
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
+
+
+
+
+
+
+
+
+
+
+
+
             <Label text=":">
                <font>
                   <Font size="18.0" />
@@ -81,30 +95,24 @@
                   <Insets left="10.0" top="10.0" />
                </padding>
             </Label>
-            <ChoiceBox fx:id="startMinChoiceBox" minHeight="-Infinity" prefHeight="22.0" prefWidth="33.0">
+            <ChoiceBox fx:id="startMinChoiceBox" prefHeight="22.0" prefWidth="33.0">
                <HBox.margin>
-               <items>
-               <FXCollections fx:factory="observableArrayList">
-              
-              		<Integer fx:value="00" />
-              		<Integer fx:value="5" />
-              		<Integer fx:value="10" />
-              		<Integer fx:value="15" />
-              		<Integer fx:value="20" />
-              		<Integer fx:value="25" />
-              		<Integer fx:value="30" />
-              		<Integer fx:value="35" />
-              		<Integer fx:value="40" />
-              		<Integer fx:value="45" />
-              		<Integer fx:value="50" />
-              		<Integer fx:value="55" />
-              		<Integer fx:value="60" />
-              		
-              	</FXCollections>
-             </items>
-                  <Insets left="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
+
+
+
+
+
+
+
+
+
+
+
+
+
          </children>
       </HBox>
       <Label text="Entet End Time (hh : mm)">
@@ -117,9 +125,8 @@
       </Label>
       <HBox layoutX="10.0" layoutY="135.0" prefHeight="55.0" prefWidth="200.0">
          <children>
-            <ChoiceBox fx:id="endHourChoiceBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="33.0">
-               <HBox.margin>
-                <items>
+            <ChoiceBox fx:id="endHourChoiceBox" prefHeight="22.0" prefWidth="33.0">
+                                       <items>
               <FXCollections fx:factory="observableArrayList">
               
               		<Integer fx:value="0" />
@@ -146,12 +153,21 @@
               		<Integer fx:value="21" />
               		<Integer fx:value="22" />
               		<Integer fx:value="23" />
-              		
-              	</FXCollections>
+         
+              </FXCollections>
             </items>
-                  <Insets left="20.0" top="10.0" />
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
+
+
+
+
+
+
+
+
             <Label text=":">
                <font>
                   <Font size="18.0" />
@@ -160,9 +176,8 @@
                   <Insets left="10.0" top="10.0" />
                </padding>
             </Label>
-            <ChoiceBox fx:id="endMinChoiceBox" minHeight="-Infinity" prefHeight="22.0" prefWidth="33.0">
-               <HBox.margin>
-                <items>
+            <ChoiceBox fx:id="endMinChoiceBox" prefHeight="22.0" prefWidth="33.0">
+                            <items>
                <FXCollections fx:factory="observableArrayList">
               
               		<Integer fx:value="00" />
@@ -181,9 +196,16 @@
               		
               	</FXCollections>
             </items>
-                  <Insets left="10.0" top="10.0" />
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
+
+
+
+
+
+
          </children>
       </HBox>
       <Button mnemonicParsing="false" text="Create Task">
@@ -191,8 +213,10 @@
             <Insets left="20.0" top="20.0" />
          </VBox.margin>
       </Button>
+
       <Button mnemonicParsing="false" onAction="#createSchedule" text="Done">
       
+
          <VBox.margin>
             <Insets left="20.0" top="20.0" />
          </VBox.margin>
@@ -200,5 +224,3 @@
    </children>
    
 </VBox>
-
-
