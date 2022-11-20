@@ -103,16 +103,27 @@ public class LoginController {
 		
 		VBox scheduledTasksContainer = new VBox();
 		
-		ArrayList<TextField> taskPlannedChoiceBox = new ArrayList<TextField>();
+		ArrayList<TextField> taskPlannedTextFields = new ArrayList<TextField>();
     	while(tasksRows<rowsOfPlannedTasks){
     	
     	HBox tasksContainer = new HBox();
     	Label taskName = new Label("Task Planned");
+    	TextField plansTextField = new TextField();
+    	taskPlannedTextFields.add(plansTextField);
+    	tasksContainer.getChildren().add(taskName);
+    	tasksContainer.getChildren().addAll(taskPlannedTextFields);
     	
-		ChoiceBox taskOptionChoiceBox = new ChoiceBox();
-	
+    	tasksRows++;
+    	
+    	scheduledTasksContainer.getChildren().add(tasksContainer);
+    	}
+    	Scene tasksPlanned = new Scene(scheduledTasksContainer);
+    	applicationStage.setScene(tasksPlanned);
+    	
+		
 	}
 	
 	
 
-}
+	}
+
