@@ -10,7 +10,7 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <TextField prefHeight="37.0" prefWidth="168.0" promptText="Create Username">
+            <TextField fx:id="createUsernameTextField" prefHeight="37.0" prefWidth="168.0" promptText="Create Username">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -18,7 +18,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField prefHeight="37.0" prefWidth="101.0" promptText="Create Password">
+            <PasswordField fx:id="createPasswordField" prefHeight="37.0" prefWidth="101.0" promptText="Create Password">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>

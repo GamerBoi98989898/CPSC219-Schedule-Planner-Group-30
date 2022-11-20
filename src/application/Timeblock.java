@@ -21,6 +21,15 @@ public class Timeblock {
 		this.end = end;
 		this.namelabel = namelabel;
 	}
+	
+	
+	public String toString() {
+		
+		return "Task: " + namelabel + " Start Time: " + this.start.toString() + " End Time: " + this.end.toString();
+		
+		
+		
+	}
 
 	LocalTime getStart() {
 		return start;
