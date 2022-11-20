@@ -97,33 +97,21 @@ public class LoginController {
 		
 
 	}
-	public void createSchedule(ActionEvent event) {
-		int rowsOfPlannedTasks = tasksPlannedChoiceBox.getValue();
-		int tasksRows = 0;
+	public void createSchedule(ActionEvent doneEvent) {
 		
-		VBox scheduledTasksContainer = new VBox();
-		
-		ArrayList<TextField> taskPlannedTextFields = new ArrayList<TextField>();
-    	while(tasksRows<rowsOfPlannedTasks){
-    	
-    	HBox tasksContainer = new HBox();
-    	Label taskName = new Label("Task Planned");
-    	TextField plansTextField = new TextField();
-    	taskPlannedTextFields.add(plansTextField);
-    	tasksContainer.getChildren().add(taskName);
-    	tasksContainer.getChildren().addAll(taskPlannedTextFields);
-    	
-    	tasksRows++;
-    	
-    	scheduledTasksContainer.getChildren().add(tasksContainer);
-    	}
-    	Scene tasksPlanned = new Scene(scheduledTasksContainer);
-    	applicationStage.setScene(tasksPlanned);
-    	
-		
+		//Scene testScene = applicationStage.getScene();
+		//applicationStage.setScene(testScene);
+		//applicationStage.show();
+	
+	
 	}
+    	//Scene tasksPlanned = new Scene(scheduledTasksContainer);
+    	//applicationStage.setScene(tasksPlanned);
+    	
+		
+}
 	
 	
 
-	}
+//	}
 
