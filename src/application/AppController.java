@@ -88,36 +88,6 @@ public class AppController  {
 			Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 			
 			applicationStage.setScene(new Scene(root, 600, 400));
-		
-		
-		
-//			VBox testContainer = new VBox();
-//			
-//			ArrayList<TextField> testFields = new ArrayList<TextField>();
-//			
-//			int rowsCreated = 10;
-//			
-//			
-//			for (int i = 0 ; i < rowsCreated; i ++) {
-//				
-//				HBox rowContainer = new HBox();
-//				
-//				Label testLabel = new Label("Test");
-//				
-//				TextField testTextField = new TextField();
-//				
-//				
-//				rowContainer.getChildren().addAll(testLabel, testTextField);
-//						
-//						
-//				testContainer.getChildren().add(rowContainer);
-//				
-//			}
-//			
-//			Scene quizGradesScene = new Scene(testContainer);
-//	    	applicationStage.setScene(quizGradesScene);
-//		
-		
 
 
 	}
@@ -152,17 +122,6 @@ public class AppController  {
 	 */
 	
 	public void completeRegister(ActionEvent event) throws Exception {
-		
-		User newUser = new User();
-		
-		newUser.setUsername(createUsernameTextField.getText());
-		
-		newUser.setPassword(createPasswordField.getText());
-		
-		newUser.saveToFile(createUsernameTextField.getText());
-		
-		
-		
 		
 		
 		Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
