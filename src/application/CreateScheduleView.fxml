@@ -20,7 +20,7 @@
          </font>
          <VBox.margin>
             <Insets left="20.0" top="20.0" />
-         </VBox.margin>
+         </VBox.margin> 
       </Label>
       <DatePicker fx:id="dateSelect" promptText="Select Date for Schedule">
          <VBox.margin>
