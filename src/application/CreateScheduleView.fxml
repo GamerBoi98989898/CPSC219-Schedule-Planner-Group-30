@@ -20,7 +20,7 @@
          </font>
          <VBox.margin>
             <Insets left="20.0" top="20.0" />
-         </VBox.margin> 
+         </VBox.margin>
       </Label>
       <DatePicker fx:id="dateSelect" promptText="Select Date for Schedule">
          <VBox.margin>
@@ -76,18 +76,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
-
-
-
-
-
-
-
-
-
-
-
-
             <Label text=":">
                <font>
                   <Font size="18.0" />
@@ -117,8 +105,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
-
-
          </children>
       </HBox>
       <Label text="Entet End Time (hh : mm)">
@@ -164,14 +150,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
-
-
-
-
-
-
-
-
             <Label text=":">
                <font>
                   <Font size="18.0" />
@@ -201,12 +179,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </ChoiceBox>
-
-
-
-
-
-
          </children>
       </HBox>
       <Button fx:id="createTaskButton" mnemonicParsing="false" onAction="#createTask" text="Create Task">
@@ -220,5 +192,4 @@
          </VBox.margin>
       </Button>
    </children>
-   
 </VBox>
