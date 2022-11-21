@@ -1,8 +1,11 @@
 package application;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +74,7 @@ public class AppController  {
 	TextField createUsernameTextField;
 	@FXML
 	PasswordField createPasswordField;
+
 	
 	/**
 	 * 
@@ -122,7 +126,21 @@ public class AppController  {
 	 */
 	
 	public void completeRegister(ActionEvent event) throws Exception {
+		try {
+		String filename = createUsernameTextField.getText();
+		String password = createPasswordField.getText();
+		System.out.println(filename);
+		System.out.println(password);
 		
+		
+		PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/saved" +filename+ ".txt")));
+		writer.println(filename);
+		writer.println(password);
+		writer.close();
+		} catch (IOException ioe) {
+			System.out.print(ioe);
+			ioe.printStackTrace();
+		}
 		
 		Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
 		

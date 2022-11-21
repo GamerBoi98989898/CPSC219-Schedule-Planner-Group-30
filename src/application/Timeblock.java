@@ -1,6 +1,7 @@
 package application;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 public class Timeblock {
 	
@@ -22,13 +23,27 @@ public class Timeblock {
 		this.namelabel = namelabel;
 	}
 	
+
+	ArrayList<Timeblock> createTimeblock (ArrayList<String> list ) {
+		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
+		
+		for (String i : list) {
+			Timeblock toAdd = new Timeblock();
+			String[] readlist = i.split(",");
+			String starttime = readlist[0];
+			toAdd.setStart(LocalTime.parse(starttime));
+			String name = readlist[1];
+			toAdd.setNamelabel(name);
+			String endtime = readlist[2];
+			toAdd.setEnd(LocalTime.parse(endtime));
+			newList.add(toAdd);
+		}
+		return newList;
+	}
 	
 	public String toString() {
 		
 		return "Task: " + namelabel + " Start Time: " + this.start.toString() + " End Time: " + this.end.toString();
-		
-		
-		
 	}
 
 	LocalTime getStart() {

@@ -12,6 +12,8 @@ public class User {
 	private ArrayList<String> thutimetable = new ArrayList<String>();
 	private ArrayList<String> fritimetable = new ArrayList<String>();
 	private ArrayList<String> sattimetable = new ArrayList<String>();
+	
+	private ArrayList<Timeblock> blocktest = new ArrayList<Timeblock>();
 
 	public User() {
 	}
@@ -127,9 +129,6 @@ public class User {
 			ioe.printStackTrace();
 		}
 	}
-
-	
-	
 	
 	// Getters and setters below
 	String getUsername() {
@@ -148,59 +147,59 @@ public class User {
 		this.password = password;
 	}
 
-	private ArrayList<String> getSuntimetable() {
+	public ArrayList<String> getSuntimetable() {
 		return suntimetable;
 	}
 
-	private void setSuntimetable(ArrayList<String> suntimetable) {
+	public void setSuntimetable(ArrayList<String> suntimetable) {
 		this.suntimetable = suntimetable;
 	}
 
-	private ArrayList<String> getMontimetable() {
+	public ArrayList<String> getMontimetable() {
 		return montimetable;
 	}
 
-	private void setMontimetable(ArrayList<String> montimetable) {
+	public void setMontimetable(ArrayList<String> montimetable) {
 		this.montimetable = montimetable;
 	}
 
-	private ArrayList<String> getTuetimetable() {
+	public ArrayList<String> getTuetimetable() {
 		return tuetimetable;
 	}
 
-	private void setTuetimetable(ArrayList<String> tuetimetable) {
+	public void setTuetimetable(ArrayList<String> tuetimetable) {
 		this.tuetimetable = tuetimetable;
 	}
 
-	private ArrayList<String> getWedtimetable() {
+	public ArrayList<String> getWedtimetable() {
 		return wedtimetable;
 	}
 
-	private void setWedtimetable(ArrayList<String> wedtimetable) {
+	public void setWedtimetable(ArrayList<String> wedtimetable) {
 		this.wedtimetable = wedtimetable;
 	}
 
-	private ArrayList<String> getThutimetable() {
+	public ArrayList<String> getThutimetable() {
 		return thutimetable;
 	}
 
-	private void setThutimetable(ArrayList<String> thutimetable) {
+	public void setThutimetable(ArrayList<String> thutimetable) {
 		this.thutimetable = thutimetable;
 	}
 
-	private ArrayList<String> getFritimetable() {
+	public ArrayList<String> getFritimetable() {
 		return fritimetable;
 	}
 
-	private void setFritimetable(ArrayList<String> fritimetable) {
+	public void setFritimetable(ArrayList<String> fritimetable) {
 		this.fritimetable = fritimetable;
 	}
 
-	private ArrayList<String> getSattimetable() {
+	public ArrayList<String> getSattimetable() {
 		return sattimetable;
 	}
 
-	private void setSattimetable(ArrayList<String> sattimetable) {
+	public void setSattimetable(ArrayList<String> sattimetable) {
 		this.sattimetable = sattimetable;
 	}
 
