@@ -25,8 +25,6 @@ public class LoginController {
 	@FXML
 	private TextField RegisterCreatePasswordTF;
 	
-	
-	
 	/**
 	 * 
 	 * Check if user already exists and if credentials are correct, proceed to show their current schedule
@@ -82,7 +80,7 @@ public class LoginController {
 			String password = RegisterCreatePasswordTF.getText();
 			
 			
-			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/regtest")));
 			writer.println(filename);
 			writer.println(password);
 			writer.close();
@@ -108,6 +106,15 @@ public class LoginController {
 		}
 		
 
+	}
+	@FXML
+	public void completeRegister(ActionEvent event) {
+		System.out.println("FUCKL");
+	}
+	
+	@FXML
+	public void FUCK(ActionEvent event) {
+		System.out.println("FUCKL");
 	}
 	
 	
