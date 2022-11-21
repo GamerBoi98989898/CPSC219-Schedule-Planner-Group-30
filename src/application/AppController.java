@@ -74,6 +74,8 @@ public class AppController  {
 	TextField usenameTextField;
 	@FXML
 	PasswordField passwordTextField;
+	@FXML
+	Label LoginErrorLabel;
 
 	
 	/**
@@ -89,18 +91,23 @@ public class AppController  {
 		User toValidate = new User();
 		String test1 = usenameTextField.getText(); 
 		String test2 = passwordTextField.getText();
-		System.out.println(test1);
-		System.out.println(test2);
 		
-		/*if (toValidate.validateUser(createUsernameTextField.getText(), createPasswordField.getText()) == true) {
+		
+		if (toValidate.validateUser(test1, test2) == true) {
 			System.out.println("VALID");
-		}*/
-		
+			
+
 			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
 			
 			Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 			
 			applicationStage.setScene(new Scene(root, 600, 400));
+		}
+		else {
+			System.out.println("Failed to valid");
+			LoginErrorLabel.setText("Error User Not Found");
+		}
+		
 
 
 	}
