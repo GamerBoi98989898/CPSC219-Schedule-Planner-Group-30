@@ -54,16 +54,18 @@ public class AppController  {
 	@FXML
 	DatePicker dateSelect;
 	
-	
-	
 	@FXML
 	ChoiceBox<String> startHourChoiceBox;
+	
 	@FXML
 	ChoiceBox<String> startMinChoiceBox;
+	
 	@FXML
 	ChoiceBox<String> endHourChoiceBox;
+	
 	@FXML
 	ChoiceBox<String> endMinChoiceBox;
+	
 	@FXML
 	TextField taskName;
 	
@@ -72,8 +74,24 @@ public class AppController  {
 	
 	@FXML
 	TextField createUsernameTextField;
+	
 	@FXML
 	PasswordField createPasswordField;
+	
+	private ArrayList<String> taskList = new ArrayList<String>();
+	
+	String startHour;
+	String startMin;
+	
+	String startTask = startHour + ":" + startMin;
+	
+	String endHour;
+	String endMin;
+	
+	String endTask = endHour + ":" + endMin;
+	
+	String task;
+	
 
 	
 	/**
@@ -174,12 +192,28 @@ public class AppController  {
 
 	public void createTask(ActionEvent event) throws Exception  {
 		
+		String startHour = startHourChoiceBox.getValue();
+		String startMin = startMinChoiceBox.getValue();
+		
+		String startTask = startHour + ":" + startMin;
+		
+		String endHour = endHourChoiceBox.getValue();
+		String endMin = endMinChoiceBox.getValue();
+		
+		String endTask = endHour + ":" + endMin;
+		
+		String task = taskName.getText();
+		
 		System.out.println("Task Created!");
-		System.out.println("Date: " + dateSelect.getValue() + " Task: " + taskName.getText() + " Start Time: " + startHourChoiceBox.getValue() + ":" + startMinChoiceBox.getValue() + " End Time: " + endHourChoiceBox.getValue() + ":" + endMinChoiceBox.getValue());
+//		System.out.println("Date: " + dateSelect.getValue() + " Task: " + taskName.getText() + " Start Time: " + startHourChoiceBox.getValue() + ":" + startMinChoiceBox.getValue() + " End Time: " + endHourChoiceBox.getValue() + ":" + endMinChoiceBox.getValue());
 		
-		Timeblock timeBlock = new Timeblock(LocalTime.parse(startHourChoiceBox.getValue() + ":" + startMinChoiceBox.getValue()), LocalTime.parse(endHourChoiceBox.getValue() + ":" + endMinChoiceBox.getValue()), taskName.getText());
+		taskList.add(startTask + "," + task + "," + endTask);
 		
-		System.out.println(timeBlock.toString());
+		System.out.println(taskList);
+		
+
+		
+		
 		
 		
 	}
@@ -188,13 +222,17 @@ public class AppController  {
 	
 	public void doneScheduleCreate(ActionEvent Event) throws Exception {
 		
+				
+		Timeblock timeBlock = new Timeblock();
+					
+		timeBlock.createTimeblock(taskList);
 		
-			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-			
-			Stage applicationStage = (Stage)doneButton.getScene().getWindow();
-			
-			applicationStage.setScene(new Scene(root, 600, 400));
-			applicationStage.show();
+		Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
+		
+		Stage applicationStage = (Stage)doneButton.getScene().getWindow();
+		
+		applicationStage.setScene(new Scene(root, 600, 400));
+		applicationStage.show();
 	
 	
 	}
