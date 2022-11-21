@@ -23,6 +23,7 @@ public class Timeblock {
 		this.namelabel = namelabel;
 	}
 	
+
 	ArrayList<Timeblock> createTimeblock (ArrayList<String> list ) {
 		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
 		
@@ -38,6 +39,11 @@ public class Timeblock {
 			newList.add(toAdd);
 		}
 		return newList;
+	}
+	
+	public String toString() {
+		
+		return "Task: " + namelabel + " Start Time: " + this.start.toString() + " End Time: " + this.end.toString();
 	}
 
 	LocalTime getStart() {
