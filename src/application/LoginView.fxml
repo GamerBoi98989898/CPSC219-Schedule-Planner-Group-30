@@ -36,7 +36,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </TextField>
-            <PasswordField fx:id="passwordField" prefHeight="37.0" prefWidth="150.0" promptText="Enter Password">
+            <PasswordField fx:id="passwordTextField" prefHeight="37.0" prefWidth="150.0" promptText="Enter Password">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>

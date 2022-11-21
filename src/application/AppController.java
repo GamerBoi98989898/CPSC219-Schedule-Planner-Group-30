@@ -71,9 +71,9 @@ public class AppController  {
 	Button doneButton;
 	
 	@FXML
-	TextField createUsernameTextField;
+	TextField usenameTextField;
 	@FXML
-	PasswordField createPasswordField;
+	PasswordField passwordTextField;
 
 	
 	/**
@@ -86,6 +86,15 @@ public class AppController  {
 	
 	public void userLogin(ActionEvent Event) throws Exception {
 		
+		User toValidate = new User();
+		String test1 = usenameTextField.getText(); 
+		String test2 = passwordTextField.getText();
+		System.out.println(test1);
+		System.out.println(test2);
+		
+		/*if (toValidate.validateUser(createUsernameTextField.getText(), createPasswordField.getText()) == true) {
+			System.out.println("VALID");
+		}*/
 		
 			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
 			
@@ -127,13 +136,12 @@ public class AppController  {
 	
 	public void completeRegister(ActionEvent event) throws Exception {
 		try {
-		String filename = createUsernameTextField.getText();
-		String password = createPasswordField.getText();
+		String filename = usenameTextField.getText();
+		String password = passwordTextField.getText();
 		System.out.println(filename);
 		System.out.println(password);
 		
-		
-		PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/saved" +filename+ ".txt")));
+		PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/" +filename+ ".txt")));
 		writer.println(filename);
 		writer.println(password);
 		writer.close();
