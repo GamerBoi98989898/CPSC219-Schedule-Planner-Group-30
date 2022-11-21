@@ -130,6 +130,31 @@ public class User {
 		}
 	}
 	
+	
+	public boolean validateUser(String filename, String password) {
+		try {
+			int x = 0;
+			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
+			String Thisfilename = reader.readLine();
+			String Thispassword = reader.readLine();
+			System.out.println(Thisfilename);
+			System.out.println(Thispassword);
+			System.out.println(filename);
+			System.out.println(password);
+			if (filename.equals(Thisfilename)) {
+				x+=1;}
+			if (password.equals(Thispassword)) {
+				x+=1;}
+		    System.out.println(x);
+			reader.close();
+			if (x == 2) {return true;}
+			return false;
+	} catch (IOException ioe) {
+		System.out.print(ioe);
+		ioe.printStackTrace();
+		return false;
+	}
+}
 	// Getters and setters below
 	String getUsername() {
 		return username;
