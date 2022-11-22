@@ -44,16 +44,18 @@ public class AppController  {
 	@FXML
 	DatePicker dateSelect;
 	
-	
-	
 	@FXML
 	ChoiceBox<String> startHourChoiceBox;
+	
 	@FXML
 	ChoiceBox<String> startMinChoiceBox;
+	
 	@FXML
 	ChoiceBox<String> endHourChoiceBox;
+	
 	@FXML
 	ChoiceBox<String> endMinChoiceBox;
+	
 	@FXML
 	TextField taskName;
 	
@@ -61,6 +63,7 @@ public class AppController  {
 	Button doneButton;
 	
 	@FXML
+
 	TextField usernameTextField;
 	@FXML
 	PasswordField passwordTextField;
@@ -68,6 +71,36 @@ public class AppController  {
 	Label LoginErrorLabel;
 	@FXML
 	Label RegisterErrorLabel;
+
+	TextField createUsernameTextField;
+	
+	@FXML
+	PasswordField createPasswordField;
+	
+	@FXML
+	TextField usernameTextField;
+	
+	@FXML
+	PasswordField passwordTextField;
+	
+	@FXML
+	Label LoginErrorLabel;
+	
+	private ArrayList<String> taskList = new ArrayList<String>();
+	
+	String startHour;
+	String startMin;
+	
+	String startTask = startHour + ":" + startMin;
+	
+	String endHour;
+	String endMin;
+	
+	String endTask = endHour + ":" + endMin;
+	
+	String task;
+	
+
 
 	
 	/**
@@ -78,6 +111,7 @@ public class AppController  {
 	 * @throws IOException 
 	 */
 	
+
 	public void userLogin(ActionEvent Event) {
 		User toValidate = new User();
 		String username = usernameTextField.getText();
@@ -106,6 +140,30 @@ public class AppController  {
 			//ioe.printStackTrace();
 		}
 		
+
+	public void userLogin(ActionEvent Event) throws Exception {
+		User toValidate = new User();
+		String test1 = usernameTextField.getText(); 
+		String test2 = passwordTextField.getText();
+		
+		if (toValidate.validateUser(test1, test2) == true) {
+			System.out.println("VALID");
+
+
+			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
+
+			Stage applicationStage = (Stage)loginButton.getScene().getWindow();
+
+			applicationStage.setScene(new Scene(root, 600, 400));
+		}
+		
+		else {
+			System.out.println("Failed to valid");
+			LoginErrorLabel.setText("Error User Not Found");
+		}
+
+
+
 	}
 	
 	
@@ -189,12 +247,28 @@ public class AppController  {
 
 	public void createTask(ActionEvent event) throws Exception  {
 		
+		String startHour = startHourChoiceBox.getValue();
+		String startMin = startMinChoiceBox.getValue();
+		
+		String startTask = startHour + ":" + startMin;
+		
+		String endHour = endHourChoiceBox.getValue();
+		String endMin = endMinChoiceBox.getValue();
+		
+		String endTask = endHour + ":" + endMin;
+		
+		String task = taskName.getText();
+		
 		System.out.println("Task Created!");
-		System.out.println("Date: " + dateSelect.getValue() + " Task: " + taskName.getText() + " Start Time: " + startHourChoiceBox.getValue() + ":" + startMinChoiceBox.getValue() + " End Time: " + endHourChoiceBox.getValue() + ":" + endMinChoiceBox.getValue());
+//		System.out.println("Date: " + dateSelect.getValue() + " Task: " + taskName.getText() + " Start Time: " + startHourChoiceBox.getValue() + ":" + startMinChoiceBox.getValue() + " End Time: " + endHourChoiceBox.getValue() + ":" + endMinChoiceBox.getValue());
 		
-		Timeblock timeBlock = new Timeblock(LocalTime.parse(startHourChoiceBox.getValue() + ":" + startMinChoiceBox.getValue()), LocalTime.parse(endHourChoiceBox.getValue() + ":" + endMinChoiceBox.getValue()), taskName.getText());
+		taskList.add(startTask + "," + task + "," + endTask);
 		
-		System.out.println(timeBlock.toString());
+		System.out.println(taskList);
+		
+
+		
+		
 		
 		
 	}
@@ -203,13 +277,17 @@ public class AppController  {
 	
 	public void doneScheduleCreate(ActionEvent Event) throws Exception {
 		
+				
+		Timeblock timeBlock = new Timeblock();
+					
+		timeBlock.createTimeblock(taskList);
 		
-			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-			
-			Stage applicationStage = (Stage)doneButton.getScene().getWindow();
-			
-			applicationStage.setScene(new Scene(root, 600, 400));
-			applicationStage.show();
+		Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
+		
+		Stage applicationStage = (Stage)doneButton.getScene().getWindow();
+		
+		applicationStage.setScene(new Scene(root, 600, 400));
+		applicationStage.show();
 	
 	
 	}
