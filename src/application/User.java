@@ -137,15 +137,15 @@ public class User {
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 			String Thisfilename = reader.readLine();
 			String Thispassword = reader.readLine();
-			//System.out.println(Thisfilename);
-			//System.out.println(Thispassword);
-			//System.out.println(filename);
-			//System.out.println(password);
+			System.out.println(Thisfilename);
+			System.out.println(Thispassword);
+			System.out.println(filename);
+			System.out.println(password);
 			if (filename.equals(Thisfilename)) {
 				x+=1;}
 			if (password.equals(Thispassword)) {
 				x+=1;}
-		    //System.out.println(x);
+		    System.out.println(x);
 			reader.close();
 			if (x == 2) {return true;}
 			return false;

@@ -33,7 +33,7 @@
         </HBox>
         <VBox prefHeight="72.0" prefWidth="600.0">
             <children>
-                <TextField fx:id="usenameTextField" prefHeight="37.0" prefWidth="168.0" promptText="Enter Username">
+                <TextField fx:id="usernameTextField" prefHeight="37.0" prefWidth="168.0" promptText="Enter Username">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </VBox.margin>
