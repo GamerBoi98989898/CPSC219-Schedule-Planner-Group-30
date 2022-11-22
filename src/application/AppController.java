@@ -71,11 +71,13 @@ public class AppController  {
 	Button doneButton;
 	
 	@FXML
-	TextField usenameTextField;
+	TextField createUsernameTextField;
 	@FXML
-	PasswordField passwordTextField;
+	PasswordField createPasswordTextField;
 	@FXML
 	Label LoginErrorLabel;
+	@FXML
+	Label RegisterErrorLabel;
 
 	
 	/**
@@ -86,30 +88,32 @@ public class AppController  {
 	 * @throws IOException 
 	 */
 	
-	public void userLogin(ActionEvent Event) throws Exception {
-		
+	public void userLogin(ActionEvent Event) {
 		User toValidate = new User();
-		String test1 = usenameTextField.getText(); 
-		String test2 = passwordTextField.getText();
-		
-		
-		if (toValidate.validateUser(test1, test2) == true) {
-			System.out.println("VALID");
+		String username = createUsernameTextField.getText(); 
+		String password = createPasswordTextField.getText();
+		try {
+			if (toValidate.validateUser(username, password) == true) {
+				//System.out.println("VALID");	
+			}
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
+				
+				Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 			
-
-			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-			
-			Stage applicationStage = (Stage)loginButton.getScene().getWindow();
-			
-			applicationStage.setScene(new Scene(root, 600, 400));
+				applicationStage.setScene(new Scene(root, 600, 400));
+				} catch (IOException ioe) {
+					//System.out.print(ioe);
+					//ioe.printStackTrace();
+				}
+		} catch (IOException ioe) {
+			username = "";
+			password = "";
+			LoginErrorLabel.setText("Error could not find user");
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
 		}
-		else {
-			System.out.println("Failed to valid");
-			LoginErrorLabel.setText("Error User Not Found");
-		}
 		
-
-
 	}
 	
 	
@@ -141,29 +145,33 @@ public class AppController  {
 	 * @throws Exception
 	 */
 	
-	public void completeRegister(ActionEvent event) throws Exception {
-		try {
-		String filename = usenameTextField.getText();
-		String password = passwordTextField.getText();
-		System.out.println(filename);
-		System.out.println(password);
-		
-		PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/" +filename+ ".txt")));
-		writer.println(filename);
-		writer.println(password);
-		writer.close();
-		} catch (IOException ioe) {
-			System.out.print(ioe);
-			ioe.printStackTrace();
+	public void completeRegister(ActionEvent event) {
+		String filename = createUsernameTextField.getText();
+		//System.out.println(filename);
+		String password = createPasswordTextField.getText();
+		//System.out.println(password);
+		File doesExist = new File("src/" +filename+ ".txt");
+		if (!doesExist.isFile()) { 
+			try {
+				
+			
+				PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/" +filename+ ".txt")));
+				writer.println(filename);
+				writer.println(password);
+				writer.close();
+				
+				Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+				
+				Stage applicationStage = (Stage)completeRegisterButton.getScene().getWindow();
+				
+				applicationStage.setScene(new Scene(root, 600, 400));
+			} catch (IOException ioe) {
+				System.out.print(ioe);
+				ioe.printStackTrace();
+			}
+		} else {
+			RegisterErrorLabel.setText("Error User already exists");
 		}
-		
-		Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
-		
-		Stage applicationStage = (Stage)completeRegisterButton.getScene().getWindow();
-		
-		applicationStage.setScene(new Scene(root, 600, 400));
-		
-		
 	}
 	
 	
