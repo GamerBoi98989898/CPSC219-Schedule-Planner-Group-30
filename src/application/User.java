@@ -149,6 +149,7 @@ public class User {
 	}
 
 	public boolean validateUser(String filename, String password) throws IOException{
+
 			int x = 0;
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 			String Thisfilename = reader.readLine();
@@ -165,12 +166,7 @@ public class User {
 			reader.close();
 			if (x == 2) {return true;}
 			return false;
-	} catch (IOException ioe) {
-		System.out.print(ioe);
-		ioe.printStackTrace();
-		return false;
 	}
-}
 	// Getters and setters below
 	String getUsername() {
 		return username;
