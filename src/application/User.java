@@ -26,7 +26,7 @@ public class User {
 	public User() {
 	}
 	
-	
+	// Allow information of User to pass through scenes
 	public static User getUser() {
 		
 		return currentUser;
