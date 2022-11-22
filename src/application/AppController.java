@@ -74,18 +74,18 @@ public class AppController  {
 	 * 
 	 * Check if user already exists and if credentials are correct, proceed to show their current schedule
 	 * 
-	 * @param event
-	 * @throws IOException 
+	 * @param
+	 * @throws
 	 */
 	
 	public void userLogin(ActionEvent Event) {
 		User toValidate = new User();
 		String username = usernameTextField.getText();
 		String password = passwordTextField.getText();
-		System.out.println(username);
-		System.out.println(password);
+		//System.out.println(username);
+		//System.out.println(password);
 		try {
-			if (toValidate.validateUser(username, password) == true) {
+			if (toValidate.validateUser(username, password)) {
 				System.out.println("VALID");
 			}
 			try {
