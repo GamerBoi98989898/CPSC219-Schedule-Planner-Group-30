@@ -87,17 +87,18 @@ public class AppController  {
 		try {
 			if (toValidate.validateUser(username, password)) {
 				System.out.println("VALID");
-			}
-			try {
-				Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-				
-				Stage applicationStage = (Stage)loginButton.getScene().getWindow();
-			
-				applicationStage.setScene(new Scene(root, 600, 400));
+				try {
+					Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
+
+					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
+
+					applicationStage.setScene(new Scene(root, 600, 400));
 				} catch (IOException ioe) {
 					//System.out.print(ioe);
 					//ioe.printStackTrace();
 				}
+			}
+
 		} catch (IOException ioe) {
 			username = "";
 			password = "";

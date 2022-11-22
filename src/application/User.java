@@ -126,7 +126,7 @@ public class User {
 
 	public void saveToFile(String filename) {
 		try {
-			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/"+filename+".txt")));
 			writer.println(username);
 			writer.println(password);
 			writer.close();
