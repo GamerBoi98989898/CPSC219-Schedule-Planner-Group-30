@@ -107,24 +107,36 @@ public class AppController  {
 	 * 
 	 * Check if user already exists and if credentials are correct, proceed to show their current schedule
 	 * 
-	 * @param event
-	 * @throws IOException 
+	 * @param
+	 * @throws
 	 */
 	
 	public void userLogin(ActionEvent Event) throws Exception {
 		User toValidate = new User();
-		String test1 = usernameTextField.getText(); 
-		String test2 = passwordTextField.getText();
-		
-		if (toValidate.validateUser(test1, test2) == true) {
-			System.out.println("VALID");
-
-
-			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-
-			Stage applicationStage = (Stage)loginButton.getScene().getWindow();
-
-			applicationStage.setScene(new Scene(root, 600, 400));
+		String username = usernameTextField.getText();
+		String password = passwordTextField.getText();
+		//System.out.println(username);
+		//System.out.println(password);
+		try {
+			if (toValidate.validateUser(username, password)) {
+				System.out.println("VALID");
+			}
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
+				
+				Stage applicationStage = (Stage)loginButton.getScene().getWindow();
+			
+				applicationStage.setScene(new Scene(root, 600, 400));
+				} catch (IOException ioe) {
+					//System.out.print(ioe);
+					//ioe.printStackTrace();
+				}
+		} catch (IOException ioe) {
+			username = "";
+			password = "";
+			LoginErrorLabel.setText("Error could not find user");
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
 		}
 		
 		else {

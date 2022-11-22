@@ -13,7 +13,13 @@ public class User {
 	private ArrayList<String> fritimetable = new ArrayList<String>();
 	private ArrayList<String> sattimetable = new ArrayList<String>();
 	
-	private ArrayList<Timeblock> blocktest = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> suntimeblocks = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> montimeblocks = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> tuetimeblocks = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> wedtimeblocks = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> thutimeblocks = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> fritimeblocks = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> sattimeblocks = new ArrayList<Timeblock>();
 
 	public User() {
 	}
@@ -22,7 +28,7 @@ public class User {
 	public User(String fileName) {
 		
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(fileName));
+			BufferedReader reader = new BufferedReader(new FileReader("src/"+fileName+".txt"));
 			this.username = reader.readLine();
 			this.password = reader.readLine();
 			System.out.println(username);
@@ -129,10 +135,20 @@ public class User {
 			ioe.printStackTrace();
 		}
 	}
-	
-	
-	public boolean validateUser(String filename, String password) {
-		try {
+
+	public void convertToTimeblock() {
+		Timeblock convert = new Timeblock();
+		suntimeblocks = convert.createTimeblock(suntimetable);
+		montimeblocks = convert.createTimeblock(montimetable);
+		tuetimeblocks = convert.createTimeblock(tuetimetable);
+		wedtimeblocks = convert.createTimeblock(wedtimetable);
+		thutimeblocks = convert.createTimeblock(thutimetable);
+		fritimeblocks = convert.createTimeblock(fritimetable);
+		sattimeblocks = convert.createTimeblock(sattimetable);
+
+	}
+
+	public boolean validateUser(String filename, String password) throws IOException{
 			int x = 0;
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 			String Thisfilename = reader.readLine();
@@ -145,7 +161,7 @@ public class User {
 				x+=1;}
 			if (password.equals(Thispassword)) {
 				x+=1;}
-		    System.out.println(x);
+		    //System.out.println(x);
 			reader.close();
 			if (x == 2) {return true;}
 			return false;
@@ -228,4 +244,59 @@ public class User {
 		this.sattimetable = sattimetable;
 	}
 
+	public ArrayList<Timeblock> getSuntimeblocks() {
+		return suntimeblocks;
+	}
+
+	public void setSuntimeblocks(ArrayList<Timeblock> suntimeblocks) {
+		this.suntimeblocks = suntimeblocks;
+	}
+
+	public ArrayList<Timeblock> getMontimeblocks() {
+		return montimeblocks;
+	}
+
+	public void setMontimeblocks(ArrayList<Timeblock> montimeblocks) {
+		this.montimeblocks = montimeblocks;
+	}
+
+	public ArrayList<Timeblock> getTuetimeblocks() {
+		return tuetimeblocks;
+	}
+
+	public void setTuetimeblocks(ArrayList<Timeblock> tuetimeblocks) {
+		this.tuetimeblocks = tuetimeblocks;
+	}
+
+	public ArrayList<Timeblock> getWedtimeblocks() {
+		return wedtimeblocks;
+	}
+
+	public void setWedtimeblocks(ArrayList<Timeblock> wedtimeblocks) {
+		this.wedtimeblocks = wedtimeblocks;
+	}
+
+	public ArrayList<Timeblock> getThutimeblocks() {
+		return thutimeblocks;
+	}
+
+	public void setThutimeblocks(ArrayList<Timeblock> thutimeblocks) {
+		this.thutimeblocks = thutimeblocks;
+	}
+
+	public ArrayList<Timeblock> getFritimeblocks() {
+		return fritimeblocks;
+	}
+
+	public void setFritimeblocks(ArrayList<Timeblock> fritimeblocks) {
+		this.fritimeblocks = fritimeblocks;
+	}
+
+	public ArrayList<Timeblock> getSattimeblocks() {
+		return sattimeblocks;
+	}
+
+	public void setSattimeblocks(ArrayList<Timeblock> sattimeblocks) {
+		this.sattimeblocks = sattimeblocks;
+	}
 }
