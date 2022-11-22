@@ -139,12 +139,12 @@ public class User {
 	public void convertToTimeblock() {
 		Timeblock convert = new Timeblock();
 		suntimeblocks = convert.createTimeblock(suntimetable);
-		//montimeblocks = convert.createTimeblock(montimetable);
-		//tuetimeblocks = convert.createTimeblock(tuetimetable);
-		//wedtimeblocks = convert.createTimeblock(wedtimetable);
-		//thutimeblocks = convert.createTimeblock(thutimetable);
-		//fritimeblocks = convert.createTimeblock(fritimetable);
-		//sattimeblocks = convert.createTimeblock(sattimetable);
+		montimeblocks = convert.createTimeblock(montimetable);
+		tuetimeblocks = convert.createTimeblock(tuetimetable);
+		wedtimeblocks = convert.createTimeblock(wedtimetable);
+		thutimeblocks = convert.createTimeblock(thutimetable);
+		fritimeblocks = convert.createTimeblock(fritimetable);
+		sattimeblocks = convert.createTimeblock(sattimetable);
 
 	}
 
