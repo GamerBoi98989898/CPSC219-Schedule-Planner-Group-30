@@ -18,7 +18,7 @@ public class Main extends Application {
 		
 		
 		primaryStage.setTitle("Schedule Planner App");
-		primaryStage.setScene(new Scene(root, 600, 400));
+		primaryStage.setScene(new Scene(root, 800, 600));
 		
 		primaryStage.show();
 		
