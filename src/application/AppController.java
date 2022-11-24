@@ -230,14 +230,6 @@ public class AppController  {
 		} else {
 			RegisterErrorLabel.setText("Error User already exists");
 		}
-		
-		Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
-		
-		Stage applicationStage = (Stage)completeRegisterButton.getScene().getWindow();
-		
-		applicationStage.setScene(new Scene(root, 600, 400));
-		
-		
 	}
 	
 	
@@ -279,7 +271,7 @@ public class AppController  {
 	 * @param event
 	 * @throws Exception
 	 */
-	public void createTask(ActionEvent event) throws Exception  {
+	public void createTask(ActionEvent event) {
 		
 		String startHour = startHourChoiceBox.getValue();
 		String startMin = startMinChoiceBox.getValue();
@@ -316,7 +308,10 @@ public class AppController  {
 					sunTimeblock.createTimeblock(sunTaskList);
 					currentUser.convertToTimeblock();
 
-					sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
+					for (Timeblock x : currentUser.getSuntimeblocks()) {
+						sunTextArea.setText(x.toString());
+					}
+					//sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
 
 				}
 
@@ -335,8 +330,10 @@ public class AppController  {
 					monTimeblock.createTimeblock(monTaskList);
 					currentUser.convertToTimeblock();
 
-
-					monTextArea.setText(timeblockToString(currentUser.getMontimeblocks()));
+					for (Timeblock x : currentUser.getMontimeblocks()) {
+						monTextArea.setText(x.toString());
+					}
+					//monTextArea.setText(timeblockToString(currentUser.getMontimeblocks()));
 
 				}
 
@@ -355,8 +352,10 @@ public class AppController  {
 					tueTimeblock.createTimeblock(tueTaskList);
 					currentUser.convertToTimeblock();
 
-
-					tueTextArea.setText(timeblockToString(currentUser.getTuetimeblocks()));
+					for (Timeblock x : currentUser.getTuetimeblocks()) {
+						tueTextArea.setText(x.toString());
+					}
+					//tueTextArea.setText(timeblockToString(currentUser.getTuetimeblocks()));
 
 				}
 
@@ -374,8 +373,10 @@ public class AppController  {
 
 					wedTimeblock.createTimeblock(wedTaskList);
 					currentUser.convertToTimeblock();
-
-					wedTextArea.setText(timeblockToString(currentUser.getWedtimeblocks()));
+					for (Timeblock x : currentUser.getWedtimeblocks()) {
+						wedTextArea.setText(x.toString());
+					}
+					//wedTextArea.setText(timeblockToString(currentUser.getWedtimeblocks()));
 
 				}
 
@@ -394,8 +395,10 @@ public class AppController  {
 
 					thuTimeblock.createTimeblock(thuTaskList);
 					currentUser.convertToTimeblock();
-
-					thuTextArea.setText(timeblockToString(currentUser.getThutimeblocks()));
+					for (Timeblock x : currentUser.getThutimeblocks()) {
+						thuTextArea.setText(x.toString());
+					}
+					//thuTextArea.setText(timeblockToString(currentUser.getThutimeblocks()));
 
 				}
 
@@ -414,8 +417,10 @@ public class AppController  {
 
 					friTimeblock.createTimeblock(friTaskList);
 					currentUser.convertToTimeblock();
-
-					friTextArea.setText(timeblockToString(currentUser.getFritimeblocks()));
+					for (Timeblock x : currentUser.getFritimeblocks()) {
+						friTextArea.setText(x.toString());
+					}
+					//friTextArea.setText(timeblockToString(currentUser.getFritimeblocks()));
 
 				}
 
@@ -433,8 +438,10 @@ public class AppController  {
 
 					satTimeblock.createTimeblock(satTaskList);
 					currentUser.convertToTimeblock();
-
-					satTextArea.setText(timeblockToString(currentUser.getSattimeblocks()));
+					for (Timeblock x : currentUser.getSattimeblocks()) {
+						satTextArea.setText(x.toString());
+					}
+					//satTextArea.setText(timeblockToString(currentUser.getSattimeblocks()));
 
 				}
 			}
@@ -486,27 +493,5 @@ public class AppController  {
 
 
 	}
-
-
-	/**
-	 *
-	 * Converts the values in the Timeblock objects into string and displays them in the create schedule scene
-	 *
-	 * @param timeblockList
-	 * @return
-	 */
-	public String timeblockToString(ArrayList<Timeblock> timeblockList) {
-		String result = "";
-
-		for (Timeblock i : timeblockList) {
-
-			result += i.toString() + "\n";
-
-		}
-
-		return result;
-
-	}
-
 
 }

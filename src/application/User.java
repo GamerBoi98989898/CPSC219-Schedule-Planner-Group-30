@@ -33,7 +33,7 @@ public class User {
 
 	}
 
-	//
+	//Will take a filename and procced to fill user timetables for each day as an arraylist of strings
 	public User(String fileName) {
 		
 		try {
@@ -132,7 +132,7 @@ public class User {
 			ioe.printStackTrace();
 		}
 	}
-
+	// Will save the current user timetable to a .txt file using to appropriate format
 	public void saveToFile(String filename) {
 		try {
 			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/"+filename+".txt")));
@@ -196,7 +196,7 @@ public class User {
 			ioe.printStackTrace();
 		}
 	}
-
+	//will convert the timetables from lists of strings to lists of timeblocks
 	public void convertToTimeblock() {
 		Timeblock convert = new Timeblock();
 		suntimeblocks = convert.createTimeblock(suntimetable);
@@ -208,7 +208,7 @@ public class User {
 		sattimeblocks = convert.createTimeblock(sattimetable);
 
 	}
-
+	//Will check for username and password and throw an exception if the user is not found
 	public boolean validateUser(String filename, String password) throws IOException{
 			int x = 0;
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
@@ -226,9 +226,6 @@ public class User {
 			reader.close();
 			if (x == 2) {return true;}
 			return false;
-
-
-
 	}
 
 	// Getters and setters below
