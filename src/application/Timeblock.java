@@ -37,15 +37,14 @@ public class Timeblock {
 			String endtime = readlist[2];
 			toAdd.setEnd(LocalTime.parse(endtime));
 			newList.add(toAdd);
-			// added print statement for testing
-			System.out.println(newList);
+
 		}
 		return newList;
 	}
 	
 	public String toString() {
 		
-		return "Task: " + namelabel + " Start Time: " + this.start.toString() + " End Time: " + this.end.toString();
+		return "Task: " + namelabel + "\nStart Time: " + this.start.toString() + "\nEnd Time: " + this.end.toString() + "\n";
 	}
 
 	LocalTime getStart() {
