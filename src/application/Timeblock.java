@@ -37,6 +37,7 @@ public class Timeblock {
 			String endtime = readlist[2];
 			toAdd.setEnd(LocalTime.parse(endtime));
 			newList.add(toAdd);
+
 		}
 		return newList;
 	}

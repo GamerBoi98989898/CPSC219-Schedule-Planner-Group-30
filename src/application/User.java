@@ -20,7 +20,7 @@ public class User {
 	private ArrayList<Timeblock> thutimeblocks = new ArrayList<Timeblock>();
 	private ArrayList<Timeblock> fritimeblocks = new ArrayList<Timeblock>();
 	private ArrayList<Timeblock> sattimeblocks = new ArrayList<Timeblock>();
-	
+
 	private static User currentUser = new User();
 
 	public User() {
@@ -28,12 +28,11 @@ public class User {
 
 	// Allow information of User to pass through scenes
 	public static User getUser() {
-		
+
 		return currentUser;
-		
+
 	}
-	
-	
+
 	//
 	public User(String fileName) {
 		
@@ -140,57 +139,57 @@ public class User {
 			writer.println(username);
 			writer.println(password);
 			writer.println("sun");
-			
+
 			for (String i : getSuntimetable()) {
 				writer.println(i);
-				
+
 			}
-			
+
 			writer.println("mon");
-			
+
 			for (String i : getMontimetable()) {
 				writer.println(i);
-				
+
 			}
-			
+
 			writer.println("tue");
-			
+
 			for (String i : getTuetimetable()) {
 				writer.println(i);
-				
+
 			}
-			
+
 			writer.println("wed");
-			
+
 			for (String i : getWedtimetable()) {
 				writer.println(i);
-				
+
 			}
-			
+
 			writer.println("thu");
-			
+
 			for (String i : getThutimetable()) {
 				writer.println(i);
-				
+
 			}
-			
+
 			writer.println("fri");
-			
+
 			for (String i : getFritimetable()) {
 				writer.println(i);
-				
+
 			}
-			
+
 			writer.println("sat");
-			
+
 			for (String i : getSattimetable()) {
 				writer.println(i);
-				
+
 			}
-			
+
 			writer.println("end");
-			
-			
+
+
 			writer.close();
 		} catch (IOException ioe) {
 			System.out.print(ioe);
@@ -211,7 +210,6 @@ public class User {
 	}
 
 	public boolean validateUser(String filename, String password) throws IOException{
-
 			int x = 0;
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 			String Thisfilename = reader.readLine();
@@ -228,6 +226,9 @@ public class User {
 			reader.close();
 			if (x == 2) {return true;}
 			return false;
+
+
+
 	}
 
 	// Getters and setters below
