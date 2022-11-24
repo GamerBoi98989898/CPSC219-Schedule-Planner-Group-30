@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -242,7 +243,15 @@ public class AppController  {
 	}
 	
 	 
-
+	/**
+	 * 
+	 * Button action for creating tasks in the create schedule scene
+	 * Displays a summary of the tasks created using a TextArea
+	 * Assigns value to name of task, start time, and end time of the Timeblock objects
+	 * 
+	 * @param event
+	 * @throws Exception
+	 */
 	public void createTask(ActionEvent event) throws Exception  {
 		
 		String startHour = startHourChoiceBox.getValue();
@@ -259,7 +268,6 @@ public class AppController  {
 		
 		// Check if DatePicker is null, if not, allows user to create tasks to be entered into their day of week schedules
 		// using the setters in the User class
-		
 		try {
 			
 			if (dateSelect.getValue() != null) {
@@ -271,12 +279,17 @@ public class AppController  {
 					sunTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSuntimetable(sunTaskList);
 					
+					sunTimeblock.setNamelabel(task);
+					sunTimeblock.setStart(LocalTime.parse(startTask));
+					sunTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					// sorts the list of tasks in the Text Area and into the saved text file
+					Collections.sort(sunTaskList);
+					
 					sunTimeblock.createTimeblock(sunTaskList);
 					currentUser.convertToTimeblock();
-					
 	
 					sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
-					
 					
 				}
 				
@@ -284,6 +297,13 @@ public class AppController  {
 					
 					monTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setMontimetable(monTaskList);
+					
+					monTimeblock.setNamelabel(task);
+					monTimeblock.setStart(LocalTime.parse(startTask));
+					monTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					// sorts the list of tasks in the Text Area and into the saved text file
+					Collections.sort(monTaskList);
 					
 					monTimeblock.createTimeblock(monTaskList);
 					currentUser.convertToTimeblock();
@@ -298,6 +318,13 @@ public class AppController  {
 					tueTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setTuetimetable(tueTaskList);
 					
+					tueTimeblock.setNamelabel(task);
+					tueTimeblock.setStart(LocalTime.parse(startTask));
+					tueTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					// sorts the list of tasks in the Text Area and into the saved text file
+					Collections.sort(monTaskList);
+					
 					tueTimeblock.createTimeblock(tueTaskList);
 					currentUser.convertToTimeblock();
 					
@@ -311,9 +338,15 @@ public class AppController  {
 					wedTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setWedtimetable(wedTaskList);
 					
+					wedTimeblock.setNamelabel(task);
+					wedTimeblock.setStart(LocalTime.parse(startTask));
+					wedTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					// sorts the list of tasks in the Text Area and into the saved text file
+					Collections.sort(monTaskList);
+					
 					wedTimeblock.createTimeblock(wedTaskList);
 					currentUser.convertToTimeblock();
-					
 	
 					wedTextArea.setText(timeblockToString(currentUser.getWedtimeblocks()));
 					
@@ -325,10 +358,16 @@ public class AppController  {
 					thuTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setThutimetable(thuTaskList);
 					
+					thuTimeblock.setNamelabel(task);
+					thuTimeblock.setStart(LocalTime.parse(startTask));
+					thuTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					// sorts the list of tasks in the Text Area and into the saved text file
+					Collections.sort(monTaskList);
+					
 					thuTimeblock.createTimeblock(thuTaskList);
 					currentUser.convertToTimeblock();
 					
-	
 					thuTextArea.setText(timeblockToString(currentUser.getThutimeblocks()));
 					
 				}
@@ -339,9 +378,15 @@ public class AppController  {
 					friTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setFritimetable(friTaskList);
 					
+					friTimeblock.setNamelabel(task);
+					friTimeblock.setStart(LocalTime.parse(startTask));
+					friTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					// sorts the list of tasks in the Text Area and into the saved text file
+					Collections.sort(monTaskList);
+					
 					friTimeblock.createTimeblock(friTaskList);
 					currentUser.convertToTimeblock();
-					
 	
 					friTextArea.setText(timeblockToString(currentUser.getFritimeblocks()));
 					
@@ -352,9 +397,15 @@ public class AppController  {
 					satTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSattimetable(satTaskList);
 					
+					satTimeblock.setNamelabel(task);
+					satTimeblock.setStart(LocalTime.parse(startTask));
+					satTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					// sorts the list of tasks in the Text Area and into the saved text file
+					Collections.sort(monTaskList);
+					
 					satTimeblock.createTimeblock(satTaskList);
 					currentUser.convertToTimeblock();
-					
 	
 					satTextArea.setText(timeblockToString(currentUser.getSattimeblocks()));
 					
@@ -366,6 +417,7 @@ public class AppController  {
 				System.out.println("Day not found");
 				
 				}
+
 		}
 		
 		catch(DateTimeParseException dtpe) {
@@ -377,7 +429,12 @@ public class AppController  {
 	}
 	
 	
-	
+	/**
+	 * Button action for the done button in create schedule scene
+	 * Saves schedule into the user's text file 
+	 * 
+	 * @param Event
+	 */
 	public void doneScheduleCreate(ActionEvent Event) {
 		
 		try {
@@ -404,6 +461,13 @@ public class AppController  {
 	}
 	
 	
+	/**
+	 * 
+	 * Converts the values in the Timeblock objects into string and displays them in the create schedule scene 
+	 * 
+	 * @param timeblockList
+	 * @return
+	 */
 	public String timeblockToString(ArrayList<Timeblock> timeblockList) {
 		String result = "";
 		
