@@ -20,9 +20,19 @@ public class User {
 	private ArrayList<Timeblock> thutimeblocks = new ArrayList<Timeblock>();
 	private ArrayList<Timeblock> fritimeblocks = new ArrayList<Timeblock>();
 	private ArrayList<Timeblock> sattimeblocks = new ArrayList<Timeblock>();
+	
+	private static User currentUser = new User();
 
 	public User() {
 	}
+
+	// Allow information of User to pass through scenes
+	public static User getUser() {
+		
+		return currentUser;
+		
+	}
+	
 	
 	//
 	public User(String fileName) {
@@ -129,6 +139,58 @@ public class User {
 			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/"+filename+".txt")));
 			writer.println(username);
 			writer.println(password);
+			writer.println("sun");
+			
+			for (String i : getSuntimetable()) {
+				writer.println(i);
+				
+			}
+			
+			writer.println("mon");
+			
+			for (String i : getMontimetable()) {
+				writer.println(i);
+				
+			}
+			
+			writer.println("tue");
+			
+			for (String i : getTuetimetable()) {
+				writer.println(i);
+				
+			}
+			
+			writer.println("wed");
+			
+			for (String i : getWedtimetable()) {
+				writer.println(i);
+				
+			}
+			
+			writer.println("thu");
+			
+			for (String i : getThutimetable()) {
+				writer.println(i);
+				
+			}
+			
+			writer.println("fri");
+			
+			for (String i : getFritimetable()) {
+				writer.println(i);
+				
+			}
+			
+			writer.println("sat");
+			
+			for (String i : getSattimetable()) {
+				writer.println(i);
+				
+			}
+			
+			writer.println("end");
+			
+			
 			writer.close();
 		} catch (IOException ioe) {
 			System.out.print(ioe);
@@ -167,132 +229,69 @@ public class User {
 			if (x == 2) {return true;}
 			return false;
 	}
+
 	// Getters and setters below
-	String getUsername() {
-		return username;
-	}
+	String getUsername() {return username;}
 
-	void setUsername(String username) {
-		this.username = username;
-	}
+	void setUsername(String username) {this.username = username;}
 
-	String getPassword() {
-		return password;
-	}
+	String getPassword() {return password;}
 
-	void setPassword(String password) {
-		this.password = password;
-	}
+	void setPassword(String password) {this.password = password;}
 
-	public ArrayList<String> getSuntimetable() {
-		return suntimetable;
-	}
+	public ArrayList<String> getSuntimetable() {return suntimetable;}
 
-	public void setSuntimetable(ArrayList<String> suntimetable) {
-		this.suntimetable = suntimetable;
-	}
+	public void setSuntimetable(ArrayList<String> suntimetable) {this.suntimetable = suntimetable;}
 
-	public ArrayList<String> getMontimetable() {
-		return montimetable;
-	}
+	public ArrayList<String> getMontimetable() {return montimetable;}
 
-	public void setMontimetable(ArrayList<String> montimetable) {
-		this.montimetable = montimetable;
-	}
+	public void setMontimetable(ArrayList<String> montimetable) {this.montimetable = montimetable;}
 
-	public ArrayList<String> getTuetimetable() {
-		return tuetimetable;
-	}
+	public ArrayList<String> getTuetimetable() {return tuetimetable;}
 
-	public void setTuetimetable(ArrayList<String> tuetimetable) {
-		this.tuetimetable = tuetimetable;
-	}
+	public void setTuetimetable(ArrayList<String> tuetimetable) {this.tuetimetable = tuetimetable;}
 
-	public ArrayList<String> getWedtimetable() {
-		return wedtimetable;
-	}
+	public ArrayList<String> getWedtimetable() {return wedtimetable;}
 
-	public void setWedtimetable(ArrayList<String> wedtimetable) {
-		this.wedtimetable = wedtimetable;
-	}
+	public void setWedtimetable(ArrayList<String> wedtimetable) {this.wedtimetable = wedtimetable;}
 
-	public ArrayList<String> getThutimetable() {
-		return thutimetable;
-	}
+	public ArrayList<String> getThutimetable() {return thutimetable;}
 
-	public void setThutimetable(ArrayList<String> thutimetable) {
-		this.thutimetable = thutimetable;
-	}
+	public void setThutimetable(ArrayList<String> thutimetable) {this.thutimetable = thutimetable;}
 
-	public ArrayList<String> getFritimetable() {
-		return fritimetable;
-	}
+	public ArrayList<String> getFritimetable() {return fritimetable;}
 
-	public void setFritimetable(ArrayList<String> fritimetable) {
-		this.fritimetable = fritimetable;
-	}
+	public void setFritimetable(ArrayList<String> fritimetable) {this.fritimetable = fritimetable;}
 
-	public ArrayList<String> getSattimetable() {
-		return sattimetable;
-	}
+	public ArrayList<String> getSattimetable() {return sattimetable;}
 
-	public void setSattimetable(ArrayList<String> sattimetable) {
-		this.sattimetable = sattimetable;
-	}
+	public void setSattimetable(ArrayList<String> sattimetable) {this.sattimetable = sattimetable;}
 
-	public ArrayList<Timeblock> getSuntimeblocks() {
-		return suntimeblocks;
-	}
+	public ArrayList<Timeblock> getSuntimeblocks() {return suntimeblocks;}
 
-	public void setSuntimeblocks(ArrayList<Timeblock> suntimeblocks) {
-		this.suntimeblocks = suntimeblocks;
-	}
+	public void setSuntimeblocks(ArrayList<Timeblock> suntimeblocks) {this.suntimeblocks = suntimeblocks;}
 
-	public ArrayList<Timeblock> getMontimeblocks() {
-		return montimeblocks;
-	}
+	public ArrayList<Timeblock> getMontimeblocks() {return montimeblocks;}
 
-	public void setMontimeblocks(ArrayList<Timeblock> montimeblocks) {
-		this.montimeblocks = montimeblocks;
-	}
+	public void setMontimeblocks(ArrayList<Timeblock> montimeblocks) {this.montimeblocks = montimeblocks;}
 
-	public ArrayList<Timeblock> getTuetimeblocks() {
-		return tuetimeblocks;
-	}
+	public ArrayList<Timeblock> getTuetimeblocks() {return tuetimeblocks;}
 
-	public void setTuetimeblocks(ArrayList<Timeblock> tuetimeblocks) {
-		this.tuetimeblocks = tuetimeblocks;
-	}
+	public void setTuetimeblocks(ArrayList<Timeblock> tuetimeblocks) {this.tuetimeblocks = tuetimeblocks;}
 
-	public ArrayList<Timeblock> getWedtimeblocks() {
-		return wedtimeblocks;
-	}
+	public ArrayList<Timeblock> getWedtimeblocks() {return wedtimeblocks;}
 
-	public void setWedtimeblocks(ArrayList<Timeblock> wedtimeblocks) {
-		this.wedtimeblocks = wedtimeblocks;
-	}
+	public void setWedtimeblocks(ArrayList<Timeblock> wedtimeblocks) {this.wedtimeblocks = wedtimeblocks;}
 
-	public ArrayList<Timeblock> getThutimeblocks() {
-		return thutimeblocks;
-	}
+	public ArrayList<Timeblock> getThutimeblocks() {return thutimeblocks;}
 
-	public void setThutimeblocks(ArrayList<Timeblock> thutimeblocks) {
-		this.thutimeblocks = thutimeblocks;
-	}
+	public void setThutimeblocks(ArrayList<Timeblock> thutimeblocks) {this.thutimeblocks = thutimeblocks;}
 
-	public ArrayList<Timeblock> getFritimeblocks() {
-		return fritimeblocks;
-	}
+	public ArrayList<Timeblock> getFritimeblocks() {return fritimeblocks;}
 
-	public void setFritimeblocks(ArrayList<Timeblock> fritimeblocks) {
-		this.fritimeblocks = fritimeblocks;
-	}
+	public void setFritimeblocks(ArrayList<Timeblock> fritimeblocks) {this.fritimeblocks = fritimeblocks;}
 
-	public ArrayList<Timeblock> getSattimeblocks() {
-		return sattimeblocks;
-	}
+	public ArrayList<Timeblock> getSattimeblocks() {return sattimeblocks;}
 
-	public void setSattimeblocks(ArrayList<Timeblock> sattimeblocks) {
-		this.sattimeblocks = sattimeblocks;
-	}
+	public void setSattimeblocks(ArrayList<Timeblock> sattimeblocks) {this.sattimeblocks = sattimeblocks;}
 }

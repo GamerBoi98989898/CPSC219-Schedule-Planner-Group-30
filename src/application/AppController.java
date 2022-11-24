@@ -86,7 +86,7 @@ public class AppController  {
 		//System.out.println(password);
 		try {
 			if (toValidate.validateUser(username, password)) {
-				System.out.println("VALID");
+				//System.out.println("VALID");
 				try {
 					Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
 
