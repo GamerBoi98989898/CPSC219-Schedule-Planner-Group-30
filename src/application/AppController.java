@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -79,6 +81,37 @@ public class AppController  {
 
 	User currentUser = User.getUser();
 	
+	
+	@FXML 
+	TextArea sunTextArea = new TextArea();
+	
+	@FXML
+	TextArea monTextArea = new TextArea();
+	
+	@FXML
+	TextArea tueTextArea = new TextArea();
+	
+	@FXML
+	TextArea wedTextArea = new TextArea();
+	
+	@FXML
+	TextArea thuTextArea = new TextArea();
+	
+	@FXML
+	TextArea friTextArea = new TextArea();
+	
+	@FXML
+	TextArea satTextArea = new TextArea();
+	
+	Timeblock sunTimeblock = new Timeblock();
+	Timeblock monTimeblock = new Timeblock();
+	Timeblock tueTimeblock = new Timeblock();
+	Timeblock wedTimeblock = new Timeblock();
+	Timeblock thuTimeblock = new Timeblock();
+	Timeblock friTimeblock = new Timeblock();
+	Timeblock satTimeblock = new Timeblock();
+	
+	
 	/**
 	 * 
 	 * Check if user already exists and if credentials are correct, proceed to show their current schedule
@@ -104,7 +137,7 @@ public class AppController  {
 
 					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 
-					applicationStage.setScene(new Scene(root, 600, 400));
+					applicationStage.setScene(new Scene(root, 800, 600));
 				} catch (IOException ioe) {
 					//System.out.print(ioe);
 					//ioe.printStackTrace();
@@ -136,7 +169,7 @@ public class AppController  {
 		
 		Stage applicationStage = (Stage)registerButton.getScene().getWindow();
 		
-		applicationStage.setScene(new Scene(root, 600, 400));
+		applicationStage.setScene(new Scene(root, 800, 600));
 		
 	}
 		
@@ -169,7 +202,7 @@ public class AppController  {
 				
 				Stage applicationStage = (Stage)completeRegisterButton.getScene().getWindow();
 				
-				applicationStage.setScene(new Scene(root, 600, 400));
+				applicationStage.setScene(new Scene(root, 800, 600));
 			} catch (IOException ioe) {
 				System.out.print(ioe);
 				ioe.printStackTrace();
@@ -198,7 +231,7 @@ public class AppController  {
 		
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
 			
-			applicationStage.setScene(new Scene(root, 600, 400));
+			applicationStage.setScene(new Scene(root, 800, 600));
 			
 		} 
 		
@@ -224,75 +257,121 @@ public class AppController  {
 		
 		String task = taskName.getText();
 		
-		System.out.println("Task Created!");;
-		
-		LocalDate dayOfWeek = LocalDate.parse(dateSelect.getValue().toString());
-		
-		
 		// Check if DatePicker is null, if not, allows user to create tasks to be entered into their day of week schedules
 		// using the setters in the User class
-		if (dateSelect.getValue() != null) {
+		
+		try {
 			
-			if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
+			if (dateSelect.getValue() != null) {
 				
-				sunTaskList.add(startTask + "," + task + "," + endTask);
-				currentUser.setSuntimetable(sunTaskList);
+				LocalDate dayOfWeek = LocalDate.parse(dateSelect.getValue().toString());
 				
-			}
-			
-			
-			else if (dayOfWeek.getDayOfWeek().toString() == "MONDAY") {
+				if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
+					
+					sunTaskList.add(startTask + "," + task + "," + endTask);
+					currentUser.setSuntimetable(sunTaskList);
+					
+					sunTimeblock.createTimeblock(sunTaskList);
+					currentUser.convertToTimeblock();
+					
+	
+					sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
+					
+					
+				}
 				
-				monTaskList.add(startTask + "," + task + "," + endTask);
-				currentUser.setMontimetable(monTaskList);
+				else if (dayOfWeek.getDayOfWeek().toString() == "MONDAY") {
+					
+					monTaskList.add(startTask + "," + task + "," + endTask);
+					currentUser.setMontimetable(monTaskList);
+					
+					monTimeblock.createTimeblock(monTaskList);
+					currentUser.convertToTimeblock();
+					
+	
+					monTextArea.setText(timeblockToString(currentUser.getMontimeblocks()));
+					
+				}
 				
-			}
-			
-			
-			else if (dayOfWeek.getDayOfWeek().toString() == "TUESDAY") {
+				else if (dayOfWeek.getDayOfWeek().toString() == "TUESDAY") {
+					
+					tueTaskList.add(startTask + "," + task + "," + endTask);
+					currentUser.setTuetimetable(tueTaskList);
+					
+					tueTimeblock.createTimeblock(tueTaskList);
+					currentUser.convertToTimeblock();
+					
+	
+					tueTextArea.setText(timeblockToString(currentUser.getTuetimeblocks()));
+					
+				}
 				
-				tueTaskList.add(startTask + "," + task + "," + endTask);
-				currentUser.setTuetimetable(tueTaskList);
+				else if (dayOfWeek.getDayOfWeek().toString() == "WEDNESDAY") {
+					
+					wedTaskList.add(startTask + "," + task + "," + endTask);
+					currentUser.setWedtimetable(wedTaskList);
+					
+					wedTimeblock.createTimeblock(wedTaskList);
+					currentUser.convertToTimeblock();
+					
+	
+					wedTextArea.setText(timeblockToString(currentUser.getWedtimeblocks()));
+					
+				}
 				
-			}
-			
-			
-			else if (dayOfWeek.getDayOfWeek().toString() == "WEDNESDAY") {
 				
-				wedTaskList.add(startTask + "," + task + "," + endTask);
-				currentUser.setWedtimetable(wedTaskList);
+				else if (dayOfWeek.getDayOfWeek().toString() == "THURSDAY") {
+					
+					thuTaskList.add(startTask + "," + task + "," + endTask);
+					currentUser.setThutimetable(thuTaskList);
+					
+					thuTimeblock.createTimeblock(thuTaskList);
+					currentUser.convertToTimeblock();
+					
+	
+					thuTextArea.setText(timeblockToString(currentUser.getThutimeblocks()));
+					
+				}
 				
-			}
-			
-			
-			else if (dayOfWeek.getDayOfWeek().toString() == "THURSDAY") {
 				
-				thuTaskList.add(startTask + "," + task + "," + endTask);
-				currentUser.setThutimetable(thuTaskList);
-				
-			}
-			
-			
-			else if (dayOfWeek.getDayOfWeek().toString() == "FRIDAY") {
-				
-				friTaskList.add(startTask + "," + task + "," + endTask);
-				currentUser.setFritimetable(friTaskList);
-				
-			}
-			
-			
-			else if (dayOfWeek.getDayOfWeek().toString() == "SATURDAY") {
-
-				satTaskList.add(startTask + "," + task + "," + endTask);
-				currentUser.setSattimetable(satTaskList);
-				
+				else if (dayOfWeek.getDayOfWeek().toString() == "FRIDAY") {
+					
+					friTaskList.add(startTask + "," + task + "," + endTask);
+					currentUser.setFritimetable(friTaskList);
+					
+					friTimeblock.createTimeblock(friTaskList);
+					currentUser.convertToTimeblock();
+					
+	
+					friTextArea.setText(timeblockToString(currentUser.getFritimeblocks()));
+					
+				}
+	
+				else if (dayOfWeek.getDayOfWeek().toString() == "SATURDAY") {
+	
+					satTaskList.add(startTask + "," + task + "," + endTask);
+					currentUser.setSattimetable(satTaskList);
+					
+					satTimeblock.createTimeblock(satTaskList);
+					currentUser.convertToTimeblock();
+					
+	
+					satTextArea.setText(timeblockToString(currentUser.getSattimeblocks()));
+					
+				}
 			}
 			
 			else {
 				
 				System.out.println("Day not found");
 				
-			}
+				}
+		}
+		
+		catch(DateTimeParseException dtpe) {
+			
+			dtpe.printStackTrace();
+			
 		}
 		
 	}
@@ -310,7 +389,7 @@ public class AppController  {
 			
 			Stage applicationStage = (Stage)doneButton.getScene().getWindow();
 			
-			applicationStage.setScene(new Scene(root, 600, 400));
+			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
 		
 		}
@@ -323,4 +402,20 @@ public class AppController  {
 
 	
 	}
+	
+	
+	public String timeblockToString(ArrayList<Timeblock> timeblockList) {
+		String result = "";
+		
+		for (Timeblock i : timeblockList) {
+			
+			result += i.toString() + "\n";
+			
+		}
+		
+		return result;
+	
+	}
+	
+	
 }
