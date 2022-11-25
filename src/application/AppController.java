@@ -274,7 +274,13 @@ public class AppController  {
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
 			Parent root = loader.load();
 			AppController controller = loader.getController();
-			controller.TestLabel.setText("AAAA");
+			controller.sunTextArea.setText(displayTable(0));
+			controller.monTextArea.setText(displayTable(1));
+			controller.tueTextArea.setText(displayTable(2));
+			controller.wedTextArea.setText(displayTable(3));
+			controller.thuTextArea.setText(displayTable(4));
+			controller.friTextArea.setText(displayTable(5));
+			controller.satTextArea.setText(displayTable(6));
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
 
@@ -309,9 +315,6 @@ public class AppController  {
 		String endTask = endHour + ":" + endMin;
 
 		String task = taskName.getText();
-		for (Timeblock x : currentUser.getSuntimeblocks()) {
-			sunTextArea.setText(x.toString());
-		}
 		// Check if DatePicker is null, if not, allows user to create tasks to be entered into their day of week schedules
 		// using the setters in the User class
 		try {
@@ -319,9 +322,11 @@ public class AppController  {
 			if (dateSelect.getValue() != null) {
 
 				LocalDate dayOfWeek = LocalDate.parse(dateSelect.getValue().toString());
+				String text = "";
 
 				if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
 
+					sunTaskList = currentUser.getSuntimetable();
 					sunTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSuntimetable(sunTaskList);
 
@@ -334,9 +339,10 @@ public class AppController  {
 
 					sunTimeblock.createTimeblock(sunTaskList);
 					currentUser.convertToTimeblock();
-
+					currentUser.setSuntimetable(sunTaskList);
 					for (Timeblock x : currentUser.getSuntimeblocks()) {
-						sunTextArea.setText(x.toString());
+						text = text.concat(x.toString()+ "\n");
+						sunTextArea.setText(text);
 					}
 					//sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
 
@@ -503,12 +509,20 @@ public class AppController  {
 			currentUser.saveToFile(currentUser.getUsername());
 
 			// Switch back to previous schedule view scene
-			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 			Stage applicationStage = (Stage)doneButton.getScene().getWindow();
-
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			controller.ScheduleViewSun.setText(displayTable(0));
+			controller.ScheduleViewMon.setText(displayTable(1));
+			controller.ScheduleViewTue.setText(displayTable(2));
+			controller.ScheduleViewWed.setText(displayTable(3));
+			controller.ScheduleViewThu.setText(displayTable(4));
+			controller.ScheduleViewFri.setText(displayTable(5));
+			controller.ScheduleViewSat.setText(displayTable(6));
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
+
 
 		}
 
@@ -527,44 +541,44 @@ public class AppController  {
 		if (i == 0) {
 			for (String x : currentUser.getSuntimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
-			}
+
+			}return text;
 		}
 		if (i == 1) {
 			for (String x : currentUser.getMontimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
-			}
+
+			}return text;
 		}
 		if (i == 2) {
 			for (String x : currentUser.getTuetimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
-			}
+
+			}return text;
 		}
 		if (i == 3) {
 			for (String x : currentUser.getWedtimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
-			}
+
+			}return text;
 		}
 		if (i == 4) {
 			for (String x : currentUser.getThutimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
-			}
+
+			}return text;
 		}
 		if (i == 5) {
 			for (String x : currentUser.getFritimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
-			}
+
+			}return text;
 		}
 		if (i == 6) {
 			for (String x : currentUser.getSattimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
-			}
+
+			}return text;
 		}
 		return text;
 	}
