@@ -12,11 +12,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		
-		Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
-		
-		
-		
+
+		FXMLLoader loader = new FXMLLoader();
+		Parent root = loader.load(new FileInputStream("src/application/LoginView.fxml"));
+		AppController controller = (AppController)loader.getController();
+		controller.applicationStage = primaryStage;
 		primaryStage.setTitle("Schedule Planner App");
 		primaryStage.setScene(new Scene(root, 800, 600));
 		

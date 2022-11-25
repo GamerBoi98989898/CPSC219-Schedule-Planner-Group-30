@@ -2,7 +2,6 @@ package application;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,51 +10,46 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AppController  {
-	
+
 	Stage applicationStage;
-	
+
 	Scene mainScene;
-	
+
 	@FXML
 	Button loginButton;
-	
+
 	@FXML
 	Button registerButton;
-	
+
 	@FXML
 	Button completeRegisterButton;
-	
+
 	@FXML
 	Button createScheduleButton;
-	
+
 	@FXML
 	Button createTaskButton;
-	
+
 	@FXML
 	DatePicker dateSelect;
-	
+
 	private ArrayList<String> sunTaskList = new ArrayList<String>();
 	private ArrayList<String> monTaskList = new ArrayList<String>();
 	private ArrayList<String> tueTaskList = new ArrayList<String>();
@@ -66,40 +60,40 @@ public class AppController  {
 
 	@FXML
 	ChoiceBox<String> startHourChoiceBox;
-	
+
 	@FXML
 	ChoiceBox<String> startMinChoiceBox;
-	
+
 	@FXML
 	ChoiceBox<String> endHourChoiceBox;
-	
+
 	@FXML
 	ChoiceBox<String> endMinChoiceBox;
-	
+
 	@FXML
 	TextField taskName;
-	
+
 	@FXML
 	Button doneButton;
-	
+
 	@FXML
 	TextField createUsernameTextField;
-	
+
 	@FXML
 	PasswordField createPasswordField;
-	
+
 	@FXML
 	TextField usernameTextField;
-	
+
 	@FXML
 	PasswordField passwordTextField;
-	
+
 	@FXML
 	Label LoginErrorLabel;
 	@FXML
 	Label RegisterErrorLabel;
 
-	User currentUser = User.getUser();
+	static User currentUser;
 
 
 	@FXML
@@ -131,15 +125,35 @@ public class AppController  {
 	Timeblock friTimeblock = new Timeblock();
 	Timeblock satTimeblock = new Timeblock();
 
+	@FXML
+	TextArea ScheduleViewSun = new TextArea();
+	@FXML
+	TextArea ScheduleViewMon = new TextArea();
+	@FXML
+	TextArea ScheduleViewTue = new TextArea();
+	@FXML
+	TextArea ScheduleViewWed = new TextArea();
+	@FXML
+	TextArea ScheduleViewThu = new TextArea();
+	@FXML
+	TextArea ScheduleViewFri = new TextArea();
+	@FXML
+	TextArea ScheduleViewSat = new TextArea();
+	@FXML
+	TextArea TestArea = new TextArea();
+	@FXML
+	Button showSched = new Button();
+	@FXML
+	Label TestLabel = new Label();
 
 	/**
-	 * 
+	 *
 	 * Check if user already exists and if credentials are correct, proceed to show their current schedule
-	 * 
+	 *
 	 * @param
 	 * @throws
 	 */
-	
+
 	public void userLogin(ActionEvent Event) {
 		User toValidate = new User();
 		String username = usernameTextField.getText();
@@ -148,22 +162,28 @@ public class AppController  {
 		//System.out.println(password);
 		try {
 			if (toValidate.validateUser(username, password)) {
-				System.out.println("VALID");
-				currentUser.setUsername(username);
-				currentUser.setPassword(password);
-
+				//System.out.println("VALID");
+				currentUser = new User(username);
 				try {
-					Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
-
+					Parent root = loader.load();
+					AppController controller = loader.getController();
+					controller.ScheduleViewSun.setText(displayTable(0));
+					controller.ScheduleViewMon.setText(displayTable(1));
+					controller.ScheduleViewTue.setText(displayTable(2));
+					controller.ScheduleViewWed.setText(displayTable(3));
+					controller.ScheduleViewThu.setText(displayTable(4));
+					controller.ScheduleViewFri.setText(displayTable(5));
+					controller.ScheduleViewSat.setText(displayTable(6));
 					applicationStage.setScene(new Scene(root, 800, 600));
+					applicationStage.show();
+
 				} catch (IOException ioe) {
 					//System.out.print(ioe);
 					//ioe.printStackTrace();
 				}
 			}
-
 		} catch (IOException ioe) {
 			username = "";
 			password = "";
@@ -171,38 +191,42 @@ public class AppController  {
 			//System.out.print(ioe);
 			//ioe.printStackTrace();
 		}
+	}
 
+	public void showSched(ActionEvent Event) {
+	System.out.println(currentUser.getUsername());
+	TestArea.setText(currentUser.getUsername());
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * Register new user and prompt their username and password upon button press
-	 * 
-	 * @param event
-	 * @throws Exception 
-	 */
-	
-	public void registerUser(ActionEvent event) throws Exception {
-		
-		Parent root = FXMLLoader.load(getClass().getResource("RegisterView.fxml"));
-		
-		Stage applicationStage = (Stage)registerButton.getScene().getWindow();
-		
-		applicationStage.setScene(new Scene(root, 600, 400));
-		
-	}
-		
-	
-	
-	/**
-	 * 
-	 * Once user has completed their registration, it will return to the main login screen for them to login
-	 * 
+	 *
 	 * @param event
 	 * @throws Exception
 	 */
-	
+
+	public void registerUser(ActionEvent event) throws Exception {
+
+		Parent root = FXMLLoader.load(getClass().getResource("RegisterView.fxml"));
+
+		Stage applicationStage = (Stage)registerButton.getScene().getWindow();
+
+		applicationStage.setScene(new Scene(root, 600, 400));
+
+	}
+
+
+
+	/**
+	 *
+	 * Once user has completed their registration, it will return to the main login screen for them to login
+	 *
+	 * @param event
+	 * @throws Exception
+	 */
+
 	public void completeRegister(ActionEvent event) {
 		String filename = usernameTextField.getText();
 		//System.out.println(filename);
@@ -231,27 +255,28 @@ public class AppController  {
 			RegisterErrorLabel.setText("Error User already exists");
 		}
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * Brings user to a new scene to allow them to create their schedule
-	 * 
+	 *
 	 * @param event
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	
+
 	public void createSchedule(ActionEvent event)  {
-		
+
 
 		// Changes scene to allow user to create tasks for their schedule
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("CreateScheduleView.fxml"));
-
-		
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateScheduleView.fxml"));
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
-
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			controller.TestLabel.setText("AAAA");
 			applicationStage.setScene(new Scene(root, 800, 600));
+			applicationStage.show();
 
 		}
 
@@ -272,19 +297,21 @@ public class AppController  {
 	 * @throws Exception
 	 */
 	public void createTask(ActionEvent event) {
-		
+
 		String startHour = startHourChoiceBox.getValue();
 		String startMin = startMinChoiceBox.getValue();
-		
+
 		String startTask = startHour + ":" + startMin;
-		
+
 		String endHour = endHourChoiceBox.getValue();
 		String endMin = endMinChoiceBox.getValue();
-		
+
 		String endTask = endHour + ":" + endMin;
-		
+
 		String task = taskName.getText();
-		
+		for (Timeblock x : currentUser.getSuntimeblocks()) {
+			sunTextArea.setText(x.toString());
+		}
 		// Check if DatePicker is null, if not, allows user to create tasks to be entered into their day of week schedules
 		// using the setters in the User class
 		try {
@@ -494,4 +521,51 @@ public class AppController  {
 
 	}
 
+	public String displayTable(int i) {
+		String text = "";
+		//The stupid switch staement didn't work so im doing it this way
+		if (i == 0) {
+			for (String x : currentUser.getSuntimetable()) {
+				text = text.concat(x.toString() + "\n");
+				return text;
+			}
+		}
+		if (i == 1) {
+			for (String x : currentUser.getMontimetable()) {
+				text = text.concat(x.toString() + "\n");
+				return text;
+			}
+		}
+		if (i == 2) {
+			for (String x : currentUser.getTuetimetable()) {
+				text = text.concat(x.toString() + "\n");
+				return text;
+			}
+		}
+		if (i == 3) {
+			for (String x : currentUser.getWedtimetable()) {
+				text = text.concat(x.toString() + "\n");
+				return text;
+			}
+		}
+		if (i == 4) {
+			for (String x : currentUser.getThutimetable()) {
+				text = text.concat(x.toString() + "\n");
+				return text;
+			}
+		}
+		if (i == 5) {
+			for (String x : currentUser.getFritimetable()) {
+				text = text.concat(x.toString() + "\n");
+				return text;
+			}
+		}
+		if (i == 6) {
+			for (String x : currentUser.getSattimetable()) {
+				text = text.concat(x.toString() + "\n");
+				return text;
+			}
+		}
+		return text;
+	}
 }

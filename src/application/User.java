@@ -21,6 +21,8 @@ public class User {
 	private ArrayList<Timeblock> fritimeblocks = new ArrayList<Timeblock>();
 	private ArrayList<Timeblock> sattimeblocks = new ArrayList<Timeblock>();
 
+
+
 	private static User currentUser = new User();
 
 	public User() {
@@ -40,8 +42,8 @@ public class User {
 			BufferedReader reader = new BufferedReader(new FileReader("src/"+fileName+".txt"));
 			this.username = reader.readLine();
 			this.password = reader.readLine();
-			System.out.println(username);
-			System.out.println(password);
+		//	System.out.println(username);
+		//	System.out.println(password);
 			
 			String line = reader.readLine();
 			while (line!=null) {
@@ -50,73 +52,73 @@ public class User {
 				}
 				switch (line) {
 				case "sun":
-					System.out.println("sun was found");
+					//System.out.println("sun was found");
 					line = reader.readLine();
 					while (line.contains(":")) {
-						System.out.println("writing times");
+						//System.out.println("writing times");
 						suntimetable.add(line);
 						line = reader.readLine();
 					}
 					continue;
 				case "mon":
-					System.out.println("mon was found");
+					//System.out.println("mon was found");
 					line = reader.readLine();
 					while (line.contains(":")) {
-						System.out.println("writing times");
+						//System.out.println("writing times");
 						montimetable.add(line);
 						line = reader.readLine();
 					}
 					continue;
 				case "tue":
-					System.out.println("tue was found");
+					//System.out.println("tue was found");
 					line = reader.readLine();
 					while (line.contains(":")) {
-						System.out.println("writing times");
+						//System.out.println("writing times");
 						tuetimetable.add(line);
 						line = reader.readLine();
 					}
 					continue;
 				case "wed":
-					System.out.println("wed was found");
+					//System.out.println("wed was found");
 					line = reader.readLine();
 					while (line.contains(":")) {
-						System.out.println("writing times");
+						//System.out.println("writing times");
 						wedtimetable.add(line);
 						line = reader.readLine();
 					}
 					continue;
 				case "thu":
-					System.out.println("thu was found");
+					//System.out.println("thu was found");
 					line = reader.readLine();
 					while (line.contains(":")) {
-						System.out.println("writing times");
+						//System.out.println("writing times");
 						thutimetable.add(line);
 						line = reader.readLine();
 					}
 					continue;
 				case "fri":
-					System.out.println("fri was found");
+					//System.out.println("fri was found");
 					line = reader.readLine();
 					while (line.contains(":")) {
-						System.out.println("writing times");
+						//System.out.println("writing times");
 						fritimetable.add(line);
 						line = reader.readLine();
 					}
 					continue;
 				case "sat":
-					System.out.println("sat was found");
+					//System.out.println("sat was found");
 					line = reader.readLine();
 					while (line.contains(":")) {
-						System.out.println("writing times");
+						//System.out.println("writing times");
 						sattimetable.add(line);
 						line = reader.readLine();
 					}
 					continue;
 				case "time":
-					System.out.println("time was found");
+					//System.out.println("time was found");
 					continue;
 				case "end":
-					System.out.println("eof was found");
+					//System.out.println("eof was found");
 					break;
 				}
 				
@@ -214,10 +216,10 @@ public class User {
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 			String Thisfilename = reader.readLine();
 			String Thispassword = reader.readLine();
-			System.out.println(Thisfilename);
-			System.out.println(Thispassword);
-			System.out.println(filename);
-			System.out.println(password);
+			//System.out.println(Thisfilename);
+			//System.out.println(Thispassword);
+			//System.out.println(filename);
+			//System.out.println(password);
 			if (filename.equals(Thisfilename)) {
 				x+=1;}
 			if (password.equals(Thispassword)) {
