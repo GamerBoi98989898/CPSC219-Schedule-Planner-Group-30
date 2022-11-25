@@ -335,10 +335,7 @@ public class AppController  {
 					sunTimeblock.createTimeblock(sunTaskList);
 					currentUser.convertToTimeblock();
 
-					for (Timeblock x : currentUser.getSuntimeblocks()) {
-						sunTextArea.setText(x.toString());
-					}
-					//sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
+					sunTextArea.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
 
 				}
 
@@ -357,10 +354,7 @@ public class AppController  {
 					monTimeblock.createTimeblock(monTaskList);
 					currentUser.convertToTimeblock();
 
-					for (Timeblock x : currentUser.getMontimeblocks()) {
-						monTextArea.setText(x.toString());
-					}
-					//monTextArea.setText(timeblockToString(currentUser.getMontimeblocks()));
+					monTextArea.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
 
 				}
 
@@ -379,10 +373,7 @@ public class AppController  {
 					tueTimeblock.createTimeblock(tueTaskList);
 					currentUser.convertToTimeblock();
 
-					for (Timeblock x : currentUser.getTuetimeblocks()) {
-						tueTextArea.setText(x.toString());
-					}
-					//tueTextArea.setText(timeblockToString(currentUser.getTuetimeblocks()));
+					tueTextArea.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
 
 				}
 
@@ -400,10 +391,8 @@ public class AppController  {
 
 					wedTimeblock.createTimeblock(wedTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getWedtimeblocks()) {
-						wedTextArea.setText(x.toString());
-					}
-					//wedTextArea.setText(timeblockToString(currentUser.getWedtimeblocks()));
+
+					wedTextArea.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
 
 				}
 
@@ -422,10 +411,8 @@ public class AppController  {
 
 					thuTimeblock.createTimeblock(thuTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getThutimeblocks()) {
-						thuTextArea.setText(x.toString());
-					}
-					//thuTextArea.setText(timeblockToString(currentUser.getThutimeblocks()));
+
+					thuTextArea.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
 
 				}
 
@@ -444,10 +431,8 @@ public class AppController  {
 
 					friTimeblock.createTimeblock(friTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getFritimeblocks()) {
-						friTextArea.setText(x.toString());
-					}
-					//friTextArea.setText(timeblockToString(currentUser.getFritimeblocks()));
+		
+					friTextArea.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
 
 				}
 
@@ -465,10 +450,8 @@ public class AppController  {
 
 					satTimeblock.createTimeblock(satTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getSattimeblocks()) {
-						satTextArea.setText(x.toString());
-					}
-					//satTextArea.setText(timeblockToString(currentUser.getSattimeblocks()));
+	
+					satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
 				}
 			}
@@ -487,6 +470,27 @@ public class AppController  {
 
 		}
 
+	}
+	
+	/**
+	 * 
+	 * Converts the values in the Timeblock objects into string and displays them in the create schedule scene 
+	 * 
+	 * @param timeblockList
+	 * @return
+	 */
+	public String timeblockToDisplay(ArrayList<Timeblock> timeblockList) {
+		
+		String result = "";
+
+		for (Timeblock i : timeblockList) {
+			
+			result += i.toString() + "\n";
+			
+		}
+		
+		return result;
+	
 	}
 
 
