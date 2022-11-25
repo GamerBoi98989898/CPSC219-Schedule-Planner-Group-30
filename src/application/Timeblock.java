@@ -1,6 +1,7 @@
 package application;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 public class Timeblock {
 	
@@ -20,6 +21,31 @@ public class Timeblock {
 		this.start = start;
 		this.end = end;
 		this.namelabel = namelabel;
+		if (start.isBefore(end)) {this.duration = start.until(end, ChronoUnit.SECONDS);}
+	}
+	
+	// function to convert our timeblocks in the .txt to a usable format
+	ArrayList<Timeblock> createTimeblock (ArrayList<String> list ) {
+		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
+		
+		for (String i : list) {
+			Timeblock toAdd = new Timeblock();
+			String[] readlist = i.split(",");
+			String starttime = readlist[0];
+			toAdd.setStart(LocalTime.parse(starttime));
+			String name = readlist[1];
+			toAdd.setNamelabel(name);
+			String endtime = readlist[2];
+			toAdd.setEnd(LocalTime.parse(endtime));
+			newList.add(toAdd);
+
+		}
+		return newList;
+	}
+	
+	public String toString() {
+		
+		return "Task: " + namelabel + "\nStart Time: " + this.start.toString() + "\nEnd Time: " + this.end.toString() + "\n";
 	}
 
 	LocalTime getStart() {
