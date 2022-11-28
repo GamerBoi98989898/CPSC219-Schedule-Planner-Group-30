@@ -144,7 +144,7 @@ public class AppController  {
 	@FXML
 	Button showSched = new Button();
 	@FXML
-	Label TestLabel = new Label();
+	Label createErrorLabel = new Label();
 
 	/**
 	 *
@@ -274,7 +274,6 @@ public class AppController  {
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
 			Parent root = loader.load();
 			AppController controller = loader.getController();
-			controller.TestLabel.setText("AAAA");
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
 
@@ -319,8 +318,15 @@ public class AppController  {
 			if (dateSelect.getValue() != null) {
 
 				LocalDate dayOfWeek = LocalDate.parse(dateSelect.getValue().toString());
+				
+				if (taskName.getText() == null || taskName.getText() == "") {
+					
+					createErrorLabel.setText("Please enter a task name");
+					
+				}
+				
 
-				if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
+				else if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
 
 					sunTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSuntimetable(sunTaskList);
@@ -454,14 +460,20 @@ public class AppController  {
 					satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
 				}
+				
+				
+				else {
+					
+					createErrorLabel.setText("Please Enter a Task Name");
+					
+				}
 			}
 
 			else {
 
-				System.out.println("Day not found");
+				createErrorLabel.setText("Day not found");
 
 				}
-
 		}
 
 		catch(DateTimeParseException dtpe) {
@@ -469,7 +481,6 @@ public class AppController  {
 			dtpe.printStackTrace();
 
 		}
-
 	}
 	
 	/**
