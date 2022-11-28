@@ -319,7 +319,7 @@ public class AppController  {
 
 				LocalDate dayOfWeek = LocalDate.parse(dateSelect.getValue().toString());
 				
-				if (taskName.getText() != null || taskName.getText() != "") {
+				if (taskName.getText() == null || taskName.getText() == "") {
 					
 					createErrorLabel.setText("Please enter a task name");
 					
@@ -459,6 +459,13 @@ public class AppController  {
 	
 					satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
+				}
+				
+				
+				else {
+					
+					createErrorLabel.setText("Please Enter a Task Name");
+					
 				}
 			}
 
