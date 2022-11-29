@@ -194,8 +194,17 @@ public class AppController  {
 	}
 
 	public void showSched(ActionEvent Event) {
-	System.out.println(currentUser.getUsername());
-	TestArea.setText(currentUser.getUsername());
+		System.out.println(currentUser.getUsername());
+		TestArea.setText(currentUser.getUsername());
+		
+		// Show schedule upon button press after create schedule scene
+		ScheduleViewSun.setText(displayTable(0));
+		ScheduleViewMon.setText(displayTable(1));
+		ScheduleViewTue.setText(displayTable(2));
+		ScheduleViewWed.setText(displayTable(3));
+		ScheduleViewThu.setText(displayTable(4));
+		ScheduleViewFri.setText(displayTable(5));
+		ScheduleViewSat.setText(displayTable(6));
 	}
 
 
@@ -542,45 +551,53 @@ public class AppController  {
 		if (i == 0) {
 			for (String x : currentUser.getSuntimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
+				
 			}
+			return text;
 		}
 		if (i == 1) {
 			for (String x : currentUser.getMontimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
+				
 			}
+			return text;
 		}
 		if (i == 2) {
 			for (String x : currentUser.getTuetimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
+				
 			}
+			return text;
 		}
 		if (i == 3) {
 			for (String x : currentUser.getWedtimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
+				
 			}
+			return text;
 		}
 		if (i == 4) {
 			for (String x : currentUser.getThutimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
+				
 			}
+			return text;
 		}
 		if (i == 5) {
 			for (String x : currentUser.getFritimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
+				
 			}
+			return text;
 		}
 		if (i == 6) {
 			for (String x : currentUser.getSattimetable()) {
 				text = text.concat(x.toString() + "\n");
-				return text;
+				
 			}
+			return text;
 		}
 		return text;
+		
 	}
 }
