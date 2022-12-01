@@ -143,7 +143,7 @@ public class AppController  {
 	@FXML
 	Button showSched = new Button();
 	@FXML
-	Label TestLabel = new Label();
+	Label createErrorLabel = new Label();
 
 	/**
 	 *
@@ -193,8 +193,17 @@ public class AppController  {
 	}
 
 	public void showSched(ActionEvent Event) {
-	System.out.println(currentUser.getUsername());
-	TestArea.setText(currentUser.getUsername());
+		System.out.println(currentUser.getUsername());
+		TestArea.setText(currentUser.getUsername());
+		
+		// Show schedule upon button press after create schedule scene
+		ScheduleViewSun.setText(displayTable(0));
+		ScheduleViewMon.setText(displayTable(1));
+		ScheduleViewTue.setText(displayTable(2));
+		ScheduleViewWed.setText(displayTable(3));
+		ScheduleViewThu.setText(displayTable(4));
+		ScheduleViewFri.setText(displayTable(5));
+		ScheduleViewSat.setText(displayTable(6));
 	}
 
 
@@ -322,8 +331,15 @@ public class AppController  {
 
 				LocalDate dayOfWeek = LocalDate.parse(dateSelect.getValue().toString());
 				String text = "";
+				
+				if (taskName.getText() == null || taskName.getText() == "") {
+					
+					createErrorLabel.setText("Please enter a task name");
+					
+				}
+				
 
-				if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
+				else if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
 
 					sunTaskList = currentUser.getSuntimetable();
 					sunTaskList.add(startTask + "," + task + "," + endTask);
@@ -344,7 +360,6 @@ public class AppController  {
 						sunTextArea.setText(text);
 					}
 					//sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
-
 				}
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "MONDAY") {
@@ -362,10 +377,7 @@ public class AppController  {
 					monTimeblock.createTimeblocks(monTaskList);
 					currentUser.convertToTimeblock();
 
-					for (Timeblock x : currentUser.getMontimeblocks()) {
-						monTextArea.setText(x.toString());
-					}
-					//monTextArea.setText(timeblockToString(currentUser.getMontimeblocks()));
+					monTextArea.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
 
 				}
 
@@ -384,10 +396,7 @@ public class AppController  {
 					tueTimeblock.createTimeblocks(tueTaskList);
 					currentUser.convertToTimeblock();
 
-					for (Timeblock x : currentUser.getTuetimeblocks()) {
-						tueTextArea.setText(x.toString());
-					}
-					//tueTextArea.setText(timeblockToString(currentUser.getTuetimeblocks()));
+					tueTextArea.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
 
 				}
 
@@ -405,10 +414,8 @@ public class AppController  {
 
 					wedTimeblock.createTimeblocks(wedTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getWedtimeblocks()) {
-						wedTextArea.setText(x.toString());
-					}
-					//wedTextArea.setText(timeblockToString(currentUser.getWedtimeblocks()));
+
+					wedTextArea.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
 
 				}
 
@@ -427,10 +434,8 @@ public class AppController  {
 
 					thuTimeblock.createTimeblocks(thuTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getThutimeblocks()) {
-						thuTextArea.setText(x.toString());
-					}
-					//thuTextArea.setText(timeblockToString(currentUser.getThutimeblocks()));
+
+					thuTextArea.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
 
 				}
 
@@ -449,10 +454,8 @@ public class AppController  {
 
 					friTimeblock.createTimeblocks(friTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getFritimeblocks()) {
-						friTextArea.setText(x.toString());
-					}
-					//friTextArea.setText(timeblockToString(currentUser.getFritimeblocks()));
+		
+					friTextArea.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
 
 				}
 
@@ -470,20 +473,24 @@ public class AppController  {
 
 					satTimeblock.createTimeblocks(satTaskList);
 					currentUser.convertToTimeblock();
-					for (Timeblock x : currentUser.getSattimeblocks()) {
-						satTextArea.setText(x.toString());
-					}
-					//satTextArea.setText(timeblockToString(currentUser.getSattimeblocks()));
+	
+					satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
+				}
+				
+				
+				else {
+					
+					createErrorLabel.setText("Please Enter a Task Name");
+					
 				}
 			}
 
 			else {
 
-				System.out.println("Day not found");
+				createErrorLabel.setText("Day not found");
 
 				}
-
 		}
 
 		catch(DateTimeParseException dtpe) {
@@ -491,7 +498,27 @@ public class AppController  {
 			dtpe.printStackTrace();
 
 		}
+	}
+	
+	/**
+	 * 
+	 * Converts the values in the Timeblock objects into string and displays them in the create schedule scene 
+	 * 
+	 * @param timeblockList
+	 * @return
+	 */
+	public String timeblockToDisplay(ArrayList<Timeblock> timeblockList) {
+		
+		String result = "";
 
+		for (Timeblock i : timeblockList) {
+			
+			result += i.toString() + "\n";
+			
+		}
+		
+		return result;
+	
 	}
 
 
@@ -540,7 +567,7 @@ public class AppController  {
 		if (i == 0) {
 			for (Timeblock x : currentUser.getSuntimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-
+        
 			}return text;
 		}
 		if (i == 1) {
@@ -580,5 +607,6 @@ public class AppController  {
 			}return text;
 		}
 		return text;
+		
 	}
 }

@@ -45,7 +45,7 @@ public class Timeblock {
 	
 	public String toString() {
 		
-		return "Task: " + namelabel + " Start Time: " + this.start.toString() + " End Time: " + this.end.toString();
+		return "Task: " + namelabel + "\nStart Time: " + this.start.toString() + "\nEnd Time: " + this.end.toString() + "\n";
 	}
 	public String getSaveFileFormat(Timeblock x) {
 		String string = x.getStart() + "," + x.getNamelabel() + "," + x.getEnd();
