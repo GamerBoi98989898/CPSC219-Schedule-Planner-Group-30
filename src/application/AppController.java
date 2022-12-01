@@ -11,7 +11,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -283,6 +282,13 @@ public class AppController  {
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
 			Parent root = loader.load();
 			AppController controller = loader.getController();
+			controller.sunTextArea.setText(displayTable(0));
+			controller.monTextArea.setText(displayTable(1));
+			controller.tueTextArea.setText(displayTable(2));
+			controller.wedTextArea.setText(displayTable(3));
+			controller.thuTextArea.setText(displayTable(4));
+			controller.friTextArea.setText(displayTable(5));
+			controller.satTextArea.setText(displayTable(6));
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
 
@@ -317,9 +323,6 @@ public class AppController  {
 		String endTask = endHour + ":" + endMin;
 
 		String task = taskName.getText();
-		for (Timeblock x : currentUser.getSuntimeblocks()) {
-			sunTextArea.setText(x.toString());
-		}
 		// Check if DatePicker is null, if not, allows user to create tasks to be entered into their day of week schedules
 		// using the setters in the User class
 		try {
@@ -327,6 +330,7 @@ public class AppController  {
 			if (dateSelect.getValue() != null) {
 
 				LocalDate dayOfWeek = LocalDate.parse(dateSelect.getValue().toString());
+				String text = "";
 				
 				if (taskName.getText() == null || taskName.getText() == "") {
 					
@@ -337,21 +341,25 @@ public class AppController  {
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "SUNDAY") {
 
+					sunTaskList = currentUser.getSuntimetable();
 					sunTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSuntimetable(sunTaskList);
 
-					sunTimeblock.setNamelabel(task);
-					sunTimeblock.setStart(LocalTime.parse(startTask));
-					sunTimeblock.setEnd(LocalTime.parse(endTask));
+					//sunTimeblock.setNamelabel(task);
+					//sunTimeblock.setStart(LocalTime.parse(startTask));
+					//sunTimeblock.setEnd(LocalTime.parse(endTask));
 
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(sunTaskList);
 
-					sunTimeblock.createTimeblock(sunTaskList);
+					//sunTimeblock.createTimeblocks(sunTaskList);
 					currentUser.convertToTimeblock();
-
-					sunTextArea.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
-
+					//currentUser.setSuntimetable(sunTaskList);
+					for (Timeblock x : currentUser.getSuntimeblocks()) {
+						text = text.concat(x.toString()+ "\n");
+						sunTextArea.setText(text);
+					}
+					//sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
 				}
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "MONDAY") {
@@ -366,7 +374,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					monTimeblock.createTimeblock(monTaskList);
+					monTimeblock.createTimeblocks(monTaskList);
 					currentUser.convertToTimeblock();
 
 					monTextArea.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
@@ -385,7 +393,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					tueTimeblock.createTimeblock(tueTaskList);
+					tueTimeblock.createTimeblocks(tueTaskList);
 					currentUser.convertToTimeblock();
 
 					tueTextArea.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
@@ -404,7 +412,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					wedTimeblock.createTimeblock(wedTaskList);
+					wedTimeblock.createTimeblocks(wedTaskList);
 					currentUser.convertToTimeblock();
 
 					wedTextArea.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
@@ -424,7 +432,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					thuTimeblock.createTimeblock(thuTaskList);
+					thuTimeblock.createTimeblocks(thuTaskList);
 					currentUser.convertToTimeblock();
 
 					thuTextArea.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
@@ -444,7 +452,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					friTimeblock.createTimeblock(friTaskList);
+					friTimeblock.createTimeblocks(friTaskList);
 					currentUser.convertToTimeblock();
 		
 					friTextArea.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
@@ -463,7 +471,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					satTimeblock.createTimeblock(satTaskList);
+					satTimeblock.createTimeblocks(satTaskList);
 					currentUser.convertToTimeblock();
 	
 					satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
@@ -527,12 +535,20 @@ public class AppController  {
 			currentUser.saveToFile(currentUser.getUsername());
 
 			// Switch back to previous schedule view scene
-			Parent root = FXMLLoader.load(getClass().getResource("ScheduleView.fxml"));
-
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 			Stage applicationStage = (Stage)doneButton.getScene().getWindow();
-
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			controller.ScheduleViewSun.setText(displayTable(0));
+			controller.ScheduleViewMon.setText(displayTable(1));
+			controller.ScheduleViewTue.setText(displayTable(2));
+			controller.ScheduleViewWed.setText(displayTable(3));
+			controller.ScheduleViewThu.setText(displayTable(4));
+			controller.ScheduleViewFri.setText(displayTable(5));
+			controller.ScheduleViewSat.setText(displayTable(6));
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
+
 
 		}
 
@@ -549,53 +565,46 @@ public class AppController  {
 		String text = "";
 		//The stupid switch staement didn't work so im doing it this way
 		if (i == 0) {
-			for (String x : currentUser.getSuntimetable()) {
+			for (Timeblock x : currentUser.getSuntimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-				
-			}
-			return text;
+        
+			}return text;
 		}
 		if (i == 1) {
-			for (String x : currentUser.getMontimetable()) {
+			for (Timeblock x : currentUser.getMontimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-				
-			}
-			return text;
+
+			}return text;
 		}
 		if (i == 2) {
-			for (String x : currentUser.getTuetimetable()) {
+			for (Timeblock x : currentUser.getTuetimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-				
-			}
-			return text;
+
+			}return text;
 		}
 		if (i == 3) {
-			for (String x : currentUser.getWedtimetable()) {
+			for (Timeblock x : currentUser.getWedtimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-				
-			}
-			return text;
+
+			}return text;
 		}
 		if (i == 4) {
-			for (String x : currentUser.getThutimetable()) {
+			for (Timeblock x : currentUser.getThutimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-				
-			}
-			return text;
+
+			}return text;
 		}
 		if (i == 5) {
-			for (String x : currentUser.getFritimetable()) {
+			for (Timeblock x : currentUser.getFritimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-				
-			}
-			return text;
+
+			}return text;
 		}
 		if (i == 6) {
-			for (String x : currentUser.getSattimetable()) {
+			for (Timeblock x : currentUser.getSattimeblocks()) {
 				text = text.concat(x.toString() + "\n");
-				
-			}
-			return text;
+
+			}return text;
 		}
 		return text;
 		

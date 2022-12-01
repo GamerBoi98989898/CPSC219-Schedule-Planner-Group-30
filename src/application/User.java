@@ -36,97 +36,102 @@ public class User {
 	}
 
 	//Will take a filename and procced to fill user timetables for each day as an arraylist of strings
-	public User(String fileName) {
-		
+	public User(String filename) {
+		readFromFile(filename);
+
+	}
+	// Will attemp to read the userfile
+	public void readFromFile(String filename) {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("src/"+fileName+".txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("src/"+filename+".txt"));
 			this.username = reader.readLine();
 			this.password = reader.readLine();
-		//	System.out.println(username);
-		//	System.out.println(password);
-			
+			//	System.out.println(username);
+			//	System.out.println(password);
+
 			String line = reader.readLine();
 			while (line!=null) {
 				if (line.contains(":")) {
 					line = "time";
 				}
 				switch (line) {
-				case "sun":
-					//System.out.println("sun was found");
-					line = reader.readLine();
-					while (line.contains(":")) {
-						//System.out.println("writing times");
-						suntimetable.add(line);
+					case "sun":
+						//System.out.println("sun was found");
 						line = reader.readLine();
-					}
-					continue;
-				case "mon":
-					//System.out.println("mon was found");
-					line = reader.readLine();
-					while (line.contains(":")) {
-						//System.out.println("writing times");
-						montimetable.add(line);
+						while (line.contains(":")) {
+							//System.out.println("writing times");
+							suntimetable.add(line);
+							line = reader.readLine();
+						}
+						continue;
+					case "mon":
+						//System.out.println("mon was found");
 						line = reader.readLine();
-					}
-					continue;
-				case "tue":
-					//System.out.println("tue was found");
-					line = reader.readLine();
-					while (line.contains(":")) {
-						//System.out.println("writing times");
-						tuetimetable.add(line);
+						while (line.contains(":")) {
+							//System.out.println("writing times");
+							montimetable.add(line);
+							line = reader.readLine();
+						}
+						continue;
+					case "tue":
+						//System.out.println("tue was found");
 						line = reader.readLine();
-					}
-					continue;
-				case "wed":
-					//System.out.println("wed was found");
-					line = reader.readLine();
-					while (line.contains(":")) {
-						//System.out.println("writing times");
-						wedtimetable.add(line);
+						while (line.contains(":")) {
+							//System.out.println("writing times");
+							tuetimetable.add(line);
+							line = reader.readLine();
+						}
+						continue;
+					case "wed":
+						//System.out.println("wed was found");
 						line = reader.readLine();
-					}
-					continue;
-				case "thu":
-					//System.out.println("thu was found");
-					line = reader.readLine();
-					while (line.contains(":")) {
-						//System.out.println("writing times");
-						thutimetable.add(line);
+						while (line.contains(":")) {
+							//System.out.println("writing times");
+							wedtimetable.add(line);
+							line = reader.readLine();
+						}
+						continue;
+					case "thu":
+						//System.out.println("thu was found");
 						line = reader.readLine();
-					}
-					continue;
-				case "fri":
-					//System.out.println("fri was found");
-					line = reader.readLine();
-					while (line.contains(":")) {
-						//System.out.println("writing times");
-						fritimetable.add(line);
+						while (line.contains(":")) {
+							//System.out.println("writing times");
+							thutimetable.add(line);
+							line = reader.readLine();
+						}
+						continue;
+					case "fri":
+						//System.out.println("fri was found");
 						line = reader.readLine();
-					}
-					continue;
-				case "sat":
-					//System.out.println("sat was found");
-					line = reader.readLine();
-					while (line.contains(":")) {
-						//System.out.println("writing times");
-						sattimetable.add(line);
+						while (line.contains(":")) {
+							//System.out.println("writing times");
+							fritimetable.add(line);
+							line = reader.readLine();
+						}
+						continue;
+					case "sat":
+						//System.out.println("sat was found");
 						line = reader.readLine();
-					}
-					continue;
-				case "time":
-					//System.out.println("time was found");
-					continue;
-				case "end":
-					//System.out.println("eof was found");
-					break;
+						while (line.contains(":")) {
+							//System.out.println("writing times");
+							sattimetable.add(line);
+							line = reader.readLine();
+						}
+						continue;
+					case "time":
+						//System.out.println("time was found");
+						continue;
+					case "end":
+						//System.out.println("eof was found");
+						break;
 				}
-				
-				
+
+
 				line = reader.readLine();
 			}
-			
-			reader.close();	
+
+			reader.close();
+			this.convertToTimeblock();
 		} catch (FileNotFoundException fnf) {
 			//
 			fnf.printStackTrace();
@@ -142,8 +147,8 @@ public class User {
 			writer.println(password);
 			writer.println("sun");
 
-			for (String i : getSuntimetable()) {
-				writer.println(i);
+			for (Timeblock x : getSuntimeblocks()) {
+				writer.println(x.getSaveFileFormat(x));
 
 			}
 
@@ -201,13 +206,13 @@ public class User {
 	//will convert the timetables from lists of strings to lists of timeblocks
 	public void convertToTimeblock() {
 		Timeblock convert = new Timeblock();
-		suntimeblocks = convert.createTimeblock(suntimetable);
-		montimeblocks = convert.createTimeblock(montimetable);
-		tuetimeblocks = convert.createTimeblock(tuetimetable);
-		wedtimeblocks = convert.createTimeblock(wedtimetable);
-		thutimeblocks = convert.createTimeblock(thutimetable);
-		fritimeblocks = convert.createTimeblock(fritimetable);
-		sattimeblocks = convert.createTimeblock(sattimetable);
+		suntimeblocks = convert.createTimeblocks(suntimetable);
+		montimeblocks = convert.createTimeblocks(montimetable);
+		tuetimeblocks = convert.createTimeblocks(tuetimetable);
+		wedtimeblocks = convert.createTimeblocks(wedtimetable);
+		thutimeblocks = convert.createTimeblocks(thutimetable);
+		fritimeblocks = convert.createTimeblocks(fritimetable);
+		sattimeblocks = convert.createTimeblocks(sattimetable);
 
 	}
 	//Will check for username and password and throw an exception if the user is not found
