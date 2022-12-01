@@ -126,7 +126,8 @@ public class User {
 				line = reader.readLine();
 			}
 			
-			reader.close();	
+			reader.close();
+			this.convertToTimeblock();
 		} catch (FileNotFoundException fnf) {
 			//
 			fnf.printStackTrace();
@@ -142,8 +143,8 @@ public class User {
 			writer.println(password);
 			writer.println("sun");
 
-			for (String i : getSuntimetable()) {
-				writer.println(i);
+			for (Timeblock x : getSuntimeblocks()) {
+				writer.println(x.getSaveFileFormat(x));
 
 			}
 
@@ -201,13 +202,13 @@ public class User {
 	//will convert the timetables from lists of strings to lists of timeblocks
 	public void convertToTimeblock() {
 		Timeblock convert = new Timeblock();
-		suntimeblocks = convert.createTimeblock(suntimetable);
-		montimeblocks = convert.createTimeblock(montimetable);
-		tuetimeblocks = convert.createTimeblock(tuetimetable);
-		wedtimeblocks = convert.createTimeblock(wedtimetable);
-		thutimeblocks = convert.createTimeblock(thutimetable);
-		fritimeblocks = convert.createTimeblock(fritimetable);
-		sattimeblocks = convert.createTimeblock(sattimetable);
+		suntimeblocks = convert.createTimeblocks(suntimetable);
+		montimeblocks = convert.createTimeblocks(montimetable);
+		tuetimeblocks = convert.createTimeblocks(tuetimetable);
+		wedtimeblocks = convert.createTimeblocks(wedtimetable);
+		thutimeblocks = convert.createTimeblocks(thutimetable);
+		fritimeblocks = convert.createTimeblocks(fritimetable);
+		sattimeblocks = convert.createTimeblocks(sattimetable);
 
 	}
 	//Will check for username and password and throw an exception if the user is not found

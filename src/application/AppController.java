@@ -11,7 +11,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -330,16 +329,16 @@ public class AppController  {
 					sunTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSuntimetable(sunTaskList);
 
-					sunTimeblock.setNamelabel(task);
-					sunTimeblock.setStart(LocalTime.parse(startTask));
-					sunTimeblock.setEnd(LocalTime.parse(endTask));
+					//sunTimeblock.setNamelabel(task);
+					//sunTimeblock.setStart(LocalTime.parse(startTask));
+					//sunTimeblock.setEnd(LocalTime.parse(endTask));
 
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(sunTaskList);
 
-					sunTimeblock.createTimeblock(sunTaskList);
+					//sunTimeblock.createTimeblocks(sunTaskList);
 					currentUser.convertToTimeblock();
-					currentUser.setSuntimetable(sunTaskList);
+					//currentUser.setSuntimetable(sunTaskList);
 					for (Timeblock x : currentUser.getSuntimeblocks()) {
 						text = text.concat(x.toString()+ "\n");
 						sunTextArea.setText(text);
@@ -360,7 +359,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					monTimeblock.createTimeblock(monTaskList);
+					monTimeblock.createTimeblocks(monTaskList);
 					currentUser.convertToTimeblock();
 
 					for (Timeblock x : currentUser.getMontimeblocks()) {
@@ -382,7 +381,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					tueTimeblock.createTimeblock(tueTaskList);
+					tueTimeblock.createTimeblocks(tueTaskList);
 					currentUser.convertToTimeblock();
 
 					for (Timeblock x : currentUser.getTuetimeblocks()) {
@@ -404,7 +403,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					wedTimeblock.createTimeblock(wedTaskList);
+					wedTimeblock.createTimeblocks(wedTaskList);
 					currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getWedtimeblocks()) {
 						wedTextArea.setText(x.toString());
@@ -426,7 +425,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					thuTimeblock.createTimeblock(thuTaskList);
+					thuTimeblock.createTimeblocks(thuTaskList);
 					currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getThutimeblocks()) {
 						thuTextArea.setText(x.toString());
@@ -448,7 +447,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					friTimeblock.createTimeblock(friTaskList);
+					friTimeblock.createTimeblocks(friTaskList);
 					currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getFritimeblocks()) {
 						friTextArea.setText(x.toString());
@@ -469,7 +468,7 @@ public class AppController  {
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					satTimeblock.createTimeblock(satTaskList);
+					satTimeblock.createTimeblocks(satTaskList);
 					currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getSattimeblocks()) {
 						satTextArea.setText(x.toString());
@@ -539,43 +538,43 @@ public class AppController  {
 		String text = "";
 		//The stupid switch staement didn't work so im doing it this way
 		if (i == 0) {
-			for (String x : currentUser.getSuntimetable()) {
+			for (Timeblock x : currentUser.getSuntimeblocks()) {
 				text = text.concat(x.toString() + "\n");
 
 			}return text;
 		}
 		if (i == 1) {
-			for (String x : currentUser.getMontimetable()) {
+			for (Timeblock x : currentUser.getMontimeblocks()) {
 				text = text.concat(x.toString() + "\n");
 
 			}return text;
 		}
 		if (i == 2) {
-			for (String x : currentUser.getTuetimetable()) {
+			for (Timeblock x : currentUser.getTuetimeblocks()) {
 				text = text.concat(x.toString() + "\n");
 
 			}return text;
 		}
 		if (i == 3) {
-			for (String x : currentUser.getWedtimetable()) {
+			for (Timeblock x : currentUser.getWedtimeblocks()) {
 				text = text.concat(x.toString() + "\n");
 
 			}return text;
 		}
 		if (i == 4) {
-			for (String x : currentUser.getThutimetable()) {
+			for (Timeblock x : currentUser.getThutimeblocks()) {
 				text = text.concat(x.toString() + "\n");
 
 			}return text;
 		}
 		if (i == 5) {
-			for (String x : currentUser.getFritimetable()) {
+			for (Timeblock x : currentUser.getFritimeblocks()) {
 				text = text.concat(x.toString() + "\n");
 
 			}return text;
 		}
 		if (i == 6) {
-			for (String x : currentUser.getSattimetable()) {
+			for (Timeblock x : currentUser.getSattimeblocks()) {
 				text = text.concat(x.toString() + "\n");
 
 			}return text;

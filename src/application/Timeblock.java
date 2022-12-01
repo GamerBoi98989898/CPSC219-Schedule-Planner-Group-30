@@ -25,7 +25,7 @@ public class Timeblock {
 	}
 	
 	// function to convert our timeblocks in the .txt to a usable format
-	ArrayList<Timeblock> createTimeblock (ArrayList<String> list ) {
+	ArrayList<Timeblock> createTimeblocks(ArrayList<String> list ) {
 		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
 		
 		for (String i : list) {
@@ -46,6 +46,10 @@ public class Timeblock {
 	public String toString() {
 		
 		return "Task: " + namelabel + " Start Time: " + this.start.toString() + " End Time: " + this.end.toString();
+	}
+	public String getSaveFileFormat(Timeblock x) {
+		String string = x.getStart() + "," + x.getNamelabel() + "," + x.getEnd();
+		return string;
 	}
 
 	LocalTime getStart() {
