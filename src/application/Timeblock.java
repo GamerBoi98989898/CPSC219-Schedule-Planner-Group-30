@@ -25,7 +25,7 @@ public class Timeblock {
 	}
 	
 	// function to convert our timeblocks in the .txt to a usable format
-	ArrayList<Timeblock> createTimeblock (ArrayList<String> list ) {
+	ArrayList<Timeblock> createTimeblocks(ArrayList<String> list ) {
 		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
 		
 		for (String i : list) {
@@ -45,7 +45,11 @@ public class Timeblock {
 	
 	public String toString() {
 		
-		return "Task: " + namelabel + "\nStart Time: " + this.start.toString() + "\nEnd Time: " + this.end.toString() + "\n";
+		return "Task: " + namelabel + " Start Time: " + this.start.toString() + " End Time: " + this.end.toString();
+	}
+	public String getSaveFileFormat(Timeblock x) {
+		String string = x.getStart() + "," + x.getNamelabel() + "," + x.getEnd();
+		return string;
 	}
 
 	LocalTime getStart() {
@@ -78,6 +82,28 @@ public class Timeblock {
 
 	void setNamelabel(String namelabel) {
 		this.namelabel = namelabel;
+	}
+	
+	
+	
+	// WIP
+	public boolean overlappingTime(Timeblock otherTimeblock) {
+		
+		
+		if (otherTimeblock.start == end) {
+			
+			System.out.println(otherTimeblock.start + " Overlaps with " + end);
+			return true;
+			
+		}
+		
+		else {
+		
+			return false;
+			
+		}
+		
+		
 	}
 
 }
