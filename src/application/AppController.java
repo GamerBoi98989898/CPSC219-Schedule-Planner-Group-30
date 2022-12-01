@@ -25,6 +25,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
+/**
+ * 
+ * This class is the controller for the entire application which contains the action for all FXML components
+ * and displaying the user's schedule
+ * 
+ * @author Jose Lorenzo Jacobe, Connor Ell, Raisa Fairuz
+ *
+ */
 public class AppController  {
 
 	Stage applicationStage;
@@ -229,20 +238,27 @@ public class AppController  {
 	 */
 
 	public void completeRegister(ActionEvent event) {
+		
+		// File name would be the username
 		String filename = usernameTextField.getText();
 		//System.out.println(filename);
 		String password = passwordTextField.getText();
 		//System.out.println(password);
+		
+		// Find the file that matches the username and if it already exists, set label text to let user know 
+		// If it does not exist, the registration will be completed and the user will be brough back to the 
+		// main login scene
 		File doesExist = new File("src/" +filename+ ".txt");
 		if (!doesExist.isFile()) {
 			try {
 
-
+				// Creates a new file for the new user and stores the username and password into the text file
 				PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/" +filename+ ".txt")));
 				writer.println(filename);
 				writer.println(password);
 				writer.close();
 
+				// Load the main login scene when registration is complete
 				Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
 
 				Stage applicationStage = (Stage)completeRegisterButton.getScene().getWindow();
@@ -253,6 +269,7 @@ public class AppController  {
 				ioe.printStackTrace();
 			}
 		} else {
+			// Set text of the label to let user know that a file for the username exists
 			RegisterErrorLabel.setText("Error User already exists");
 		}
 	}
@@ -275,6 +292,8 @@ public class AppController  {
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
 			Parent root = loader.load();
 			AppController controller = loader.getController();
+			
+			// Displays the current schedule of the user for each day of the week
 			controller.sunTextArea.setText(displayTable(0));
 			controller.monTextArea.setText(displayTable(1));
 			controller.tueTextArea.setText(displayTable(2));
@@ -305,206 +324,280 @@ public class AppController  {
 	 */
 	public void createTask(ActionEvent event) {
 
+		// The hour and minutes are in a choice box
 		String startHour = startHourChoiceBox.getValue();
 		String startMin = startMinChoiceBox.getValue();
 
+		// Combines the hour and minutes with a semicolon to use when converting it to time using LocalTime
 		String startTask = startHour + ":" + startMin;
 
 		String endHour = endHourChoiceBox.getValue();
 		String endMin = endMinChoiceBox.getValue();
-
+		
 		String endTask = endHour + ":" + endMin;
 
+		// Gets the text store in the task name TextField
 		String task = taskName.getText();
-		// Check if DatePicker is null, if not, allows user to create tasks to be entered into their day of week schedules
-		// using the setters in the User class
+		
+		createErrorLabel.setText("");
+		
+		
 		try {
 
+			// Checks if ChoiceBox is null and change the label to let user know to enter a day
 			if (dayChoiceBox.getValue() != null) {
 
 				
 				String text = "";
 				
+				// Checks if the TextField is empty or null and change the label to let user know to enter a task name
 				if (taskName.getText() == null || taskName.getText() == "") {
 					
 					createErrorLabel.setText("Please enter a task name");
 					
 				}
-
+				
+				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Sunday") == true) {
+					
 					sunTimeblock.setStart(LocalTime.parse(startTask));
 					sunTimeblock.setEnd(LocalTime.parse(endTask));
 					
 					
-					if (sunTimeblock.overlappingTime(sunTimeblock) == false) {
 					
+					
+					// Validate overlapping times to avoid user entering the same task multiple times
+					if (sunTimeblock.overlappingTime(sunTaskList) == false) {
 						sunTaskList.add(startTask + "," + task + "," + endTask);
 						currentUser.setSuntimetable(sunTaskList);
-						sunTimeblock.setStart(LocalTime.parse(startTask));
-						sunTimeblock.setEnd(LocalTime.parse(endTask));
+
 	
 						sunTimeblock.setNamelabel(task);
+						
+
 						
 	
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(sunTaskList);
-	
+						
+						// Creates an object of timeblocks containing the tasks created by the user stored as String in the task list
 						sunTimeblock.createTimeblocks(sunTaskList);
 						currentUser.convertToTimeblock();
 						
 						// use this to get start time
+//						System.out.println(sunTimeblock.getStart());
 						System.out.println(sunTimeblock.getStart());
+						System.out.println(sunTimeblock.getEnd());
 						
+						// Displays the contents of the Timeblocks into the TextArea for user to see
 						sunTextArea.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
 						
 					}
 					
 					else {
 						
-						createErrorLabel.setText("The Start and End times overlap. Please change the time.");
+						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 						
 					}
 					
-					
-					
-					
-					
-
-					
-
 				}
+					
+
+				
 
 				else if (dayChoiceBox.getValue().equals("Monday") == true) {
-
-					monTaskList.add(startTask + "," + task + "," + endTask);
-					currentUser.setMontimetable(monTaskList);
-
-					monTimeblock.setNamelabel(task);
+					
 					monTimeblock.setStart(LocalTime.parse(startTask));
 					monTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					if (monTimeblock.overlappingTime(monTaskList) == false) {
+					
+						monTaskList.add(startTask + "," + task + "," + endTask);
+						currentUser.setMontimetable(monTaskList);
+	
+						monTimeblock.setNamelabel(task);
+	
+	
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(monTaskList);
+	
+						monTimeblock.createTimeblocks(monTaskList);
+						currentUser.convertToTimeblock();
+	
+						monTextArea.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
 
-					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
-
-					monTimeblock.createTimeblocks(monTaskList);
-					currentUser.convertToTimeblock();
-
-					monTextArea.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
-
+				}
+					
+					else {
+						
+						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
+						
+					}
 				}
 
 				else if (dayChoiceBox.getValue().equals("Tuesday") == true) {
-
-					tueTaskList.add(startTask + "," + task + "," + endTask);
-					currentUser.setTuetimetable(tueTaskList);
-
-					tueTimeblock.setNamelabel(task);
+					
 					tueTimeblock.setStart(LocalTime.parse(startTask));
 					tueTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					if (tueTimeblock.overlappingTime(tueTaskList) == false) {
 
-					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
-
-					tueTimeblock.createTimeblocks(tueTaskList);
-					currentUser.convertToTimeblock();
-
-					tueTextArea.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
+						tueTaskList.add(startTask + "," + task + "," + endTask);
+						currentUser.setTuetimetable(tueTaskList);
+	
+						tueTimeblock.setNamelabel(task);
+	
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(monTaskList);
+	
+						tueTimeblock.createTimeblocks(tueTaskList);
+						currentUser.convertToTimeblock();
+	
+						tueTextArea.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
 
 				}
+					
+					else {
+						
+						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
+						
+						}
+				}
+			
 
 				else if (dayChoiceBox.getValue().equals("Wednesday") == true) {
-
-					wedTaskList.add(startTask + "," + task + "," + endTask);
-					currentUser.setWedtimetable(wedTaskList);
-
-					wedTimeblock.setNamelabel(task);
+					
 					wedTimeblock.setStart(LocalTime.parse(startTask));
 					wedTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					if (wedTimeblock.overlappingTime(wedTaskList) == false) {
+					
+						wedTaskList.add(startTask + "," + task + "," + endTask);
+						currentUser.setWedtimetable(wedTaskList);
+	
+						wedTimeblock.setNamelabel(task);
+	
+	
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(monTaskList);
+	
+						wedTimeblock.createTimeblocks(wedTaskList);
+						currentUser.convertToTimeblock();
+	
+						wedTextArea.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
 
-					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
-
-					wedTimeblock.createTimeblocks(wedTaskList);
-					currentUser.convertToTimeblock();
-
-					wedTextArea.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
-
+				}
+					
+					else {
+						
+						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
+						
+						}
 				}
 
 
 				else if (dayChoiceBox.getValue().equals("Thursday") == true) {
-
-					thuTaskList.add(startTask + "," + task + "," + endTask);
-					currentUser.setThutimetable(thuTaskList);
-
-					thuTimeblock.setNamelabel(task);
+					
 					thuTimeblock.setStart(LocalTime.parse(startTask));
 					thuTimeblock.setEnd(LocalTime.parse(endTask));
 
-					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
+					if (thuTimeblock.overlappingTime(thuTaskList) == false) {
 
-					thuTimeblock.createTimeblocks(thuTaskList);
-					currentUser.convertToTimeblock();
+						thuTaskList.add(startTask + "," + task + "," + endTask);
+						currentUser.setThutimetable(thuTaskList);
+	
+						thuTimeblock.setNamelabel(task);
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(monTaskList);
+	
+						thuTimeblock.createTimeblocks(thuTaskList);
+						currentUser.convertToTimeblock();
+	
+						thuTextArea.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
 
-					thuTextArea.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
-
+				}
+					
+					else {
+						
+						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
+						
+						}
 				}
 
 
 				else if (dayChoiceBox.getValue().equals("Friday") == true) {
-
-					friTaskList.add(startTask + "," + task + "," + endTask);
-					currentUser.setFritimetable(friTaskList);
-
-					friTimeblock.setNamelabel(task);
+					
 					friTimeblock.setStart(LocalTime.parse(startTask));
 					friTimeblock.setEnd(LocalTime.parse(endTask));
+					
+					if (friTimeblock.overlappingTime(friTaskList) == false) {
+					
+						friTaskList.add(startTask + "," + task + "," + endTask);
+						currentUser.setFritimetable(friTaskList);
+	
+						friTimeblock.setNamelabel(task);
+	
+	
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(monTaskList);
+	
+						friTimeblock.createTimeblocks(friTaskList);
+						currentUser.convertToTimeblock();
+			
+						friTextArea.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
 
-					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
-
-					friTimeblock.createTimeblocks(friTaskList);
-					currentUser.convertToTimeblock();
-		
-					friTextArea.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
-
+				}
+					
+					else {
+						
+						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
+						
+						}
 				}
 
 				else if (dayChoiceBox.getValue().equals("Saturday") == true) {
-
-					satTaskList.add(startTask + "," + task + "," + endTask);
-					currentUser.setSattimetable(satTaskList);
-
-					satTimeblock.setNamelabel(task);
+					
 					satTimeblock.setStart(LocalTime.parse(startTask));
 					satTimeblock.setEnd(LocalTime.parse(endTask));
 
-					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
-
-					satTimeblock.createTimeblocks(satTaskList);
-					currentUser.convertToTimeblock();
+					if (satTimeblock.overlappingTime(satTaskList) == false) {
+						
+						satTaskList.add(startTask + "," + task + "," + endTask);
+						currentUser.setSattimetable(satTaskList);
 	
-					satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
+						satTimeblock.setNamelabel(task);
+						
+	
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(monTaskList);
+	
+						satTimeblock.createTimeblocks(satTaskList);
+						currentUser.convertToTimeblock();
+		
+						satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
 				}
-				
+					
+					else {
+						
+						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
+						
+						}
+				}
 			
-
-
+			
 			else {
 
-				System.out.println("Day not found");
+				createErrorLabel.setText("Please select a day");
 
 				}
-
 			}
-		}
+		} // end of try block
 
-		catch(DateTimeParseException dtpe) {
+		catch(Exception e) {
 
-			dtpe.printStackTrace();
+			e.printStackTrace();
 
 		}
 
@@ -550,6 +643,8 @@ public class AppController  {
 			Stage applicationStage = (Stage)doneButton.getScene().getWindow();
 			Parent root = loader.load();
 			AppController controller = loader.getController();
+			
+			// Set the TextArea to the user's schedule for each day
 			controller.ScheduleViewSun.setText(displayTable(0));
 			controller.ScheduleViewMon.setText(displayTable(1));
 			controller.ScheduleViewTue.setText(displayTable(2));
@@ -572,6 +667,7 @@ public class AppController  {
 
 	}
 
+	// Method to display the schedule of the user for each day and return the String text for the TextArea to display
 	public String displayTable(int i) {
 		String text = "";
 		//The stupid switch staement didn't work so im doing it this way
