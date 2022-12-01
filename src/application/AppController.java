@@ -383,12 +383,7 @@ public class AppController  {
 						// Creates an object of timeblocks containing the tasks created by the user stored as String in the task list
 						sunTimeblock.createTimeblocks(sunTaskList);
 						currentUser.convertToTimeblock();
-						
-						// use this to get start time
-//						System.out.println(sunTimeblock.getStart());
-						System.out.println(sunTimeblock.getStart());
-						System.out.println(sunTimeblock.getEnd());
-						
+										
 						// Displays the contents of the Timeblocks into the TextArea for user to see
 						sunTextArea.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
 						
