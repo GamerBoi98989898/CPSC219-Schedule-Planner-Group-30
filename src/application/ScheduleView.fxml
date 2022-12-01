@@ -14,7 +14,7 @@
          <children>
                 <Button fx:id="createScheduleButton" mnemonicParsing="false" onAction="#createSchedule" prefHeight="25.0" prefWidth="129.0" text="Create New Schedule" />
             <TextArea fx:id="TestArea" prefHeight="200.0" prefWidth="200.0" />
-            <Button fx:id="showSched" mnemonicParsing="false" onAction="#showSched" text="Button" />
+            <Button fx:id="TestButton" mnemonicParsing="false" onAction="#TestButton" text="Button" />
          </children></HBox>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
           <tabs>

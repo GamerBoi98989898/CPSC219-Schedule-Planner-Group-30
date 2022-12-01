@@ -141,7 +141,7 @@ public class AppController  {
 	@FXML
 	TextArea TestArea = new TextArea();
 	@FXML
-	Button showSched = new Button();
+	Button TestButton = new Button();
 	@FXML
 	Label TestLabel = new Label();
 
@@ -163,10 +163,12 @@ public class AppController  {
 			if (toValidate.validateUser(username, password)) {
 				//System.out.println("VALID");
 				currentUser = new User(username);
+				User tester = new User(username);
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 					Parent root = loader.load();
+					applicationStage.setUserData(tester);
 					AppController controller = loader.getController();
 					controller.ScheduleViewSun.setText(displayTable(0));
 					controller.ScheduleViewMon.setText(displayTable(1));
@@ -177,6 +179,8 @@ public class AppController  {
 					controller.ScheduleViewSat.setText(displayTable(6));
 					applicationStage.setScene(new Scene(root, 800, 600));
 					applicationStage.show();
+					controller.TestArea.setText("AAAAAg");
+
 
 				} catch (IOException ioe) {
 					//System.out.print(ioe);
@@ -192,9 +196,13 @@ public class AppController  {
 		}
 	}
 
-	public void showSched(ActionEvent Event) {
-	System.out.println(currentUser.getUsername());
-	TestArea.setText(currentUser.getUsername());
+	public void TestButton(ActionEvent Event) {
+		/*Stage stage = (Stage)TestButton.getScene().getWindow();
+		User x = (User) stage.getUserData();
+		System.out.println(x.getSuntimetable().get(0));
+		TestArea.setText(x.getSuntimetable().get(0));*/
+		User test = new User("guy");
+		test.createFreeTimeArrays();
 	}
 
 
@@ -535,6 +543,9 @@ public class AppController  {
 	}
 
 	public String displayTable(int i) {
+		Stage stage = (Stage)applicationStage.getScene().getWindow();
+		User u = (User) stage.getUserData();
+		System.out.println("HAHAHAHAH");
 		String text = "";
 		//The stupid switch staement didn't work so im doing it this way
 		if (i == 0) {

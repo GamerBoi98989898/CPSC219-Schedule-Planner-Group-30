@@ -1,5 +1,6 @@
 package application;
 import java.io.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class User {
@@ -21,6 +22,14 @@ public class User {
 	private ArrayList<Timeblock> fritimeblocks = new ArrayList<Timeblock>();
 	private ArrayList<Timeblock> sattimeblocks = new ArrayList<Timeblock>();
 
+	private ArrayList<Timeblock> sunfreetime = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> monfreetime = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> tuefreetime = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> wedfreetime = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> thufreetime = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> frifreetime = new ArrayList<Timeblock>();
+	private ArrayList<Timeblock> satfreetime = new ArrayList<Timeblock>();
+
 
 
 	private static User currentUser = new User();
@@ -35,12 +44,18 @@ public class User {
 
 	}
 
-	//Will take a filename and procced to fill user timetables for each day as an arraylist of strings
+	/**
+	 * Constructor will take a filename and then read that file using the readFromFile method. See readFromFile for more info
+	 * @param filename name of the file to read
+	 */
 	public User(String filename) {
 		readFromFile(filename);
-
 	}
-	// Will attemp to read the userfile
+
+	/**
+	 * method will try to find and read a file. Throws IOException
+	 * @param filename name of file to read
+	 */
 	public void readFromFile(String filename) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("src/"+filename+".txt"));
@@ -133,13 +148,17 @@ public class User {
 			reader.close();
 			this.convertToTimeblock();
 		} catch (FileNotFoundException fnf) {
-			//
 			fnf.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
-	// Will save the current user timetable to a .txt file using to appropriate format
+
+	/**
+	 * Will save the current user timetable to a .txt file using the appropriate format. Creates a new file if it doesn't
+	 * exist already
+	 * @param filename name of the file to save to
+	 */
 	public void saveToFile(String filename) {
 		try {
 			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/"+filename+".txt")));
@@ -203,7 +222,10 @@ public class User {
 			ioe.printStackTrace();
 		}
 	}
-	//will convert the timetables from lists of strings to lists of timeblocks
+
+	/**
+	 * will convert the timetables of current object from lists of strings to lists of timeblocks
+	 */
 	public void convertToTimeblock() {
 		Timeblock convert = new Timeblock();
 		suntimeblocks = convert.createTimeblocks(suntimetable);
@@ -215,7 +237,14 @@ public class User {
 		sattimeblocks = convert.createTimeblocks(sattimetable);
 
 	}
-	//Will check for username and password and throw an exception if the user is not found
+
+	/**
+	 * checks to see if a file with the correct username or password exists
+	 * @param filename name of user/file to check for
+	 * @param password password to check with
+	 * @return
+	 * @throws IOException if the user is not valid
+	 */
 	public boolean validateUser(String filename, String password) throws IOException{
 			int x = 0;
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
@@ -233,6 +262,81 @@ public class User {
 			reader.close();
 			if (x == 2) {return true;}
 			return false;
+	}
+
+
+	public void createFreeTimeArrays() {
+		int i = 0;
+		while (i < suntimeblocks.size()-1) {
+			LocalTime start = suntimeblocks.get(i).getEnd();
+			LocalTime end = suntimeblocks.get(i+1).getStart();
+			String name = "free";
+			System.out.println("start"+start+" "+"end"+end);
+			sunfreetime.add(new Timeblock(start,end,name));
+			System.out.println(sunfreetime.get(i));
+			i++;
+		}
+		i = 0;
+		while (i < montimeblocks.size()-1) {
+			LocalTime start = montimeblocks.get(i).getEnd();
+			LocalTime end = montimeblocks.get(i+1).getStart();
+			String name = "free";
+			System.out.println("start"+start+" "+"end"+end);
+			monfreetime.add(new Timeblock(start,end,name));
+			System.out.println(monfreetime.get(i));
+			i++;
+		}
+		i = 0;
+		while (i < tuetimeblocks.size()-1) {
+			LocalTime start = tuetimeblocks.get(i).getEnd();
+			LocalTime end = tuetimeblocks.get(i+1).getStart();
+			String name = "free";
+			System.out.println("start"+start+" "+"end"+end);
+			tuefreetime.add(new Timeblock(start,end,name));
+			System.out.println(tuefreetime.get(i));
+			i++;
+		}
+		i = 0;
+		while (i < wedtimeblocks.size()-1) {
+			LocalTime start = wedtimeblocks.get(i).getEnd();
+			LocalTime end = wedtimeblocks.get(i+1).getStart();
+			String name = "free";
+			System.out.println("start"+start+" "+"end"+end);
+			wedfreetime.add(new Timeblock(start,end,name));
+			System.out.println(wedfreetime.get(i));
+			i++;
+		}
+		i = 0;
+		while (i < thutimeblocks.size()-1) {
+			LocalTime start = thutimeblocks.get(i).getEnd();
+			LocalTime end = thutimeblocks.get(i+1).getStart();
+			String name = "free";
+			System.out.println("start"+start+" "+"end"+end);
+			thufreetime.add(new Timeblock(start,end,name));
+			System.out.println(thufreetime.get(i));
+			i++;
+		}
+		i = 0;
+		while (i < fritimeblocks.size()-1) {
+			LocalTime start = fritimeblocks.get(i).getEnd();
+			LocalTime end = fritimeblocks.get(i+1).getStart();
+			String name = "free";
+			System.out.println("start"+start+" "+"end"+end);
+			frifreetime.add(new Timeblock(start,end,name));
+			System.out.println(frifreetime.get(i));
+			i++;
+		}
+		i = 0;
+		while (i < sattimeblocks.size()-1) {
+			LocalTime start = sattimeblocks.get(i).getEnd();
+			LocalTime end = sattimeblocks.get(i+1).getStart();
+			String name = "free";
+			System.out.println("start"+start+" "+"end"+end);
+			satfreetime.add(new Timeblock(start,end,name));
+			System.out.println(satfreetime.get(i));
+			i++;
+		}
+
 	}
 
 	// Getters and setters below
@@ -299,4 +403,60 @@ public class User {
 	public ArrayList<Timeblock> getSattimeblocks() {return sattimeblocks;}
 
 	public void setSattimeblocks(ArrayList<Timeblock> sattimeblocks) {this.sattimeblocks = sattimeblocks;}
+
+	public ArrayList<Timeblock> getSunfreetime() {
+		return sunfreetime;
+	}
+
+	public void setSunfreetime(ArrayList<Timeblock> sunfreetime) {
+		this.sunfreetime = sunfreetime;
+	}
+
+	public ArrayList<Timeblock> getMonfreetime() {
+		return monfreetime;
+	}
+
+	public void setMonfreetime(ArrayList<Timeblock> monfreetime) {
+		this.monfreetime = monfreetime;
+	}
+
+	public ArrayList<Timeblock> getTuefreetime() {
+		return tuefreetime;
+	}
+
+	public void setTuefreetime(ArrayList<Timeblock> tuefreetime) {
+		this.tuefreetime = tuefreetime;
+	}
+
+	public ArrayList<Timeblock> getWedfreetime() {
+		return wedfreetime;
+	}
+
+	public void setWedfreetime(ArrayList<Timeblock> wedfreetime) {
+		this.wedfreetime = wedfreetime;
+	}
+
+	public ArrayList<Timeblock> getThufreetime() {
+		return thufreetime;
+	}
+
+	public void setThufreetime(ArrayList<Timeblock> thufreetime) {
+		this.thufreetime = thufreetime;
+	}
+
+	public ArrayList<Timeblock> getFrifreetime() {
+		return frifreetime;
+	}
+
+	public void setFrifreetime(ArrayList<Timeblock> frifreetime) {
+		this.frifreetime = frifreetime;
+	}
+
+	public ArrayList<Timeblock> getSatfreetime() {
+		return satfreetime;
+	}
+
+	public void setSatfreetime(ArrayList<Timeblock> satfreetime) {
+		this.satfreetime = satfreetime;
+	}
 }

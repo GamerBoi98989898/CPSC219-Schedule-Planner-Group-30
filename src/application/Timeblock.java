@@ -18,10 +18,13 @@ public class Timeblock {
 	}
 	
 	public Timeblock(LocalTime start, LocalTime end, String namelabel) {
-		this.start = start;
-		this.end = end;
-		this.namelabel = namelabel;
-		if (start.isBefore(end)) {this.duration = start.until(end, ChronoUnit.SECONDS);}
+		if (start.isBefore(end)) {
+			this.start = start;
+			this.end = end;
+			this.namelabel = namelabel;
+			this.duration = start.until(end, ChronoUnit.SECONDS);
+		}
+		else {System.out.println("Error making time block");}
 	}
 	
 	// function to convert our timeblocks in the .txt to a usable format
