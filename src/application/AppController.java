@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -94,7 +95,6 @@ public class AppController  {
 
 	static User currentUser;
 
-
 	@FXML
 	TextArea sunTextArea = new TextArea();
 
@@ -144,6 +144,16 @@ public class AppController  {
 	Button TestButton = new Button();
 	@FXML
 	Label TestLabel = new Label();
+	@FXML
+	Button showcomp = new Button();
+	@FXML
+	Button compareButton = new Button();
+	@FXML
+	TextField compareNameTField = new TextField();
+	@FXML
+	TextArea compareFreeTimeTArea = new TextArea();
+	@FXML
+	Button finishViewingFreetime = new Button();
 
 	/**
 	 *
@@ -197,12 +207,18 @@ public class AppController  {
 	}
 
 	public void TestButton(ActionEvent Event) {
-		/*Stage stage = (Stage)TestButton.getScene().getWindow();
+		Stage stage = (Stage)TestButton.getScene().getWindow();
 		User x = (User) stage.getUserData();
 		System.out.println(x.getSuntimetable().get(0));
-		TestArea.setText(x.getSuntimetable().get(0));*/
+		TestArea.setText(x.getSuntimetable().get(0));
+
 		User test = new User("guy");
 		test.createFreeTimeArrays();
+		User comp1 = new User("comp1");
+		User comp2 = new User("comp2");
+		comp1.createFreeTimeArrays();
+		comp2.createFreeTimeArrays();
+		Comparison comp = new Comparison(comp1.getSunfreetime(), comp2.getSunfreetime());
 	}
 
 
@@ -543,9 +559,8 @@ public class AppController  {
 	}
 
 	public String displayTable(int i) {
-		Stage stage = (Stage)applicationStage.getScene().getWindow();
-		User u = (User) stage.getUserData();
-		System.out.println("HAHAHAHAH");
+		//Stage stage = (Stage)applicationStage.getScene().getWindow();
+		//User u = (User) stage.getUserData();
 		String text = "";
 		//The stupid switch staement didn't work so im doing it this way
 		if (i == 0) {
@@ -591,5 +606,63 @@ public class AppController  {
 			}return text;
 		}
 		return text;
+	}
+
+	public void showcomp(ActionEvent Event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowFreeTimeView.fxml"));
+			Stage applicationStage = (Stage)showcomp.getScene().getWindow();
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			applicationStage.setScene(new Scene(root, 800, 600));
+			applicationStage.show();
+
+			User x = (User) applicationStage.getUserData();
+			System.out.println(x.getUsername());
+
+
+		} catch (IOException ioe) {
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
+		}
+	}
+	public void compareName(ActionEvent Event) {
+		String tocomparestr = compareNameTField.getText();
+		User tocompareusr = new User(tocomparestr);
+		Stage applicationStage = (Stage)compareButton.getScene().getWindow();
+		User x = (User) applicationStage.getUserData();
+		//System.out.println(x.getUsername());
+		x.createFreeTimeArrays();
+		tocompareusr.createFreeTimeArrays();
+		currentUser.createFreeTimeArrays();
+		Comparison comp = new Comparison(tocompareusr.getSunfreetime(), currentUser.getSunfreetime());
+		compareFreeTimeTArea.setText(comp.getFreetimelist().toString());
+	}
+
+
+	public void finishViewingFreetime(ActionEvent Event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
+			Stage applicationStage = (Stage)finishViewingFreetime.getScene().getWindow();
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			applicationStage.setScene(new Scene(root, 800, 600));
+			applicationStage.show();
+			controller.ScheduleViewSun.setText(displayTable(0));
+			controller.ScheduleViewMon.setText(displayTable(1));
+			controller.ScheduleViewTue.setText(displayTable(2));
+			controller.ScheduleViewWed.setText(displayTable(3));
+			controller.ScheduleViewThu.setText(displayTable(4));
+			controller.ScheduleViewFri.setText(displayTable(5));
+			controller.ScheduleViewSat.setText(displayTable(6));
+
+			User x = (User) applicationStage.getUserData();
+			System.out.println(x.getUsername());
+
+
+		} catch (IOException ioe) {
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
+		}
 	}
 }

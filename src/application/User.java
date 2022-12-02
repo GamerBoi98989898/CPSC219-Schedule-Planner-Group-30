@@ -58,7 +58,7 @@ public class User {
 	 */
 	public void readFromFile(String filename) {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("src/"+filename+".txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("src/"+filename+ ".txt"));
 			this.username = reader.readLine();
 			this.password = reader.readLine();
 			//	System.out.println(username);
@@ -161,7 +161,7 @@ public class User {
 	 */
 	public void saveToFile(String filename) {
 		try {
-			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/"+filename+".txt")));
+			PrintWriter writer= new PrintWriter(new BufferedWriter(new FileWriter("src/"+filename+ ".txt")));
 			writer.println(username);
 			writer.println(password);
 			writer.println("sun");
@@ -271,9 +271,9 @@ public class User {
 			LocalTime start = suntimeblocks.get(i).getEnd();
 			LocalTime end = suntimeblocks.get(i+1).getStart();
 			String name = "free";
-			System.out.println("start"+start+" "+"end"+end);
+			//System.out.println("start"+start+" "+"end"+end);
 			sunfreetime.add(new Timeblock(start,end,name));
-			System.out.println(sunfreetime.get(i));
+			//System.out.println(sunfreetime.get(i));
 			i++;
 		}
 		i = 0;
@@ -281,9 +281,9 @@ public class User {
 			LocalTime start = montimeblocks.get(i).getEnd();
 			LocalTime end = montimeblocks.get(i+1).getStart();
 			String name = "free";
-			System.out.println("start"+start+" "+"end"+end);
+			//System.out.println("start"+start+" "+"end"+end);
 			monfreetime.add(new Timeblock(start,end,name));
-			System.out.println(monfreetime.get(i));
+			//System.out.println(monfreetime.get(i));
 			i++;
 		}
 		i = 0;
@@ -291,9 +291,9 @@ public class User {
 			LocalTime start = tuetimeblocks.get(i).getEnd();
 			LocalTime end = tuetimeblocks.get(i+1).getStart();
 			String name = "free";
-			System.out.println("start"+start+" "+"end"+end);
+			//System.out.println("start"+start+" "+"end"+end);
 			tuefreetime.add(new Timeblock(start,end,name));
-			System.out.println(tuefreetime.get(i));
+			//System.out.println(tuefreetime.get(i));
 			i++;
 		}
 		i = 0;
@@ -301,9 +301,9 @@ public class User {
 			LocalTime start = wedtimeblocks.get(i).getEnd();
 			LocalTime end = wedtimeblocks.get(i+1).getStart();
 			String name = "free";
-			System.out.println("start"+start+" "+"end"+end);
+			//System.out.println("start"+start+" "+"end"+end);
 			wedfreetime.add(new Timeblock(start,end,name));
-			System.out.println(wedfreetime.get(i));
+			//System.out.println(wedfreetime.get(i));
 			i++;
 		}
 		i = 0;
@@ -311,9 +311,9 @@ public class User {
 			LocalTime start = thutimeblocks.get(i).getEnd();
 			LocalTime end = thutimeblocks.get(i+1).getStart();
 			String name = "free";
-			System.out.println("start"+start+" "+"end"+end);
+			//System.out.println("start"+start+" "+"end"+end);
 			thufreetime.add(new Timeblock(start,end,name));
-			System.out.println(thufreetime.get(i));
+			//System.out.println(thufreetime.get(i));
 			i++;
 		}
 		i = 0;
@@ -321,9 +321,9 @@ public class User {
 			LocalTime start = fritimeblocks.get(i).getEnd();
 			LocalTime end = fritimeblocks.get(i+1).getStart();
 			String name = "free";
-			System.out.println("start"+start+" "+"end"+end);
+			//System.out.println("start"+start+" "+"end"+end);
 			frifreetime.add(new Timeblock(start,end,name));
-			System.out.println(frifreetime.get(i));
+			//System.out.println(frifreetime.get(i));
 			i++;
 		}
 		i = 0;
@@ -331,9 +331,9 @@ public class User {
 			LocalTime start = sattimeblocks.get(i).getEnd();
 			LocalTime end = sattimeblocks.get(i+1).getStart();
 			String name = "free";
-			System.out.println("start"+start+" "+"end"+end);
+			//System.out.println("start"+start+" "+"end"+end);
 			satfreetime.add(new Timeblock(start,end,name));
-			System.out.println(satfreetime.get(i));
+			//System.out.println(satfreetime.get(i));
 			i++;
 		}
 
