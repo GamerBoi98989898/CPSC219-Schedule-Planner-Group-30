@@ -1,10 +1,6 @@
 package application;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -139,6 +135,20 @@ public class AppController  {
 	@FXML
 	TextArea ScheduleViewSat = new TextArea();
 	@FXML
+	TextArea FreeViewSun = new TextArea();
+	@FXML
+	TextArea FreeViewMon = new TextArea();
+	@FXML
+	TextArea FreeViewTue = new TextArea();
+	@FXML
+	TextArea FreeViewWed = new TextArea();
+	@FXML
+	TextArea FreeViewThu = new TextArea();
+	@FXML
+	TextArea FreeViewFri = new TextArea();
+	@FXML
+	TextArea FreeViewSat = new TextArea();
+	@FXML
 	TextArea TestArea = new TextArea();
 	@FXML
 	Button TestButton = new Button();
@@ -154,6 +164,8 @@ public class AppController  {
 	TextArea compareFreeTimeTArea = new TextArea();
 	@FXML
 	Button finishViewingFreetime = new Button();
+	@FXML
+	Label FreetimeErrorLabel = new Label();
 
 	/**
 	 *
@@ -200,10 +212,9 @@ public class AppController  {
 		} catch (IOException ioe) {
 			username = "";
 			password = "";
-			LoginErrorLabel.setText("Error could not find user");
 			//System.out.print(ioe);
 			//ioe.printStackTrace();
-		}
+		} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
 	}
 
 	public void TestButton(ActionEvent Event) {
@@ -218,7 +229,7 @@ public class AppController  {
 		User comp2 = new User("comp2");
 		comp1.createFreeTimeArrays();
 		comp2.createFreeTimeArrays();
-		Comparison comp = new Comparison(comp1.getSunfreetime(), comp2.getSunfreetime());
+		//Comparison comp = new Comparison(comp1.getSunfreetime(), comp2.getSunfreetime());
 	}
 
 
@@ -627,16 +638,33 @@ public class AppController  {
 		}
 	}
 	public void compareName(ActionEvent Event) {
-		String tocomparestr = compareNameTField.getText();
-		User tocompareusr = new User(tocomparestr);
-		Stage applicationStage = (Stage)compareButton.getScene().getWindow();
-		User x = (User) applicationStage.getUserData();
-		//System.out.println(x.getUsername());
-		x.createFreeTimeArrays();
-		tocompareusr.createFreeTimeArrays();
-		currentUser.createFreeTimeArrays();
-		Comparison comp = new Comparison(tocompareusr.getSunfreetime(), currentUser.getSunfreetime());
-		compareFreeTimeTArea.setText(comp.getFreetimelist().toString());
+		if(compareNameTField != null ){
+			try {
+				User.validateUser(compareNameTField.getText());
+				String tocomparestr = compareNameTField.getText();
+				User tocompareusr = new User(tocomparestr);
+				Stage applicationStage = (Stage)compareButton.getScene().getWindow();
+				User x = (User) applicationStage.getUserData();
+				//System.out.println(x.getUsername());
+				x.createFreeTimeArrays();
+				tocompareusr.createFreeTimeArrays();
+				currentUser.createFreeTimeArrays();
+				Comparison comp = new Comparison(currentUser, tocompareusr);
+				FreeViewSun.setText(comp.getSunfreetimelist().toString());
+				FreeViewMon.setText(comp.getMonfreetimelist().toString());
+				FreeViewTue.setText(comp.getTuefreetimelist().toString());
+				FreeViewWed.setText(comp.getWedfreetimelist().toString());
+				FreeViewThu.setText(comp.getThufreetimelist().toString());
+				FreeViewFri.setText(comp.getFrifreetimelist().toString());
+				FreeViewSat.setText(comp.getSatfreetimelist().toString());
+				FreetimeErrorLabel.setText("");
+			} catch (IOException e) {
+				FreetimeErrorLabel.setText("Error could not find User");
+				//System.out.println("User not found");
+			}
+
+		}
+
 	}
 
 
@@ -657,7 +685,7 @@ public class AppController  {
 			controller.ScheduleViewSat.setText(displayTable(6));
 
 			User x = (User) applicationStage.getUserData();
-			System.out.println(x.getUsername());
+			//System.out.println(x.getUsername());
 
 
 		} catch (IOException ioe) {

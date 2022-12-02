@@ -35,6 +35,7 @@ public class User {
 	private static User currentUser = new User();
 
 	public User() {
+
 	}
 
 	// Allow information of User to pass through scenes
@@ -48,9 +49,7 @@ public class User {
 	 * Constructor will take a filename and then read that file using the readFromFile method. See readFromFile for more info
 	 * @param filename name of the file to read
 	 */
-	public User(String filename) {
-		readFromFile(filename);
-	}
+	public User(String filename) { readFromFile(filename); }
 
 	/**
 	 * method will try to find and read a file. Throws IOException
@@ -262,6 +261,20 @@ public class User {
 			reader.close();
 			if (x == 2) {return true;}
 			return false;
+	}
+	public static boolean validateUser(String filename) throws IOException{
+		int x = 0;
+		BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
+		String Thisfilename = reader.readLine();
+		String Thispassword = reader.readLine();
+		//System.out.println(Thisfilename);
+		//System.out.println(Thispassword);
+		//System.out.println(filename);
+		//System.out.println(password);
+		if (filename.equals(Thisfilename)) {return true;}
+		//System.out.println(x);
+		reader.close();
+		return false;
 	}
 
 

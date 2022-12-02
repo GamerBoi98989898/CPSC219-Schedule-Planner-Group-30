@@ -12,13 +12,80 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="32.0" prefWidth="600.0">
          <children>
+            <Button fx:id="finishViewingFreetime" mnemonicParsing="false" onAction="#finishViewingFreetime" text="Go back" />
             <TextField fx:id="compareNameTField" promptText="Enter Name" />
-            <Button fx:id="compareButton" mnemonicParsing="false" onAction="#compareName" text="Button" />
+            <Button fx:id="compareButton" mnemonicParsing="false" onAction="#compareName" text="Find free time" />
+            <Label fx:id="FreetimeErrorLabel" text="." />
          </children>
       </HBox>
-      <TextArea fx:id="compareFreeTimeTArea" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="finishViewingFreetime" mnemonicParsing="false" onAction="#finishViewingFreetime" text="Go back" />
+      <TabPane prefHeight="323.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab fx:id="sunTab" closable="false" text="Sunday">
+               <content>
+                  <AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0">
+                     <children>
+                        <TextArea fx:id="FreeViewSun" layoutY="18.0" prefHeight="323.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="monTab" closable="false" text="Monday">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                     <children>
+                        <TextArea fx:id="FreeViewMon" layoutY="13.0" prefHeight="323.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tueTab" closable="false" text="Tuesday">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                     <children>
+                        <TextArea fx:id="FreeViewTue" layoutY="13.0" prefHeight="323.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="wedTab" closable="false" text="Wednesday">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="FreeViewWed" layoutY="15.0" prefHeight="323.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="thuTab" closable="false" text="Thursday">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="228.0" prefWidth="600.0">
+                     <children>
+                        <TextArea fx:id="FreeViewThu" layoutY="13.0" prefHeight="323.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="friTab" closable="false" text="Friday">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="FreeViewFri" layoutY="13.0" prefHeight="323.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="satTab" closable="false" text="Saturday">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="FreeViewSat" layoutY="13.0" prefHeight="323.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
    </children>
 </VBox>
