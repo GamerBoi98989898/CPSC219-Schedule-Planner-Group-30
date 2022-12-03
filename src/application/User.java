@@ -32,14 +32,14 @@ public class User {
 
 
 
-	private static User currentUser = new User();
+	private User currentUser;
 
 	public User() {
 
 	}
 
 	// Allow information of User to pass through scenes
-	public static User getUser() {
+	public User getUser() {
 
 		return currentUser;
 
