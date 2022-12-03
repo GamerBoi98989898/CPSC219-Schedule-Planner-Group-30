@@ -147,12 +147,45 @@ public class AppController  {
 	TextArea ScheduleViewFri = new TextArea();
 	@FXML
 	TextArea ScheduleViewSat = new TextArea();
-	@FXML
-	TextArea TestArea = new TextArea();
+
 	@FXML
 	Button showSched = new Button();
 	@FXML
 	Label createErrorLabel = new Label();
+
+	
+	@FXML
+	TextArea FreeViewSun = new TextArea();
+	@FXML
+	TextArea FreeViewMon = new TextArea();
+	@FXML
+	TextArea FreeViewTue = new TextArea();
+	@FXML
+	TextArea FreeViewWed = new TextArea();
+	@FXML
+	TextArea FreeViewThu = new TextArea();
+	@FXML
+	TextArea FreeViewFri = new TextArea();
+	@FXML
+	TextArea FreeViewSat = new TextArea();
+	@FXML
+	TextArea TestArea = new TextArea();
+	@FXML
+	Button TestButton = new Button();
+	@FXML
+	Label TestLabel = new Label();
+	@FXML
+	Button showcomp = new Button();
+	@FXML
+	Button compareButton = new Button();
+	@FXML
+	TextField compareNameTField = new TextField();
+	@FXML
+	TextArea compareFreeTimeTArea = new TextArea();
+	@FXML
+	Button finishViewingFreetime = new Button();
+	@FXML
+	Label FreetimeErrorLabel = new Label();
 	
 	
 
@@ -174,10 +207,12 @@ public class AppController  {
 			if (toValidate.validateUser(username, password)) {
 				//System.out.println("VALID");
 				currentUser = new User(username);
+				User tester = new User(username);
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 					Parent root = loader.load();
+					applicationStage.setUserData(tester);
 					AppController controller = loader.getController();
 					controller.ScheduleViewSun.setText(displayTable(0));
 					controller.ScheduleViewMon.setText(displayTable(1));
@@ -188,6 +223,8 @@ public class AppController  {
 					controller.ScheduleViewSat.setText(displayTable(6));
 					applicationStage.setScene(new Scene(root, 800, 600));
 					applicationStage.show();
+					controller.TestArea.setText("AAAAAg");
+
 
 				} catch (IOException ioe) {
 					//System.out.print(ioe);
@@ -197,10 +234,24 @@ public class AppController  {
 		} catch (IOException ioe) {
 			username = "";
 			password = "";
-			LoginErrorLabel.setText("Error could not find user");
 			//System.out.print(ioe);
 			//ioe.printStackTrace();
-		}
+		} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
+	}
+
+	public void TestButton(ActionEvent Event) {
+		Stage stage = (Stage)TestButton.getScene().getWindow();
+		User x = (User) stage.getUserData();
+		System.out.println(x.getSuntimetable().get(0));
+		TestArea.setText(x.getSuntimetable().get(0));
+
+		User test = new User("guy");
+		test.createFreeTimeArrays();
+		User comp1 = new User("comp1");
+		User comp2 = new User("comp2");
+		comp1.createFreeTimeArrays();
+		comp2.createFreeTimeArrays();
+		//Comparison comp = new Comparison(comp1.getSunfreetime(), comp2.getSunfreetime());
 	}
 
 	public void showSched(ActionEvent Event) {
@@ -709,5 +760,80 @@ public class AppController  {
 			}return text;
 		}
 		return text;
+	}
+
+	public void showcomp(ActionEvent Event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowFreeTimeView.fxml"));
+			Stage applicationStage = (Stage)showcomp.getScene().getWindow();
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			applicationStage.setScene(new Scene(root, 800, 600));
+			applicationStage.show();
+
+			User x = (User) applicationStage.getUserData();
+			System.out.println(x.getUsername());
+
+
+		} catch (IOException ioe) {
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
+		}
+	}
+	public void compareName(ActionEvent Event) {
+		if(compareNameTField != null ){
+			try {
+				User.validateUser(compareNameTField.getText());
+				String tocomparestr = compareNameTField.getText();
+				User tocompareusr = new User(tocomparestr);
+				Stage applicationStage = (Stage)compareButton.getScene().getWindow();
+				User x = (User) applicationStage.getUserData();
+				//System.out.println(x.getUsername());
+				x.createFreeTimeArrays();
+				tocompareusr.createFreeTimeArrays();
+				currentUser.createFreeTimeArrays();
+				Comparison comp = new Comparison(currentUser, tocompareusr);
+				FreeViewSun.setText(comp.getSunfreetimelist().toString());
+				FreeViewMon.setText(comp.getMonfreetimelist().toString());
+				FreeViewTue.setText(comp.getTuefreetimelist().toString());
+				FreeViewWed.setText(comp.getWedfreetimelist().toString());
+				FreeViewThu.setText(comp.getThufreetimelist().toString());
+				FreeViewFri.setText(comp.getFrifreetimelist().toString());
+				FreeViewSat.setText(comp.getSatfreetimelist().toString());
+				FreetimeErrorLabel.setText("");
+			} catch (IOException e) {
+				FreetimeErrorLabel.setText("Error could not find User");
+				//System.out.println("User not found");
+			}
+
+		}
+
+	}
+
+
+	public void finishViewingFreetime(ActionEvent Event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
+			Stage applicationStage = (Stage)finishViewingFreetime.getScene().getWindow();
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			applicationStage.setScene(new Scene(root, 800, 600));
+			applicationStage.show();
+			controller.ScheduleViewSun.setText(displayTable(0));
+			controller.ScheduleViewMon.setText(displayTable(1));
+			controller.ScheduleViewTue.setText(displayTable(2));
+			controller.ScheduleViewWed.setText(displayTable(3));
+			controller.ScheduleViewThu.setText(displayTable(4));
+			controller.ScheduleViewFri.setText(displayTable(5));
+			controller.ScheduleViewSat.setText(displayTable(6));
+
+			User x = (User) applicationStage.getUserData();
+			//System.out.println(x.getUsername());
+
+
+		} catch (IOException ioe) {
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
+		}
 	}
 }
