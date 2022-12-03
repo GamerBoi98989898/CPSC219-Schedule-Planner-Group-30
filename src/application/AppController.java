@@ -799,9 +799,9 @@ public class AppController  {
 				String tocomparestr = compareNameTField.getText();
 				User tocompareusr = new User(tocomparestr);
 				Stage applicationStage = (Stage)compareButton.getScene().getWindow();
-				User x = (User) applicationStage.getUserData();
+				User currentUser = (User) applicationStage.getUserData();
 				//System.out.println(x.getUsername());
-				x.createFreeTimeArrays();
+//				x.createFreeTimeArrays();
 				tocompareusr.createFreeTimeArrays();
 				currentUser.createFreeTimeArrays();
 				Comparison comp = new Comparison(currentUser, tocompareusr);
