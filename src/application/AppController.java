@@ -5,12 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -101,7 +97,7 @@ public class AppController  {
 	@FXML
 	Label RegisterErrorLabel;
 
-	static User currentUser;
+	
 
 
 	@FXML
@@ -188,6 +184,10 @@ public class AppController  {
 	Label FreetimeErrorLabel = new Label();
 	
 	
+//	static User currentUser;
+	
+	User currentUser = new User();
+	
 
 	/**
 	 *
@@ -212,7 +212,7 @@ public class AppController  {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 					Parent root = loader.load();
-					applicationStage.setUserData(tester);
+					applicationStage.setUserData(currentUser);
 					AppController controller = loader.getController();
 					controller.ScheduleViewSun.setText(displayTable(0));
 					controller.ScheduleViewMon.setText(displayTable(1));
@@ -241,9 +241,10 @@ public class AppController  {
 
 	public void TestButton(ActionEvent Event) {
 		Stage stage = (Stage)TestButton.getScene().getWindow();
-		User x = (User) stage.getUserData();
-		System.out.println(x.getSuntimetable().get(0));
-		TestArea.setText(x.getSuntimetable().get(0));
+		User currentUser = (User) stage.getUserData();
+		System.out.println(currentUser.getUsername());
+//		System.out.println(x.getSuntimetable().get(0));
+//		TestArea.setText(x.getSuntimetable().get(0));
 
 		User test = new User("guy");
 		test.createFreeTimeArrays();
@@ -335,7 +336,7 @@ public class AppController  {
 	 */
 
 	public void createSchedule(ActionEvent event)  {
-
+		
 
 		// Changes scene to allow user to create tasks for their schedule
 		try {
@@ -343,6 +344,8 @@ public class AppController  {
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
 			Parent root = loader.load();
 			AppController controller = loader.getController();
+			applicationStage.getUserData();
+			
 			
 			// Displays the current schedule of the user for each day of the week
 			controller.sunTextArea.setText(displayTable(0));
@@ -392,6 +395,10 @@ public class AppController  {
 		
 		createErrorLabel.setText("");
 		
+		// Get current user's data for adding schedule
+		Stage stage = (Stage)createTaskButton.getScene().getWindow();
+		User currentUser = (User) stage.getUserData();
+
 		
 		try {
 
@@ -631,14 +638,14 @@ public class AppController  {
 						
 						}
 				}
-			
+
+			}
 			
 			else {
 
 				createErrorLabel.setText("Please select a day");
 
 				}
-			}
 		} // end of try block
 
 		catch(Exception e) {
@@ -681,6 +688,11 @@ public class AppController  {
 	public void doneScheduleCreate(ActionEvent Event) {
 
 		try {
+			
+			// Get current user's data for saving into the text file
+			Stage stage = (Stage)doneButton.getScene().getWindow();
+			User currentUser = (User) stage.getUserData();
+			
 			// Saves the user's schedule into the text file
 			currentUser.saveToFile(currentUser.getUsername());
 
