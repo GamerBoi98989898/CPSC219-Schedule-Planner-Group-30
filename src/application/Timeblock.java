@@ -18,10 +18,13 @@ public class Timeblock {
 	}
 	
 	public Timeblock(LocalTime start, LocalTime end, String namelabel) {
-		this.start = start;
-		this.end = end;
-		this.namelabel = namelabel;
-		if (start.isBefore(end)) {this.duration = start.until(end, ChronoUnit.SECONDS);}
+		if (start.isBefore(end)) {
+			this.start = start;
+			this.end = end;
+			this.namelabel = namelabel;
+			this.duration = start.until(end, ChronoUnit.SECONDS);
+		}
+		else {System.out.println("Error making time block");}
 	}
 	
 	// function to convert our timeblocks in the .txt to a usable format
@@ -84,7 +87,6 @@ public class Timeblock {
 		this.namelabel = namelabel;
 	}
 	
-	
 	/**
 	 * 
 	 * Checks if there are overlapping times in taskList to avoid user from entering duplicates or conflicting times
@@ -92,7 +94,6 @@ public class Timeblock {
 	 * @param taskList
 	 * @return
 	 */
-
 	public boolean overlappingTime(ArrayList<String> taskList) {
 		
 		// Returns true if there is a conflict and returns false if there is no conflict
@@ -118,7 +119,6 @@ public class Timeblock {
 			
 		}
 		
-
 		// Loop through the taskList and find duplicates of times using the String value of start
 		for (String tasksCreated : taskList) {
 			
@@ -137,3 +137,4 @@ public class Timeblock {
 
 	}
 }
+
