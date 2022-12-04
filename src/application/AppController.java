@@ -628,13 +628,34 @@ public class AppController  {
 				//System.out.println(x.getUsername());
 				x.createFreeTimeArrays();
 				Comparison comp = new Comparison(currentUser, tocompareusr);
-				FreeViewSun.setText(comp.getSunfreetimelist().toString());
-				FreeViewMon.setText(comp.getMonfreetimelist().toString());
-				FreeViewTue.setText(comp.getTuefreetimelist().toString());
-				FreeViewWed.setText(comp.getWedfreetimelist().toString());
-				FreeViewThu.setText(comp.getThufreetimelist().toString());
-				FreeViewFri.setText(comp.getFrifreetimelist().toString());
-				FreeViewSat.setText(comp.getSatfreetimelist().toString());
+				for (Timeblock t : comp.getSunfreetimelist()) {
+					FreeViewSun.setText(t.toString());
+				}
+				for (Timeblock t : comp.getMonfreetimelist()) {
+					FreeViewMon.setText(t.toString());
+				}
+				for (Timeblock t : comp.getTuefreetimelist()) {
+					FreeViewTue.setText(t.toString());
+				}
+				for (Timeblock t : comp.getWedfreetimelist()) {
+					FreeViewWed.setText(t.toString());
+				}
+				for (Timeblock t : comp.getThufreetimelist()) {
+					FreeViewThu.setText(t.toString());
+				}
+				for (Timeblock t : comp.getFrifreetimelist()) {
+					FreeViewFri.setText(t.toString());
+				}
+				for (Timeblock t : comp.getSatfreetimelist()) {
+					FreeViewSat.setText(t.toString());
+				}
+				//FreeViewSun.setText(comp.getSunfreetimelist().toString());
+				//FreeViewMon.setText(comp.getMonfreetimelist().toString());
+				//FreeViewTue.setText(comp.getTuefreetimelist().toString());
+				//FreeViewWed.setText(comp.getWedfreetimelist().toString());
+				//FreeViewThu.setText(comp.getThufreetimelist().toString());
+				//FreeViewFri.setText(comp.getFrifreetimelist().toString());
+				//FreeViewSat.setText(comp.getSatfreetimelist().toString());
 				FreetimeErrorLabel.setText("");
 			} catch (IOException e) {
 				FreetimeErrorLabel.setText("Error could not find User");
