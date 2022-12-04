@@ -198,53 +198,56 @@ public class AppController  {
 	 */
 
 	public void userLogin(ActionEvent Event) {
-		User toValidate = new User();
-		String username = usernameTextField.getText();
-		String password = passwordTextField.getText();
-		//System.out.println(username);
-		//System.out.println(password);
-		try {
-			if (toValidate.validateUser(username, password)) {
-				//System.out.println("VALID");
-				currentUser = new User(username);
-				User tester = new User(username);
-				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
-					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
-					Parent root = loader.load();
-					applicationStage.setUserData(currentUser);
-					AppController controller = loader.getController();
-					controller.ScheduleViewSun.setText(displayTable(0));
-					controller.ScheduleViewMon.setText(displayTable(1));
-					controller.ScheduleViewTue.setText(displayTable(2));
-					controller.ScheduleViewWed.setText(displayTable(3));
-					controller.ScheduleViewThu.setText(displayTable(4));
-					controller.ScheduleViewFri.setText(displayTable(5));
-					controller.ScheduleViewSat.setText(displayTable(6));
-					applicationStage.setScene(new Scene(root, 800, 600));
-					applicationStage.show();
-					controller.TestArea.setText("AAAAAg");
+		LoginErrorLabel.setText("");
+		if (usernameTextField.getText() != null && passwordTextField.getText() != null) {
+			User toValidate = new User();
+			String username = usernameTextField.getText();
+			String password = passwordTextField.getText();
+			//System.out.println(username);
+			//System.out.println(password);
+			try {
+				if (toValidate.validateUser(username, password)) {
+					//System.out.println("VALID");
+					currentUser = new User(username);
+					User tester = new User(username);
+					try {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
+						Stage applicationStage = (Stage)loginButton.getScene().getWindow();
+						Parent root = loader.load();
+						applicationStage.setUserData(tester);
+						AppController controller = loader.getController();
+						controller.ScheduleViewSun.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
+						controller.ScheduleViewMon.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
+						controller.ScheduleViewTue.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
+						controller.ScheduleViewWed.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
+						controller.ScheduleViewThu.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
+						controller.ScheduleViewFri.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
+						controller.ScheduleViewSat.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
+						applicationStage.setScene(new Scene(root, 800, 600));
+						applicationStage.show();
+						controller.TestArea.setText("AAAAAg");
 
 
-				} catch (IOException ioe) {
-					//System.out.print(ioe);
-					//ioe.printStackTrace();
+					} catch (IOException ioe) {
+						//System.out.print(ioe);
+						//ioe.printStackTrace();
+					}
 				}
-			}
-		} catch (IOException ioe) {
-			username = "";
-			password = "";
-			//System.out.print(ioe);
-			//ioe.printStackTrace();
-		} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
+			} catch (IOException ioe) {
+				username = "";
+				password = "";
+				//System.out.print(ioe);
+				//ioe.printStackTrace();
+			} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
+		} else {LoginErrorLabel.setText("Please enter a username and password");}
 	}
 
 	public void TestButton(ActionEvent Event) {
 		Stage stage = (Stage)TestButton.getScene().getWindow();
-		User currentUser = (User) stage.getUserData();
-		System.out.println(currentUser.getUsername());
-//		System.out.println(x.getSuntimetable().get(0));
-//		TestArea.setText(x.getSuntimetable().get(0));
+		User x = (User) stage.getUserData();
+		User y = new User(x);
+		System.out.println(y.getUsername());
+		TestArea.setText(y.getUsername());
 
 		User test = new User("guy");
 		test.createFreeTimeArrays();
@@ -343,18 +346,17 @@ public class AppController  {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateScheduleView.fxml"));
 			Stage applicationStage = (Stage)createScheduleButton.getScene().getWindow();
 			Parent root = loader.load();
-			AppController controller = loader.getController();
-			applicationStage.getUserData();
+			User currentUser = (User) applicationStage.getUserData();
 			
+			// When the user creates a new schedule, it clears all the existing schedule prior to entering the create schedule scene
+			currentUser.getSuntimetable().clear();
+			currentUser.getMontimetable().clear();
+			currentUser.getTuetimetable().clear();
+			currentUser.getWedtimetable().clear();
+			currentUser.getThutimetable().clear();
+			currentUser.getFritimetable().clear();
+			currentUser.getSattimetable().clear();
 			
-			// Displays the current schedule of the user for each day of the week
-			controller.sunTextArea.setText(displayTable(0));
-			controller.monTextArea.setText(displayTable(1));
-			controller.tueTextArea.setText(displayTable(2));
-			controller.wedTextArea.setText(displayTable(3));
-			controller.thuTextArea.setText(displayTable(4));
-			controller.friTextArea.setText(displayTable(5));
-			controller.satTextArea.setText(displayTable(6));
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
 
@@ -418,6 +420,8 @@ public class AppController  {
 				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Sunday") == true) {
 					
+					sunTaskList = currentUser.getSuntimetable();
+					
 					sunTimeblock.setStart(LocalTime.parse(startTask));
 					sunTimeblock.setEnd(LocalTime.parse(endTask));
 					
@@ -426,8 +430,10 @@ public class AppController  {
 					
 					// Validate overlapping times to avoid user entering the same task multiple times
 					if (sunTimeblock.overlappingTime(sunTaskList) == false) {
+						
 						sunTaskList.add(startTask + "," + task + "," + endTask);
-						currentUser.setSuntimetable(sunTaskList);
+						currentUser.setSuntimeblocks(sunTimeblock.createTimeblocks(sunTaskList));
+						currentUser = new User(currentUser);
 
 	
 						sunTimeblock.setNamelabel(task);
@@ -440,7 +446,7 @@ public class AppController  {
 						
 						// Creates an object of timeblocks containing the tasks created by the user stored as String in the task list
 						sunTimeblock.createTimeblocks(sunTaskList);
-						currentUser.convertToTimeblock();
+						
 										
 						// Displays the contents of the Timeblocks into the TextArea for user to see
 						sunTextArea.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
@@ -460,13 +466,16 @@ public class AppController  {
 
 				else if (dayChoiceBox.getValue().equals("Monday") == true) {
 					
+					monTaskList = currentUser.getMontimetable();
+					
 					monTimeblock.setStart(LocalTime.parse(startTask));
 					monTimeblock.setEnd(LocalTime.parse(endTask));
 					
 					if (monTimeblock.overlappingTime(monTaskList) == false) {
 					
 						monTaskList.add(startTask + "," + task + "," + endTask);
-						currentUser.setMontimetable(monTaskList);
+						currentUser.setMontimeblocks(monTimeblock.createTimeblocks(monTaskList));
+						currentUser = new User(currentUser);
 	
 						monTimeblock.setNamelabel(task);
 	
@@ -475,7 +484,7 @@ public class AppController  {
 						Collections.sort(monTaskList);
 	
 						monTimeblock.createTimeblocks(monTaskList);
-						currentUser.convertToTimeblock();
+						
 	
 						monTextArea.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
 
@@ -490,13 +499,16 @@ public class AppController  {
 
 				else if (dayChoiceBox.getValue().equals("Tuesday") == true) {
 					
+					tueTaskList = currentUser.getTuetimetable();
+					
 					tueTimeblock.setStart(LocalTime.parse(startTask));
 					tueTimeblock.setEnd(LocalTime.parse(endTask));
 					
 					if (tueTimeblock.overlappingTime(tueTaskList) == false) {
 
 						tueTaskList.add(startTask + "," + task + "," + endTask);
-						currentUser.setTuetimetable(tueTaskList);
+						currentUser.setTuetimeblocks(tueTimeblock.createTimeblocks(tueTaskList));
+						currentUser = new User(currentUser);
 	
 						tueTimeblock.setNamelabel(task);
 	
@@ -504,7 +516,7 @@ public class AppController  {
 						Collections.sort(monTaskList);
 	
 						tueTimeblock.createTimeblocks(tueTaskList);
-						currentUser.convertToTimeblock();
+						
 	
 						tueTextArea.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
 
@@ -520,13 +532,16 @@ public class AppController  {
 
 				else if (dayChoiceBox.getValue().equals("Wednesday") == true) {
 					
+					wedTaskList = currentUser.getWedtimetable();
+					
 					wedTimeblock.setStart(LocalTime.parse(startTask));
 					wedTimeblock.setEnd(LocalTime.parse(endTask));
 					
 					if (wedTimeblock.overlappingTime(wedTaskList) == false) {
 					
 						wedTaskList.add(startTask + "," + task + "," + endTask);
-						currentUser.setWedtimetable(wedTaskList);
+						currentUser.setWedtimeblocks(wedTimeblock.createTimeblocks(wedTaskList));
+						currentUser = new User(currentUser);
 	
 						wedTimeblock.setNamelabel(task);
 	
@@ -535,7 +550,7 @@ public class AppController  {
 						Collections.sort(monTaskList);
 	
 						wedTimeblock.createTimeblocks(wedTaskList);
-						currentUser.convertToTimeblock();
+						
 	
 						wedTextArea.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
 
@@ -551,13 +566,16 @@ public class AppController  {
 
 				else if (dayChoiceBox.getValue().equals("Thursday") == true) {
 					
+					thuTaskList = currentUser.getThutimetable();
+					
 					thuTimeblock.setStart(LocalTime.parse(startTask));
 					thuTimeblock.setEnd(LocalTime.parse(endTask));
 
 					if (thuTimeblock.overlappingTime(thuTaskList) == false) {
-
+						
 						thuTaskList.add(startTask + "," + task + "," + endTask);
-						currentUser.setThutimetable(thuTaskList);
+						currentUser.setThutimeblocks(thuTimeblock.createTimeblocks(thuTaskList));
+						currentUser = new User(currentUser);
 	
 						thuTimeblock.setNamelabel(task);
 						
@@ -565,7 +583,7 @@ public class AppController  {
 						Collections.sort(monTaskList);
 	
 						thuTimeblock.createTimeblocks(thuTaskList);
-						currentUser.convertToTimeblock();
+						
 	
 						thuTextArea.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
 
@@ -581,13 +599,16 @@ public class AppController  {
 
 				else if (dayChoiceBox.getValue().equals("Friday") == true) {
 					
+					friTaskList = currentUser.getFritimetable();
+					
 					friTimeblock.setStart(LocalTime.parse(startTask));
 					friTimeblock.setEnd(LocalTime.parse(endTask));
 					
 					if (friTimeblock.overlappingTime(friTaskList) == false) {
 					
 						friTaskList.add(startTask + "," + task + "," + endTask);
-						currentUser.setFritimetable(friTaskList);
+						currentUser.setFritimeblocks(friTimeblock.createTimeblocks(friTaskList));
+						currentUser = new User(currentUser);
 	
 						friTimeblock.setNamelabel(task);
 	
@@ -596,7 +617,7 @@ public class AppController  {
 						Collections.sort(monTaskList);
 	
 						friTimeblock.createTimeblocks(friTaskList);
-						currentUser.convertToTimeblock();
+						
 			
 						friTextArea.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
 
@@ -611,13 +632,16 @@ public class AppController  {
 
 				else if (dayChoiceBox.getValue().equals("Saturday") == true) {
 					
+					satTaskList = currentUser.getSattimetable();
+					
 					satTimeblock.setStart(LocalTime.parse(startTask));
 					satTimeblock.setEnd(LocalTime.parse(endTask));
 
 					if (satTimeblock.overlappingTime(satTaskList) == false) {
 						
 						satTaskList.add(startTask + "," + task + "," + endTask);
-						currentUser.setSattimetable(satTaskList);
+						currentUser.setSattimeblocks(satTimeblock.createTimeblocks(satTaskList));
+						currentUser = new User(currentUser);
 	
 						satTimeblock.setNamelabel(task);
 						
@@ -626,7 +650,7 @@ public class AppController  {
 						Collections.sort(monTaskList);
 	
 						satTimeblock.createTimeblocks(satTaskList);
-						currentUser.convertToTimeblock();
+						
 		
 						satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
@@ -699,17 +723,18 @@ public class AppController  {
 			// Switch back to previous schedule view scene
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 			Stage applicationStage = (Stage)doneButton.getScene().getWindow();
+			
 			Parent root = loader.load();
 			AppController controller = loader.getController();
 			
 			// Set the TextArea to the user's schedule for each day
-			controller.ScheduleViewSun.setText(displayTable(0));
-			controller.ScheduleViewMon.setText(displayTable(1));
-			controller.ScheduleViewTue.setText(displayTable(2));
-			controller.ScheduleViewWed.setText(displayTable(3));
-			controller.ScheduleViewThu.setText(displayTable(4));
-			controller.ScheduleViewFri.setText(displayTable(5));
-			controller.ScheduleViewSat.setText(displayTable(6));
+			controller.ScheduleViewSun.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
+			controller.ScheduleViewMon.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
+			controller.ScheduleViewTue.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
+			controller.ScheduleViewWed.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
+			controller.ScheduleViewThu.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
+			controller.ScheduleViewFri.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
+			controller.ScheduleViewSat.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
 
@@ -723,55 +748,6 @@ public class AppController  {
 		}
 
 
-	}
-
-	// Method to display the schedule of the user for each day and return the String text for the TextArea to display
-	public String displayTable(int i) {
-		String text = "";
-		//The stupid switch staement didn't work so im doing it this way
-		if (i == 0) {
-			for (Timeblock x : currentUser.getSuntimeblocks()) {
-				text = text.concat(x.toString() + "\n");
-
-			}return text;
-		}
-		if (i == 1) {
-			for (Timeblock x : currentUser.getMontimeblocks()) {
-				text = text.concat(x.toString() + "\n");
-
-			}return text;
-		}
-		if (i == 2) {
-			for (Timeblock x : currentUser.getTuetimeblocks()) {
-				text = text.concat(x.toString() + "\n");
-
-			}return text;
-		}
-		if (i == 3) {
-			for (Timeblock x : currentUser.getWedtimeblocks()) {
-				text = text.concat(x.toString() + "\n");
-
-			}return text;
-		}
-		if (i == 4) {
-			for (Timeblock x : currentUser.getThutimeblocks()) {
-				text = text.concat(x.toString() + "\n");
-
-			}return text;
-		}
-		if (i == 5) {
-			for (Timeblock x : currentUser.getFritimeblocks()) {
-				text = text.concat(x.toString() + "\n");
-
-			}return text;
-		}
-		if (i == 6) {
-			for (Timeblock x : currentUser.getSattimeblocks()) {
-				text = text.concat(x.toString() + "\n");
-
-			}return text;
-		}
-		return text;
 	}
 
 	public void showcomp(ActionEvent Event) {
@@ -793,29 +769,50 @@ public class AppController  {
 		}
 	}
 	public void compareName(ActionEvent Event) {
-		if(compareNameTField != null ){
+		if (compareNameTField != null) {
 			try {
 				User.validateUser(compareNameTField.getText());
 				String tocomparestr = compareNameTField.getText();
 				User tocompareusr = new User(tocomparestr);
-				Stage applicationStage = (Stage)compareButton.getScene().getWindow();
-				User currentUser = (User) applicationStage.getUserData();
-				//System.out.println(x.getUsername());
-//				x.createFreeTimeArrays();
-				tocompareusr.createFreeTimeArrays();
-				currentUser.createFreeTimeArrays();
-				Comparison comp = new Comparison(currentUser, tocompareusr);
-				FreeViewSun.setText(comp.getSunfreetimelist().toString());
-				FreeViewMon.setText(comp.getMonfreetimelist().toString());
-				FreeViewTue.setText(comp.getTuefreetimelist().toString());
-				FreeViewWed.setText(comp.getWedfreetimelist().toString());
-				FreeViewThu.setText(comp.getThufreetimelist().toString());
-				FreeViewFri.setText(comp.getFrifreetimelist().toString());
-				FreeViewSat.setText(comp.getSatfreetimelist().toString());
+				Stage applicationStage = (Stage) compareButton.getScene().getWindow();
+				
+				// ************************************************************
+				User x = (User) applicationStage.getUserData();
+				// System.out.println(x.getUsername());
+				x.createFreeTimeArrays();
+				Comparison comp = new Comparison(x, tocompareusr);
+				for (Timeblock t : comp.getSunfreetimelist()) {
+					FreeViewSun.setText(t.toString());
+				}
+				for (Timeblock t : comp.getMonfreetimelist()) {
+					FreeViewMon.setText(t.toString());
+				}
+				for (Timeblock t : comp.getTuefreetimelist()) {
+					FreeViewTue.setText(t.toString());
+				}
+				for (Timeblock t : comp.getWedfreetimelist()) {
+					FreeViewWed.setText(t.toString());
+				}
+				for (Timeblock t : comp.getThufreetimelist()) {
+					FreeViewThu.setText(t.toString());
+				}
+				for (Timeblock t : comp.getFrifreetimelist()) {
+					FreeViewFri.setText(t.toString());
+				}
+				for (Timeblock t : comp.getSatfreetimelist()) {
+					FreeViewSat.setText(t.toString());
+				}
+				// FreeViewSun.setText(comp.getSunfreetimelist().toString());
+				// FreeViewMon.setText(comp.getMonfreetimelist().toString());
+				// FreeViewTue.setText(comp.getTuefreetimelist().toString());
+				// FreeViewWed.setText(comp.getWedfreetimelist().toString());
+				// FreeViewThu.setText(comp.getThufreetimelist().toString());
+				// FreeViewFri.setText(comp.getFrifreetimelist().toString());
+				// FreeViewSat.setText(comp.getSatfreetimelist().toString());
 				FreetimeErrorLabel.setText("");
 			} catch (IOException e) {
 				FreetimeErrorLabel.setText("Error could not find User");
-				//System.out.println("User not found");
+				// System.out.println("User not found");
 			}
 
 		}
@@ -831,15 +828,17 @@ public class AppController  {
 			AppController controller = loader.getController();
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
-			controller.ScheduleViewSun.setText(displayTable(0));
-			controller.ScheduleViewMon.setText(displayTable(1));
-			controller.ScheduleViewTue.setText(displayTable(2));
-			controller.ScheduleViewWed.setText(displayTable(3));
-			controller.ScheduleViewThu.setText(displayTable(4));
-			controller.ScheduleViewFri.setText(displayTable(5));
-			controller.ScheduleViewSat.setText(displayTable(6));
+			
+			User currentUser = (User) applicationStage.getUserData();
+			controller.ScheduleViewSun.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
+			controller.ScheduleViewMon.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
+			controller.ScheduleViewTue.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
+			controller.ScheduleViewWed.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
+			controller.ScheduleViewThu.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
+			controller.ScheduleViewFri.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
+			controller.ScheduleViewSat.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
-			User x = (User) applicationStage.getUserData();
+			
 			//System.out.println(x.getUsername());
 
 
