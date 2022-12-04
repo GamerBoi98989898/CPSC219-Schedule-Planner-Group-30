@@ -32,9 +32,8 @@ public class User {
 
 
 
-	private static User currentUser = new User();
-
 	public User() {
+
 	}
 
 	public User(User user) {
@@ -170,6 +169,7 @@ public class User {
 			reader.close();
 			this.convertToTimeblock();
 		} catch (FileNotFoundException fnf) {
+			//
 			fnf.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();

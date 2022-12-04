@@ -86,5 +86,55 @@ public class Timeblock {
 	void setNamelabel(String namelabel) {
 		this.namelabel = namelabel;
 	}
+	
+	/**
+	 * 
+	 * Checks if there are overlapping times in taskList to avoid user from entering duplicates or conflicting times
+	 * 
+	 * @param taskList
+	 * @return
+	 */
+	public boolean overlappingTime(ArrayList<String> taskList) {
+		
+		// Returns true if there is a conflict and returns false if there is no conflict
+		boolean overlapStatus = false;
+		
+		// If the compare value is 0, it means that both start and end times are the same
+		// and there will be an overlap
+		if (start.compareTo(end) == 0) {
+			
+			overlapStatus = true;
+			
+			return overlapStatus;
 
+		}
+		
+		// Compares start time to end time. If the compare value is 1, it means the start time is greater than the end time
+		// If the start time is greater than the end time, there will be an overlap
+		else if (start.compareTo(end) > 0) {
+			
+			overlapStatus = true;
+			
+			return overlapStatus;
+			
+		}
+		
+		// Loop through the taskList and find duplicates of times using the String value of start
+		for (String tasksCreated : taskList) {
+			
+			// If start time already exists in the ArrayList
+			// The issue with this is that for example the start is 01:00 and end is 02:00
+			// The next task cannot be start: 02:00 and end 03:00 as the 02:00 already exists
+			// Therefore, the next start time can be a time of 02:05 for it to be added
+			 if (tasksCreated.contains(start.toString()) == true || tasksCreated.contains(end.toString()) == true) {
+				 
+				overlapStatus = true;
+
+			}
+	}
+		
+		return overlapStatus;
+
+	}
 }
+
