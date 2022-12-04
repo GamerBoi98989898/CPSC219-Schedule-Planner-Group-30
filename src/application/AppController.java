@@ -432,6 +432,10 @@ public class AppController  {
 					if (sunTimeblock.overlappingTime(sunTaskList) == false) {
 						
 						sunTaskList.add(startTask + "," + task + "," + endTask);
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(sunTaskList);
+						
 						currentUser.setSuntimeblocks(sunTimeblock.createTimeblocks(sunTaskList));
 						currentUser = new User(currentUser);
 
@@ -439,11 +443,6 @@ public class AppController  {
 						sunTimeblock.setNamelabel(task);
 						
 
-						
-	
-						// sorts the list of tasks in the Text Area and into the saved text file
-						Collections.sort(sunTaskList);
-						
 						// Creates an object of timeblocks containing the tasks created by the user stored as String in the task list
 						sunTimeblock.createTimeblocks(sunTaskList);
 						
@@ -474,14 +473,18 @@ public class AppController  {
 					if (monTimeblock.overlappingTime(monTaskList) == false) {
 					
 						monTaskList.add(startTask + "," + task + "," + endTask);
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(monTaskList);
+						
+						
 						currentUser.setMontimeblocks(monTimeblock.createTimeblocks(monTaskList));
 						currentUser = new User(currentUser);
 	
 						monTimeblock.setNamelabel(task);
 	
 	
-						// sorts the list of tasks in the Text Area and into the saved text file
-						Collections.sort(monTaskList);
+
 	
 						monTimeblock.createTimeblocks(monTaskList);
 						
@@ -507,13 +510,16 @@ public class AppController  {
 					if (tueTimeblock.overlappingTime(tueTaskList) == false) {
 
 						tueTaskList.add(startTask + "," + task + "," + endTask);
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(tueTaskList);
+						
 						currentUser.setTuetimeblocks(tueTimeblock.createTimeblocks(tueTaskList));
 						currentUser = new User(currentUser);
 	
 						tueTimeblock.setNamelabel(task);
 	
-						// sorts the list of tasks in the Text Area and into the saved text file
-						Collections.sort(monTaskList);
+
 	
 						tueTimeblock.createTimeblocks(tueTaskList);
 						
@@ -540,14 +546,18 @@ public class AppController  {
 					if (wedTimeblock.overlappingTime(wedTaskList) == false) {
 					
 						wedTaskList.add(startTask + "," + task + "," + endTask);
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(wedTaskList);
+						
+						
 						currentUser.setWedtimeblocks(wedTimeblock.createTimeblocks(wedTaskList));
 						currentUser = new User(currentUser);
 	
 						wedTimeblock.setNamelabel(task);
 	
 	
-						// sorts the list of tasks in the Text Area and into the saved text file
-						Collections.sort(monTaskList);
+
 	
 						wedTimeblock.createTimeblocks(wedTaskList);
 						
@@ -574,13 +584,16 @@ public class AppController  {
 					if (thuTimeblock.overlappingTime(thuTaskList) == false) {
 						
 						thuTaskList.add(startTask + "," + task + "," + endTask);
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(thuTaskList);
+						
 						currentUser.setThutimeblocks(thuTimeblock.createTimeblocks(thuTaskList));
 						currentUser = new User(currentUser);
 	
 						thuTimeblock.setNamelabel(task);
 						
-						// sorts the list of tasks in the Text Area and into the saved text file
-						Collections.sort(monTaskList);
+
 	
 						thuTimeblock.createTimeblocks(thuTaskList);
 						
@@ -607,14 +620,18 @@ public class AppController  {
 					if (friTimeblock.overlappingTime(friTaskList) == false) {
 					
 						friTaskList.add(startTask + "," + task + "," + endTask);
+						
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(friTaskList);
+						
 						currentUser.setFritimeblocks(friTimeblock.createTimeblocks(friTaskList));
 						currentUser = new User(currentUser);
 	
 						friTimeblock.setNamelabel(task);
 	
 	
-						// sorts the list of tasks in the Text Area and into the saved text file
-						Collections.sort(monTaskList);
+
 	
 						friTimeblock.createTimeblocks(friTaskList);
 						
@@ -640,14 +657,17 @@ public class AppController  {
 					if (satTimeblock.overlappingTime(satTaskList) == false) {
 						
 						satTaskList.add(startTask + "," + task + "," + endTask);
+						
+						// sorts the list of tasks in the Text Area and into the saved text file
+						Collections.sort(satTaskList);
+						
 						currentUser.setSattimeblocks(satTimeblock.createTimeblocks(satTaskList));
 						currentUser = new User(currentUser);
 	
 						satTimeblock.setNamelabel(task);
 						
 	
-						// sorts the list of tasks in the Text Area and into the saved text file
-						Collections.sort(monTaskList);
+
 	
 						satTimeblock.createTimeblocks(satTaskList);
 						
