@@ -28,7 +28,7 @@ public class Timeblock {
 	}
 	
 	// function to convert our timeblocks in the .txt to a usable format
-	ArrayList<Timeblock> createTimeblocks(ArrayList<String> list ) {
+	public ArrayList<Timeblock> createTimeblocks(ArrayList<String> list ) {
 		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
 		
 		for (String i : list) {

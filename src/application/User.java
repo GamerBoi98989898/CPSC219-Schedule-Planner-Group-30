@@ -35,27 +35,50 @@ public class User {
 	private static User currentUser = new User();
 
 	public User() {
-
 	}
 
-	// Allow information of User to pass through scenes
-	public static User getUser() {
-
-		return currentUser;
-
+	public User(User user) {
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.suntimetable = user.getSuntimetable();
+		this.montimetable = user.getMontimetable();
+		this.tuetimetable = user.getTuetimetable();
+		this.wedtimetable = user.getWedtimetable();
+		this.thutimetable = user.getThutimetable();
+		this.fritimetable = user.getFritimetable();
+		this.sattimetable = user.getSattimetable();
+		this.suntimeblocks = user.getSuntimeblocks();
+		this.montimeblocks = user.getMontimeblocks();
+		this.tuetimeblocks = user.getTuetimeblocks();
+		this.wedtimeblocks = user.getWedtimeblocks();
+		this.thutimeblocks = user.getThutimeblocks();
+		this.fritimeblocks = user.getFritimeblocks();
+		this.sattimeblocks = user.getSattimeblocks();
+		this.sunfreetime = user.getSunfreetime();
+		this.monfreetime = user.getMonfreetime();
+		this.tuefreetime = user.getTuefreetime();
+		this.wedfreetime = user.getWedfreetime();
+		this.thufreetime = user.getThufreetime();
+		this.frifreetime = user.getFrifreetime();
+		this.satfreetime = user.getSatfreetime();
 	}
+
 
 	/**
 	 * Constructor will take a filename and then read that file using the readFromFile method. See readFromFile for more info
 	 * @param filename name of the file to read
 	 */
-	public User(String filename) { readFromFile(filename); }
+	public User(String filename) {
+		readFromFile(filename);
+		convertToTimeblock();
+		createFreeTimeArrays();
+	}
 
 	/**
 	 * method will try to find and read a file. Throws IOException
 	 * @param filename name of file to read
 	 */
-	public void readFromFile(String filename) {
+	private void readFromFile(String filename) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("src/"+filename+ ".txt"));
 			this.username = reader.readLine();
@@ -225,7 +248,7 @@ public class User {
 	/**
 	 * will convert the timetables of current object from lists of strings to lists of timeblocks
 	 */
-	public void convertToTimeblock() {
+	private void convertToTimeblock() {
 		Timeblock convert = new Timeblock();
 		suntimeblocks = convert.createTimeblocks(suntimetable);
 		montimeblocks = convert.createTimeblocks(montimetable);
@@ -266,11 +289,6 @@ public class User {
 		int x = 0;
 		BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 		String Thisfilename = reader.readLine();
-		String Thispassword = reader.readLine();
-		//System.out.println(Thisfilename);
-		//System.out.println(Thispassword);
-		//System.out.println(filename);
-		//System.out.println(password);
 		if (filename.equals(Thisfilename)) {return true;}
 		//System.out.println(x);
 		reader.close();
@@ -280,6 +298,14 @@ public class User {
 
 	public void createFreeTimeArrays() {
 		int i = 0;
+		if (suntimeblocks.size() == 1) {
+			LocalTime start1 = LocalTime.MIN;
+			LocalTime end1 = suntimeblocks.get(0).getStart();
+			LocalTime start2 = suntimeblocks.get(0).getEnd();
+			LocalTime end2 = LocalTime.MAX;
+			sunfreetime.add(new Timeblock(start1,end1,"free"));
+			sunfreetime.add(new Timeblock(start2,end2,"free"));
+		}
 		while (i < suntimeblocks.size()-1) {
 			LocalTime start = suntimeblocks.get(i).getEnd();
 			LocalTime end = suntimeblocks.get(i+1).getStart();
@@ -290,6 +316,14 @@ public class User {
 			i++;
 		}
 		i = 0;
+		if (montimeblocks.size() == 1) {
+			LocalTime start1 = LocalTime.MIN;
+			LocalTime end1 = montimeblocks.get(0).getStart();
+			LocalTime start2 = montimeblocks.get(0).getEnd();
+			LocalTime end2 = LocalTime.MAX;
+			monfreetime.add(new Timeblock(start1,end1,"free"));
+			monfreetime.add(new Timeblock(start2,end2,"free"));
+		}
 		while (i < montimeblocks.size()-1) {
 			LocalTime start = montimeblocks.get(i).getEnd();
 			LocalTime end = montimeblocks.get(i+1).getStart();
@@ -300,6 +334,14 @@ public class User {
 			i++;
 		}
 		i = 0;
+		if (tuetimeblocks.size() == 1) {
+			LocalTime start1 = LocalTime.MIN;
+			LocalTime end1 = tuetimeblocks.get(0).getStart();
+			LocalTime start2 = tuetimeblocks.get(0).getEnd();
+			LocalTime end2 = LocalTime.MAX;
+			tuefreetime.add(new Timeblock(start1,end1,"free"));
+			tuefreetime.add(new Timeblock(start2,end2,"free"));
+		}
 		while (i < tuetimeblocks.size()-1) {
 			LocalTime start = tuetimeblocks.get(i).getEnd();
 			LocalTime end = tuetimeblocks.get(i+1).getStart();
@@ -310,6 +352,14 @@ public class User {
 			i++;
 		}
 		i = 0;
+		if (wedtimeblocks.size() == 1) {
+			LocalTime start1 = LocalTime.MIN;
+			LocalTime end1 = wedtimeblocks.get(0).getStart();
+			LocalTime start2 = wedtimeblocks.get(0).getEnd();
+			LocalTime end2 = LocalTime.MAX;
+			wedfreetime.add(new Timeblock(start1,end1,"free"));
+			wedfreetime.add(new Timeblock(start2,end2,"free"));
+		}
 		while (i < wedtimeblocks.size()-1) {
 			LocalTime start = wedtimeblocks.get(i).getEnd();
 			LocalTime end = wedtimeblocks.get(i+1).getStart();
@@ -320,6 +370,14 @@ public class User {
 			i++;
 		}
 		i = 0;
+		if (thutimeblocks.size() == 1) {
+			LocalTime start1 = LocalTime.MIN;
+			LocalTime end1 = thutimeblocks.get(0).getStart();
+			LocalTime start2 = thutimeblocks.get(0).getEnd();
+			LocalTime end2 = LocalTime.MAX;
+			thufreetime.add(new Timeblock(start1,end1,"free"));
+			thufreetime.add(new Timeblock(start2,end2,"free"));
+		}
 		while (i < thutimeblocks.size()-1) {
 			LocalTime start = thutimeblocks.get(i).getEnd();
 			LocalTime end = thutimeblocks.get(i+1).getStart();
@@ -330,6 +388,14 @@ public class User {
 			i++;
 		}
 		i = 0;
+		if (fritimeblocks.size() == 1) {
+			LocalTime start1 = LocalTime.MIN;
+			LocalTime end1 = fritimeblocks.get(0).getStart();
+			LocalTime start2 = fritimeblocks.get(0).getEnd();
+			LocalTime end2 = LocalTime.MAX;
+			frifreetime.add(new Timeblock(start1,end1,"free"));
+			frifreetime.add(new Timeblock(start2,end2,"free"));
+		}
 		while (i < fritimeblocks.size()-1) {
 			LocalTime start = fritimeblocks.get(i).getEnd();
 			LocalTime end = fritimeblocks.get(i+1).getStart();
@@ -340,6 +406,14 @@ public class User {
 			i++;
 		}
 		i = 0;
+		if (sattimeblocks.size() == 1) {
+			LocalTime start1 = LocalTime.MIN;
+			LocalTime end1 = sattimeblocks.get(0).getStart();
+			LocalTime start2 = sattimeblocks.get(0).getEnd();
+			LocalTime end2 = LocalTime.MAX;
+			satfreetime.add(new Timeblock(start1,end1,"free"));
+			satfreetime.add(new Timeblock(start2,end2,"free"));
+		}
 		while (i < sattimeblocks.size()-1) {
 			LocalTime start = sattimeblocks.get(i).getEnd();
 			LocalTime end = sattimeblocks.get(i+1).getStart();

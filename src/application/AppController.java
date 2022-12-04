@@ -176,52 +176,57 @@ public class AppController  {
 	 */
 
 	public void userLogin(ActionEvent Event) {
-		User toValidate = new User();
-		String username = usernameTextField.getText();
-		String password = passwordTextField.getText();
-		//System.out.println(username);
-		//System.out.println(password);
-		try {
-			if (toValidate.validateUser(username, password)) {
-				//System.out.println("VALID");
-				currentUser = new User(username);
-				User tester = new User(username);
-				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
-					Stage applicationStage = (Stage)loginButton.getScene().getWindow();
-					Parent root = loader.load();
-					applicationStage.setUserData(tester);
-					AppController controller = loader.getController();
-					controller.ScheduleViewSun.setText(displayTable(0));
-					controller.ScheduleViewMon.setText(displayTable(1));
-					controller.ScheduleViewTue.setText(displayTable(2));
-					controller.ScheduleViewWed.setText(displayTable(3));
-					controller.ScheduleViewThu.setText(displayTable(4));
-					controller.ScheduleViewFri.setText(displayTable(5));
-					controller.ScheduleViewSat.setText(displayTable(6));
-					applicationStage.setScene(new Scene(root, 800, 600));
-					applicationStage.show();
-					controller.TestArea.setText("AAAAAg");
+		LoginErrorLabel.setText("");
+		if (usernameTextField.getText() != null && passwordTextField.getText() != null) {
+			User toValidate = new User();
+			String username = usernameTextField.getText();
+			String password = passwordTextField.getText();
+			//System.out.println(username);
+			//System.out.println(password);
+			try {
+				if (toValidate.validateUser(username, password)) {
+					//System.out.println("VALID");
+					currentUser = new User(username);
+					User tester = new User(username);
+					try {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
+						Stage applicationStage = (Stage)loginButton.getScene().getWindow();
+						Parent root = loader.load();
+						applicationStage.setUserData(tester);
+						AppController controller = loader.getController();
+						controller.ScheduleViewSun.setText(displayTable(0));
+						controller.ScheduleViewMon.setText(displayTable(1));
+						controller.ScheduleViewTue.setText(displayTable(2));
+						controller.ScheduleViewWed.setText(displayTable(3));
+						controller.ScheduleViewThu.setText(displayTable(4));
+						controller.ScheduleViewFri.setText(displayTable(5));
+						controller.ScheduleViewSat.setText(displayTable(6));
+						applicationStage.setScene(new Scene(root, 800, 600));
+						applicationStage.show();
+						controller.TestArea.setText("AAAAAg");
 
 
-				} catch (IOException ioe) {
-					//System.out.print(ioe);
-					//ioe.printStackTrace();
+					} catch (IOException ioe) {
+						//System.out.print(ioe);
+						//ioe.printStackTrace();
+					}
 				}
-			}
-		} catch (IOException ioe) {
-			username = "";
-			password = "";
-			//System.out.print(ioe);
-			//ioe.printStackTrace();
-		} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
+			} catch (IOException ioe) {
+				username = "";
+				password = "";
+				//System.out.print(ioe);
+				//ioe.printStackTrace();
+			} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
+		} else {LoginErrorLabel.setText("Please enter a username and password");}
 	}
+
 
 	public void TestButton(ActionEvent Event) {
 		Stage stage = (Stage)TestButton.getScene().getWindow();
 		User x = (User) stage.getUserData();
-		System.out.println(x.getSuntimetable().get(0));
-		TestArea.setText(x.getSuntimetable().get(0));
+		User y = new User(x);
+		System.out.println(y.getUsername());
+		TestArea.setText(y.getUsername());
 
 		User test = new User("guy");
 		test.createFreeTimeArrays();
@@ -364,61 +369,44 @@ public class AppController  {
 					sunTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSuntimetable(sunTaskList);
 
-					//sunTimeblock.setNamelabel(task);
-					//sunTimeblock.setStart(LocalTime.parse(startTask));
-					//sunTimeblock.setEnd(LocalTime.parse(endTask));
-
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(sunTaskList);
 
-					//sunTimeblock.createTimeblocks(sunTaskList);
-					currentUser.convertToTimeblock();
-					//currentUser.setSuntimetable(sunTaskList);
+					currentUser.setSuntimeblocks(sunTimeblock.createTimeblocks(sunTaskList));
+					currentUser = new User(currentUser);
 					for (Timeblock x : currentUser.getSuntimeblocks()) {
 						text = text.concat(x.toString()+ "\n");
 						sunTextArea.setText(text);
 					}
-					//sunTextArea.setText(timeblockToString(currentUser.getSuntimeblocks()));
-
 				}
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "MONDAY") {
 
+					monTaskList = currentUser.getMontimetable();
 					monTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setMontimetable(monTaskList);
-
-					monTimeblock.setNamelabel(task);
-					monTimeblock.setStart(LocalTime.parse(startTask));
-					monTimeblock.setEnd(LocalTime.parse(endTask));
 
 					// sorts the list of tasks in the Text Area and into the saved text file
 					Collections.sort(monTaskList);
 
-					monTimeblock.createTimeblocks(monTaskList);
-					currentUser.convertToTimeblock();
-
+					currentUser.setMontimeblocks(monTimeblock.createTimeblocks(monTaskList));
+					currentUser = new User(currentUser);
 					for (Timeblock x : currentUser.getMontimeblocks()) {
 						monTextArea.setText(x.toString());
 					}
-					//monTextArea.setText(timeblockToString(currentUser.getMontimeblocks()));
-
 				}
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "TUESDAY") {
 
+					tueTaskList = currentUser.getTuetimetable();
 					tueTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setTuetimetable(tueTaskList);
 
-					tueTimeblock.setNamelabel(task);
-					tueTimeblock.setStart(LocalTime.parse(startTask));
-					tueTimeblock.setEnd(LocalTime.parse(endTask));
-
 					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
+					Collections.sort(tueTaskList);
 
-					tueTimeblock.createTimeblocks(tueTaskList);
-					currentUser.convertToTimeblock();
-
+					currentUser.setTuetimeblocks(tueTimeblock.createTimeblocks(tueTaskList));
+					currentUser = new User(currentUser);
 					for (Timeblock x : currentUser.getTuetimeblocks()) {
 						tueTextArea.setText(x.toString());
 					}
@@ -428,18 +416,16 @@ public class AppController  {
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "WEDNESDAY") {
 
+					wedTaskList = currentUser.getWedtimetable();
 					wedTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setWedtimetable(wedTaskList);
 
-					wedTimeblock.setNamelabel(task);
-					wedTimeblock.setStart(LocalTime.parse(startTask));
-					wedTimeblock.setEnd(LocalTime.parse(endTask));
-
 					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
+					Collections.sort(wedTaskList);
 
-					wedTimeblock.createTimeblocks(wedTaskList);
-					currentUser.convertToTimeblock();
+					currentUser.setWedtimeblocks(wedTimeblock.createTimeblocks(wedTaskList));
+					currentUser = new User(currentUser);
+					//currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getWedtimeblocks()) {
 						wedTextArea.setText(x.toString());
 					}
@@ -450,18 +436,16 @@ public class AppController  {
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "THURSDAY") {
 
+					thuTaskList = currentUser.getThutimetable();
 					thuTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setThutimetable(thuTaskList);
 
-					thuTimeblock.setNamelabel(task);
-					thuTimeblock.setStart(LocalTime.parse(startTask));
-					thuTimeblock.setEnd(LocalTime.parse(endTask));
-
 					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
+					Collections.sort(thuTaskList);
 
-					thuTimeblock.createTimeblocks(thuTaskList);
-					currentUser.convertToTimeblock();
+					currentUser.setThutimeblocks(thuTimeblock.createTimeblocks(thuTaskList));
+					currentUser = new User(currentUser);
+					//currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getThutimeblocks()) {
 						thuTextArea.setText(x.toString());
 					}
@@ -472,18 +456,16 @@ public class AppController  {
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "FRIDAY") {
 
+					friTaskList = currentUser.getFritimetable();
 					friTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setFritimetable(friTaskList);
 
-					friTimeblock.setNamelabel(task);
-					friTimeblock.setStart(LocalTime.parse(startTask));
-					friTimeblock.setEnd(LocalTime.parse(endTask));
-
 					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
+					Collections.sort(friTaskList);
 
-					friTimeblock.createTimeblocks(friTaskList);
-					currentUser.convertToTimeblock();
+					currentUser.setFritimeblocks(friTimeblock.createTimeblocks(friTaskList));
+					currentUser = new User(currentUser);
+					//currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getFritimeblocks()) {
 						friTextArea.setText(x.toString());
 					}
@@ -493,18 +475,16 @@ public class AppController  {
 
 				else if (dayOfWeek.getDayOfWeek().toString() == "SATURDAY") {
 
+					satTaskList = currentUser.getSattimetable();
 					satTaskList.add(startTask + "," + task + "," + endTask);
 					currentUser.setSattimetable(satTaskList);
 
-					satTimeblock.setNamelabel(task);
-					satTimeblock.setStart(LocalTime.parse(startTask));
-					satTimeblock.setEnd(LocalTime.parse(endTask));
-
 					// sorts the list of tasks in the Text Area and into the saved text file
-					Collections.sort(monTaskList);
+					Collections.sort(satTaskList);
 
-					satTimeblock.createTimeblocks(satTaskList);
-					currentUser.convertToTimeblock();
+					currentUser.setSattimeblocks(satTimeblock.createTimeblocks(satTaskList));
+					currentUser = new User(currentUser);
+					//currentUser.convertToTimeblock();
 					for (Timeblock x : currentUser.getSattimeblocks()) {
 						satTextArea.setText(x.toString());
 					}
@@ -647,8 +627,6 @@ public class AppController  {
 				User x = (User) applicationStage.getUserData();
 				//System.out.println(x.getUsername());
 				x.createFreeTimeArrays();
-				tocompareusr.createFreeTimeArrays();
-				currentUser.createFreeTimeArrays();
 				Comparison comp = new Comparison(currentUser, tocompareusr);
 				FreeViewSun.setText(comp.getSunfreetimelist().toString());
 				FreeViewMon.setText(comp.getMonfreetimelist().toString());
