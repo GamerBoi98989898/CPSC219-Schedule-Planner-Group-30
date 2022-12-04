@@ -1,8 +1,10 @@
 package application;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.math.*;
 
 public class Comparison {
 
@@ -41,21 +43,27 @@ public class Comparison {
 
 		for (Timeblock t1 : user1list.get(0)) {
 			for (Timeblock t2 : user2list.get(0)) {
+				System.out.println(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY));
+				System.out.println(t2.getStart().getLong(ChronoField.MINUTE_OF_DAY));
+				System.out.println(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY));
+				System.out.println(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY));
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) < 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) < 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
-					LocalTime start = t1.getStart();
+                    LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
 					Timeblock block = new Timeblock(start, end, name);
-					sunfreetimelist.add(block);
+                    sunfreetimelist.add(block);
 				}
 			}
 		}
 		for (Timeblock t1 : user1list.get(1)) {
 			for (Timeblock t2 : user2list.get(1)) {
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				 ) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
@@ -68,7 +76,8 @@ public class Comparison {
 		for (Timeblock t1 : user1list.get(2)) {
 			for (Timeblock t2 : user2list.get(2)) {
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
@@ -81,7 +90,8 @@ public class Comparison {
 		for (Timeblock t1 : user1list.get(3)) {
 			for (Timeblock t2 : user2list.get(3)) {
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
@@ -94,7 +104,8 @@ public class Comparison {
 		for (Timeblock t1 : user1list.get(4)) {
 			for (Timeblock t2 : user2list.get(4)) {
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
@@ -107,7 +118,8 @@ public class Comparison {
 		for (Timeblock t1 : user1list.get(5)) {
 			for (Timeblock t2 : user2list.get(5)) {
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
@@ -120,7 +132,8 @@ public class Comparison {
 		for (Timeblock t1 : user1list.get(6)) {
 			for (Timeblock t2 : user2list.get(6)) {
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();

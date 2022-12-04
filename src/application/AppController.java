@@ -83,12 +83,6 @@ public class AppController  {
 	Button doneButton;
 
 	@FXML
-	TextField createUsernameTextField;
-
-	@FXML
-	PasswordField createPasswordField;
-
-	@FXML
 	TextField usernameTextField;
 
 	@FXML
@@ -98,9 +92,6 @@ public class AppController  {
 	Label LoginErrorLabel;
 	@FXML
 	Label RegisterErrorLabel;
-
-
-
 
 	@FXML
 	TextArea sunTextArea = new TextArea();
@@ -164,19 +155,17 @@ public class AppController  {
 	@FXML
 	Button TestButton = new Button();
 	@FXML
-	Label TestLabel = new Label();
-	@FXML
 	Button showcomp = new Button();
 	@FXML
 	Button compareButton = new Button();
 	@FXML
 	TextField compareNameTField = new TextField();
 	@FXML
-	TextArea compareFreeTimeTArea = new TextArea();
-	@FXML
 	Button finishViewingFreetime = new Button();
 	@FXML
 	Label FreetimeErrorLabel = new Label();
+	@FXML
+	Label createErrorLabel = new Label();
 
 	/**
 	 *
@@ -197,13 +186,13 @@ public class AppController  {
 			try {
 				if (toValidate.validateUser(username, password)) {
 					//System.out.println("VALID");
-					currentUser = new User(username);
-					User tester = new User(username);
+					//currentUser = new User(username);
+					User currentUser = new User(username);
 					try {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
 						Stage applicationStage = (Stage)loginButton.getScene().getWindow();
 						Parent root = loader.load();
-						applicationStage.setUserData(tester);
+						applicationStage.setUserData(currentUser);
 						AppController controller = loader.getController();
 						controller.ScheduleViewSun.setText(displayTable(0));
 						controller.ScheduleViewMon.setText(displayTable(1));
@@ -238,13 +227,6 @@ public class AppController  {
 		User y = new User(x);
 		System.out.println(y.getUsername());
 		TestArea.setText(y.getUsername());
-
-		User test = new User("guy");
-		test.createFreeTimeArrays();
-		User comp1 = new User("comp1");
-		User comp2 = new User("comp2");
-		comp1.createFreeTimeArrays();
-		comp2.createFreeTimeArrays();
 		//Comparison comp = new Comparison(comp1.getSunfreetime(), comp2.getSunfreetime());
 	}
 
@@ -780,38 +762,23 @@ public class AppController  {
 				Stage applicationStage = (Stage) compareButton.getScene().getWindow();
 
 				// ************************************************************
-				User x = (User) applicationStage.getUserData();
+				User currentUser = (User) applicationStage.getUserData();
 				// System.out.println(x.getUsername());
-				x.createFreeTimeArrays();
-				Comparison comp = new Comparison(x, tocompareusr);
-				for (Timeblock t : comp.getSunfreetimelist()) {
-					FreeViewSun.setText(t.toString());
-				}
-				for (Timeblock t : comp.getMonfreetimelist()) {
-					FreeViewMon.setText(t.toString());
-				}
-				for (Timeblock t : comp.getTuefreetimelist()) {
-					FreeViewTue.setText(t.toString());
-				}
-				for (Timeblock t : comp.getWedfreetimelist()) {
-					FreeViewWed.setText(t.toString());
-				}
-				for (Timeblock t : comp.getThufreetimelist()) {
-					FreeViewThu.setText(t.toString());
-				}
-				for (Timeblock t : comp.getFrifreetimelist()) {
-					FreeViewFri.setText(t.toString());
-				}
-				for (Timeblock t : comp.getSatfreetimelist()) {
-					FreeViewSat.setText(t.toString());
-				}
-				// FreeViewSun.setText(comp.getSunfreetimelist().toString());
-				// FreeViewMon.setText(comp.getMonfreetimelist().toString());
-				// FreeViewTue.setText(comp.getTuefreetimelist().toString());
-				// FreeViewWed.setText(comp.getWedfreetimelist().toString());
-				// FreeViewThu.setText(comp.getThufreetimelist().toString());
-				// FreeViewFri.setText(comp.getFrifreetimelist().toString());
-				// FreeViewSat.setText(comp.getSatfreetimelist().toString());
+				Comparison comp = new Comparison(currentUser, tocompareusr);
+				ArrayList<Timeblock> list = comp.getSunfreetimelist();
+				FreeViewSun.setText(timeblockToDisplay(list));
+				list = comp.getMonfreetimelist();
+				FreeViewMon.setText(timeblockToDisplay(list));
+				list = comp.getTuefreetimelist();
+				FreeViewTue.setText(timeblockToDisplay(list));
+				list = comp.getWedfreetimelist();
+				FreeViewWed.setText(timeblockToDisplay(list));
+				list = comp.getThufreetimelist();
+				FreeViewThu.setText(timeblockToDisplay(list));
+				list = comp.getFrifreetimelist();
+				FreeViewFri.setText(timeblockToDisplay(list));
+				list = comp.getSatfreetimelist();
+				FreeViewSat.setText(timeblockToDisplay(list));
 				FreetimeErrorLabel.setText("");
 			} catch (IOException e) {
 				FreetimeErrorLabel.setText("Error could not find User");
@@ -849,5 +816,54 @@ public class AppController  {
 			//System.out.print(ioe);
 			//ioe.printStackTrace();
 		}
+	}
+	public String displayTable(int i) {
+		Stage stage = (Stage)applicationStage.getScene().getWindow();
+		User currentUser = (User) stage.getUserData();
+		String text = "";
+		//The stupid switch staement didn't work so im doing it this way
+		if (i == 0) {
+			for (Timeblock x : currentUser.getSuntimeblocks()) {
+				text = text.concat(x.toString() + "\n");
+
+			}return text;
+		}
+		if (i == 1) {
+			for (Timeblock x : currentUser.getMontimeblocks()) {
+				text = text.concat(x.toString() + "\n");
+
+			}return text;
+		}
+		if (i == 2) {
+			for (Timeblock x : currentUser.getTuetimeblocks()) {
+				text = text.concat(x.toString() + "\n");
+
+			}return text;
+		}
+		if (i == 3) {
+			for (Timeblock x : currentUser.getWedtimeblocks()) {
+				text = text.concat(x.toString() + "\n");
+
+			}return text;
+		}
+		if (i == 4) {
+			for (Timeblock x : currentUser.getThutimeblocks()) {
+				text = text.concat(x.toString() + "\n");
+
+			}return text;
+		}
+		if (i == 5) {
+			for (Timeblock x : currentUser.getFritimeblocks()) {
+				text = text.concat(x.toString() + "\n");
+
+			}return text;
+		}
+		if (i == 6) {
+			for (Timeblock x : currentUser.getSattimeblocks()) {
+				text = text.concat(x.toString() + "\n");
+
+			}return text;
+		}
+		return text;
 	}
 }
