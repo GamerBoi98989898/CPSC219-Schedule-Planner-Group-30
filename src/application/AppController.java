@@ -278,7 +278,7 @@ public class AppController  {
 
 		Stage applicationStage = (Stage)registerButton.getScene().getWindow();
 
-		applicationStage.setScene(new Scene(root, 600, 400));
+		applicationStage.setScene(new Scene(root, 800, 600));
 
 	}
 
@@ -318,7 +318,7 @@ public class AppController  {
 
 				Stage applicationStage = (Stage)completeRegisterButton.getScene().getWindow();
 
-				applicationStage.setScene(new Scene(root, 600, 400));
+				applicationStage.setScene(new Scene(root, 800, 600));
 			} catch (IOException ioe) {
 				System.out.print(ioe);
 				ioe.printStackTrace();
