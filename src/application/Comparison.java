@@ -1,6 +1,7 @@
 package application;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Comparison {
@@ -37,9 +38,12 @@ public class Comparison {
 		user2list.add(user2.getFrifreetime());
 		user2list.add(user2.getSatfreetime());
 
+
 		for (Timeblock t1 : user1list.get(0)) {
 			for (Timeblock t2 : user2list.get(0)) {
-				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())) {
+				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
+				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) < 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) < 5
+				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
@@ -50,7 +54,9 @@ public class Comparison {
 		}
 		for (Timeblock t1 : user1list.get(1)) {
 			for (Timeblock t2 : user2list.get(1)) {
-				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())) {
+				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
+				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+				 ) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
@@ -61,7 +67,9 @@ public class Comparison {
 		}
 		for (Timeblock t1 : user1list.get(2)) {
 			for (Timeblock t2 : user2list.get(2)) {
-				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())) {
+				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
+				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
@@ -72,7 +80,9 @@ public class Comparison {
 		}
 		for (Timeblock t1 : user1list.get(3)) {
 			for (Timeblock t2 : user2list.get(3)) {
-				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())) {
+				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
+				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
@@ -83,7 +93,9 @@ public class Comparison {
 		}
 		for (Timeblock t1 : user1list.get(4)) {
 			for (Timeblock t2 : user2list.get(4)) {
-				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())) {
+				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
+				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
@@ -94,7 +106,9 @@ public class Comparison {
 		}
 		for (Timeblock t1 : user1list.get(5)) {
 			for (Timeblock t2 : user2list.get(5)) {
-				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())) {
+				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
+				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
@@ -105,7 +119,9 @@ public class Comparison {
 		}
 		for (Timeblock t1 : user1list.get(6)) {
 			for (Timeblock t2 : user2list.get(6)) {
-				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())) {
+				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
+				|| ChronoUnit.MINUTES.between(t1.getStart(), t2.getStart()) <= 5 && ChronoUnit.MINUTES.between(t1.getEnd(), t2.getEnd()) <= 5
+				) {
 					LocalTime start = t1.getStart();
 					LocalTime end = t1.getEnd();
 					String name = "a";
