@@ -20,6 +20,11 @@ public class Comparison {
 		createcomparison(user1, user2);
 	}
 
+	/**
+	 * takes 2 users and then finds common free times
+	 * @param user1 the first user to use
+	 * @param user2 the second user to use
+	 */
 	private void createcomparison (User user1, User user2) {
 		ArrayList<ArrayList<Timeblock>> user1list = new ArrayList<>();
 		ArrayList<ArrayList<Timeblock>> user2list = new ArrayList<>();
@@ -43,17 +48,26 @@ public class Comparison {
 
 		for (Timeblock t1 : user1list.get(0)) {
 			for (Timeblock t2 : user2list.get(0)) {
-				System.out.println(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY));
-				System.out.println(t2.getStart().getLong(ChronoField.MINUTE_OF_DAY));
-				System.out.println(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY));
-				System.out.println(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY));
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
 						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
-                    LocalTime start = t1.getStart();
-					LocalTime end = t1.getEnd();
-					String name = "a";
+					LocalTime start = t2.getStart();
+					LocalTime end = t2.getEnd();
+					if (t1.getStart().isAfter(t2.getStart())) {
+						start = t1.getStart();
+					}
+					if (t2.getStart().isAfter(t1.getStart())) {
+						start = t2.getStart();
+					}
+					if (t1.getEnd().isAfter(t2.getEnd())) {
+						end = t2.getEnd();
+					}
+					if (t2.getEnd().isAfter(t1.getEnd())) {
+						end = t1.getEnd();
+					}
+
+					String name = "Free Time with "+user2.getUsername();
 					Timeblock block = new Timeblock(start, end, name);
                     sunfreetimelist.add(block);
 				}
@@ -65,9 +79,22 @@ public class Comparison {
 						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				 ) {
-					LocalTime start = t1.getStart();
-					LocalTime end = t1.getEnd();
-					String name = "a";
+					LocalTime start = t2.getStart();
+					LocalTime end = t2.getEnd();
+					if (t1.getStart().isAfter(t2.getStart())) {
+						start = t1.getStart();
+					}
+					if (t2.getStart().isAfter(t1.getStart())) {
+						start = t2.getStart();
+					}
+					if (t1.getEnd().isAfter(t2.getEnd())) {
+						end = t2.getEnd();
+					}
+					if (t2.getEnd().isAfter(t1.getEnd())) {
+						end = t1.getEnd();
+					}
+
+					String name = "Free Time with "+user2.getUsername();
 					Timeblock block = new Timeblock(start, end, name);
 					monfreetimelist.add(block);
 				}
@@ -79,9 +106,22 @@ public class Comparison {
 						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
-					LocalTime start = t1.getStart();
-					LocalTime end = t1.getEnd();
-					String name = "a";
+					LocalTime start = t2.getStart();
+					LocalTime end = t2.getEnd();
+					if (t1.getStart().isAfter(t2.getStart())) {
+						start = t1.getStart();
+					}
+					if (t2.getStart().isAfter(t1.getStart())) {
+						start = t2.getStart();
+					}
+					if (t1.getEnd().isAfter(t2.getEnd())) {
+						end = t2.getEnd();
+					}
+					if (t2.getEnd().isAfter(t1.getEnd())) {
+						end = t1.getEnd();
+					}
+
+					String name = "Free Time with "+user2.getUsername();
 					Timeblock block = new Timeblock(start, end, name);
 					tuefreetimelist.add(block);
 				}
@@ -93,9 +133,22 @@ public class Comparison {
 						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
-					LocalTime start = t1.getStart();
-					LocalTime end = t1.getEnd();
-					String name = "a";
+					LocalTime start = t2.getStart();
+					LocalTime end = t2.getEnd();
+					if (t1.getStart().isAfter(t2.getStart())) {
+						start = t1.getStart();
+					}
+					if (t2.getStart().isAfter(t1.getStart())) {
+						start = t2.getStart();
+					}
+					if (t1.getEnd().isAfter(t2.getEnd())) {
+						end = t2.getEnd();
+					}
+					if (t2.getEnd().isAfter(t1.getEnd())) {
+						end = t1.getEnd();
+					}
+
+					String name = "Free Time with "+user2.getUsername();
 					Timeblock block = new Timeblock(start, end, name);
 					wedfreetimelist.add(block);
 				}
@@ -107,9 +160,22 @@ public class Comparison {
 						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
-					LocalTime start = t1.getStart();
-					LocalTime end = t1.getEnd();
-					String name = "a";
+					LocalTime start = t2.getStart();
+					LocalTime end = t2.getEnd();
+					if (t1.getStart().isAfter(t2.getStart())) {
+						start = t1.getStart();
+					}
+					if (t2.getStart().isAfter(t1.getStart())) {
+						start = t2.getStart();
+					}
+					if (t1.getEnd().isAfter(t2.getEnd())) {
+						end = t2.getEnd();
+					}
+					if (t2.getEnd().isAfter(t1.getEnd())) {
+						end = t1.getEnd();
+					}
+
+					String name = "Free Time with "+user2.getUsername();
 					Timeblock block = new Timeblock(start, end, name);
 					thufreetimelist.add(block);
 				}
@@ -121,9 +187,22 @@ public class Comparison {
 						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
-					LocalTime start = t1.getStart();
-					LocalTime end = t1.getEnd();
-					String name = "a";
+					LocalTime start = t2.getStart();
+					LocalTime end = t2.getEnd();
+					if (t1.getStart().isAfter(t2.getStart())) {
+						start = t1.getStart();
+					}
+					if (t2.getStart().isAfter(t1.getStart())) {
+						start = t2.getStart();
+					}
+					if (t1.getEnd().isAfter(t2.getEnd())) {
+						end = t2.getEnd();
+					}
+					if (t2.getEnd().isAfter(t1.getEnd())) {
+						end = t1.getEnd();
+					}
+
+					String name = "Free Time with "+user2.getUsername();
 					Timeblock block = new Timeblock(start, end, name);
 					frifreetimelist.add(block);
 				}
@@ -135,9 +214,22 @@ public class Comparison {
 						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
 				) {
-					LocalTime start = t1.getStart();
-					LocalTime end = t1.getEnd();
-					String name = "a";
+					LocalTime start = t2.getStart();
+					LocalTime end = t2.getEnd();
+					if (t1.getStart().isAfter(t2.getStart())) {
+						start = t1.getStart();
+					}
+					if (t2.getStart().isAfter(t1.getStart())) {
+						start = t2.getStart();
+					}
+					if (t1.getEnd().isAfter(t2.getEnd())) {
+						end = t2.getEnd();
+					}
+					if (t2.getEnd().isAfter(t1.getEnd())) {
+						end = t1.getEnd();
+					}
+
+					String name = "Free Time with "+user2.getUsername();
 					Timeblock block = new Timeblock(start, end, name);
 					satfreetimelist.add(block);
 				}
@@ -145,6 +237,7 @@ public class Comparison {
 		}
 	}
 
+	//getters and setters below
 	public ArrayList<Timeblock> getSunfreetimelist() {
 		return sunfreetimelist;
 	}
