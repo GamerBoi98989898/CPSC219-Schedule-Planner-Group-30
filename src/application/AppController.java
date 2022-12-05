@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  * This class is the controller for the entire application which contains the action for all FXML components
  * and displaying the user's schedule
  *
- * @author Jose Lorenzo Jacobe, Connor Ell, Raisa Fairuz
+ * @author Jose Lorenzo Jacobe and Connor Ell
  *
  */
 public class AppController  {
@@ -181,12 +181,8 @@ public class AppController  {
 			User toValidate = new User();
 			String username = usernameTextField.getText();
 			String password = passwordTextField.getText();
-			//System.out.println(username);
-			//System.out.println(password);
 			try {
 				if (toValidate.validateUser(username, password)) {
-					//System.out.println("VALID");
-					//currentUser = new User(username);
 					User currentUser = new User(username);
 					try {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
@@ -203,19 +199,16 @@ public class AppController  {
 						controller.ScheduleViewSat.setText(displayTable(6));
 						applicationStage.setScene(new Scene(root, 800, 600));
 						applicationStage.show();
-						controller.TestArea.setText("AAAAAg");
 
 
 					} catch (IOException ioe) {
-						//System.out.print(ioe);
-						//ioe.printStackTrace();
+						ioe.printStackTrace();
 					}
 				}
 			} catch (IOException ioe) {
 				username = "";
 				password = "";
-				//System.out.print(ioe);
-				//ioe.printStackTrace();
+				ioe.printStackTrace();
 			} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
 		} else {LoginErrorLabel.setText("Please enter a username and password");}
 	}
@@ -268,7 +261,7 @@ public class AppController  {
 		//System.out.println(password);
 
 		// Find the file that matches the username and if it already exists, set label text to let user know
-		// If it does not exist, the registration will be completed and the user will be brough back to the
+		// If it does not exist, the registration will be completed and the user will be brought back to the
 		// main login scene
 		File doesExist = new File("src/" +filename+ ".txt");
 		if (!doesExist.isFile()) {
@@ -300,6 +293,7 @@ public class AppController  {
 	/**
 	 *
 	 * Brings user to a new scene to allow them to create their schedule
+	 * Going into this scene will clear the user's entire existing schedule
 	 *
 	 * @param event
 	 * @throws Exception
@@ -351,7 +345,7 @@ public class AppController  {
 		String startHour = startHourChoiceBox.getValue();
 		String startMin = startMinChoiceBox.getValue();
 
-		// Combines the hour and minutes with a semicolon to use when converting it to time using LocalTime
+		// Combines the hour and minutes with a colon to use when converting it to time using LocalTime
 		String startTask = startHour + ":" + startMin;
 
 		String endHour = endHourChoiceBox.getValue();
@@ -374,9 +368,6 @@ public class AppController  {
 			// Checks if ChoiceBox is null and change the label to let user know to enter a day
 			if (dayChoiceBox.getValue() != null) {
 
-
-				String text = "";
-
 				// Checks if the TextField is empty or null and change the label to let user know to enter a task name
 				if (taskName.getText() == null || taskName.getText() == "") {
 
@@ -387,30 +378,28 @@ public class AppController  {
 				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Sunday") == true) {
 
+					// Get the User's timetable and assign to the day's task list
 					sunTaskList = currentUser.getSuntimetable();
 
+					// Sets the time selected in the in the ChoiceBoxes using Java LocalTime
 					sunTimeblock.setStart(LocalTime.parse(startTask));
 					sunTimeblock.setEnd(LocalTime.parse(endTask));
-
-
-
 
 					// Validate overlapping times to avoid user entering the same task multiple times
 					if (sunTimeblock.overlappingTime(sunTaskList) == false) {
 
+						// If there are no overlaps, allow task to be added to the task list of the day
 						sunTaskList.add(startTask + "," + task + "," + endTask);
 
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(sunTaskList);
 
+						// Uses the day's task list to set the user's schedule in the Timeblock class
 						currentUser.setSuntimeblocks(sunTimeblock.createTimeblocks(sunTaskList));
 						currentUser = new User(currentUser);
 
-
 						sunTimeblock.setNamelabel(task);
 
-
-						// Creates an object of timeblocks containing the tasks created by the user stored as String in the task list
 						sunTimeblock.createTimeblocks(sunTaskList);
 
 
@@ -420,240 +409,259 @@ public class AppController  {
 					}
 
 					else {
-
+						// If an overlap is detected, set the error message
 						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 
 					}
 
 				}
-
-
-
-
+				
+				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Monday") == true) {
 
+					// Get the User's timetable and assign to the day's task list
 					monTaskList = currentUser.getMontimetable();
 
+					// Sets the time selected in the in the ChoiceBoxes using Java LocalTime
 					monTimeblock.setStart(LocalTime.parse(startTask));
 					monTimeblock.setEnd(LocalTime.parse(endTask));
 
+					// Validate overlapping times to avoid user entering the same task multiple times
 					if (monTimeblock.overlappingTime(monTaskList) == false) {
 
+						// If there are no overlaps, allow task to be added to the task list of the day
 						monTaskList.add(startTask + "," + task + "," + endTask);
 
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(monTaskList);
 
-
+						// Uses the day's task list to set the user's schedule in the Timeblock class
 						currentUser.setMontimeblocks(monTimeblock.createTimeblocks(monTaskList));
 						currentUser = new User(currentUser);
 
 						monTimeblock.setNamelabel(task);
 
-
-
-
 						monTimeblock.createTimeblocks(monTaskList);
 
-
+						// Displays the contents of the Timeblocks into the TextArea for user to see
 						monTextArea.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
 
 				}
 
 					else {
-
+						
+						// If an overlap is detected, set the error message
 						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 
 					}
 				}
 
+				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Tuesday") == true) {
 
+					// Get the User's timetable and assign to the day's task list
 					tueTaskList = currentUser.getTuetimetable();
 
+					// Sets the time selected in the in the ChoiceBoxes using Java LocalTime
 					tueTimeblock.setStart(LocalTime.parse(startTask));
 					tueTimeblock.setEnd(LocalTime.parse(endTask));
 
+					// Validate overlapping times to avoid user entering the same task multiple times
 					if (tueTimeblock.overlappingTime(tueTaskList) == false) {
 
+						// If there are no overlaps, allow task to be added to the task list of the day
 						tueTaskList.add(startTask + "," + task + "," + endTask);
 
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(tueTaskList);
 
+						// Uses the day's task list to set the user's schedule in the Timeblock class
 						currentUser.setTuetimeblocks(tueTimeblock.createTimeblocks(tueTaskList));
 						currentUser = new User(currentUser);
 
 						tueTimeblock.setNamelabel(task);
 
-
-
 						tueTimeblock.createTimeblocks(tueTaskList);
 
-
+						// Displays the contents of the Timeblocks into the TextArea for user to see
 						tueTextArea.setText(timeblockToDisplay(currentUser.getTuetimeblocks()));
 
 				}
 
 					else {
 
+						// If an overlap is detected, set the error message
 						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 
 						}
 				}
 
 
+				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Wednesday") == true) {
 
+					// Get the User's timetable and assign to the day's task list
 					wedTaskList = currentUser.getWedtimetable();
 
+					// Sets the time selected in the in the ChoiceBoxes using Java LocalTime
 					wedTimeblock.setStart(LocalTime.parse(startTask));
 					wedTimeblock.setEnd(LocalTime.parse(endTask));
 
+					// Validate overlapping times to avoid user entering the same task multiple times
 					if (wedTimeblock.overlappingTime(wedTaskList) == false) {
 
+						// If there are no overlaps, allow task to be added to the task list of the day
 						wedTaskList.add(startTask + "," + task + "," + endTask);
 
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(wedTaskList);
 
-
+						// Uses the day's task list to set the user's schedule in the Timeblock class
 						currentUser.setWedtimeblocks(wedTimeblock.createTimeblocks(wedTaskList));
 						currentUser = new User(currentUser);
 
 						wedTimeblock.setNamelabel(task);
 
-
-
-
 						wedTimeblock.createTimeblocks(wedTaskList);
 
-
+						// Displays the contents of the Timeblocks into the TextArea for user to see
 						wedTextArea.setText(timeblockToDisplay(currentUser.getWedtimeblocks()));
 
 				}
 
 					else {
-
+						
+						// If an overlap is detected, set the error message
 						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 
 						}
 				}
 
-
+				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Thursday") == true) {
 
+					// Get the User's timetable and assign to the day's task list
 					thuTaskList = currentUser.getThutimetable();
 
+					// Sets the time selected in the in the ChoiceBoxes using Java LocalTime
 					thuTimeblock.setStart(LocalTime.parse(startTask));
 					thuTimeblock.setEnd(LocalTime.parse(endTask));
 
+					// Validate overlapping times to avoid user entering the same task multiple times
 					if (thuTimeblock.overlappingTime(thuTaskList) == false) {
 
+						// If there are no overlaps, allow task to be added to the task list of the day
 						thuTaskList.add(startTask + "," + task + "," + endTask);
 
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(thuTaskList);
 
+						// Uses the day's task list to set the user's schedule in the Timeblock class
 						currentUser.setThutimeblocks(thuTimeblock.createTimeblocks(thuTaskList));
 						currentUser = new User(currentUser);
 
 						thuTimeblock.setNamelabel(task);
 
-
-
 						thuTimeblock.createTimeblocks(thuTaskList);
 
-
+						// Displays the contents of the Timeblocks into the TextArea for user to see
 						thuTextArea.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
 
 				}
 
 					else {
 
+						// If an overlap is detected, set the error message
 						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 
 						}
 				}
 
-
+				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Friday") == true) {
 
+					// Get the User's timetable and assign to the day's task list
 					friTaskList = currentUser.getFritimetable();
 
+					// Sets the time selected in the in the ChoiceBoxes using Java LocalTime
 					friTimeblock.setStart(LocalTime.parse(startTask));
 					friTimeblock.setEnd(LocalTime.parse(endTask));
 
+					// Validate overlapping times to avoid user entering the same task multiple times
 					if (friTimeblock.overlappingTime(friTaskList) == false) {
 
+						// If there are no overlaps, allow task to be added to the task list of the day
 						friTaskList.add(startTask + "," + task + "," + endTask);
 
 
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(friTaskList);
 
+						// Uses the day's task list to set the user's schedule in the Timeblock class
 						currentUser.setFritimeblocks(friTimeblock.createTimeblocks(friTaskList));
 						currentUser = new User(currentUser);
 
 						friTimeblock.setNamelabel(task);
 
-
-
-
 						friTimeblock.createTimeblocks(friTaskList);
 
-
+						// Displays the contents of the Timeblocks into the TextArea for user to see
 						friTextArea.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
 
 				}
 
 					else {
 
+						// If an overlap is detected, set the error message
 						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 
 						}
 				}
 
+				// Checks which day the user has selected and add tasks to the ArrayList and Timeblock for the day
 				else if (dayChoiceBox.getValue().equals("Saturday") == true) {
 
+					// Get the User's timetable and assign to the day's task list
 					satTaskList = currentUser.getSattimetable();
 
+					// Sets the time selected in the in the ChoiceBoxes using Java LocalTime
 					satTimeblock.setStart(LocalTime.parse(startTask));
 					satTimeblock.setEnd(LocalTime.parse(endTask));
 
+					// Validate overlapping times to avoid user entering the same task multiple times
 					if (satTimeblock.overlappingTime(satTaskList) == false) {
 
+						// If there are no overlaps, allow task to be added to the task list of the day
 						satTaskList.add(startTask + "," + task + "," + endTask);
 
 						// sorts the list of tasks in the Text Area and into the saved text file
 						Collections.sort(satTaskList);
 
+						// Uses the day's task list to set the user's schedule in the Timeblock class
 						currentUser.setSattimeblocks(satTimeblock.createTimeblocks(satTaskList));
 						currentUser = new User(currentUser);
 
 						satTimeblock.setNamelabel(task);
 
-
-
-
 						satTimeblock.createTimeblocks(satTaskList);
 
-
+						// Displays the contents of the Timeblocks into the TextArea for user to see
 						satTextArea.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
 				}
 
 					else {
 
+						// If an overlap is detected, set the error message
 						createErrorLabel.setText("There is a conflict with \nthe Start and End times");
 
 						}
 				}
-
 			}
 
 			else {
-
+				
+				// If a day is not selected in the ChoiceBox, set message to let user know to select a day
 				createErrorLabel.setText("Please select a day");
 
 				}
@@ -670,7 +678,8 @@ public class AppController  {
 	
 	/**
 	 * 
-	 * Converts the values in the Timeblock objects into string and displays them in the create schedule scene 
+	 * Converts the values in the Timeblock objects into string and displays them in the create schedule scene to create a stacking effect
+	 * on the text
 	 * 
 	 * @param timeblockList
 	 * @return
@@ -749,8 +758,7 @@ public class AppController  {
 
 
 		} catch (IOException ioe) {
-			//System.out.print(ioe);
-			//ioe.printStackTrace();
+			ioe.printStackTrace();
 		}
 	}
 	public void compareName(ActionEvent Event) {
@@ -763,7 +771,6 @@ public class AppController  {
 
 				// ************************************************************
 				User currentUser = (User) applicationStage.getUserData();
-				// System.out.println(x.getUsername());
 				Comparison comp = new Comparison(currentUser, tocompareusr);
 				ArrayList<Timeblock> list = comp.getSunfreetimelist();
 				FreeViewSun.setText(timeblockToDisplay(list));
@@ -782,7 +789,7 @@ public class AppController  {
 				FreetimeErrorLabel.setText("");
 			} catch (IOException e) {
 				FreetimeErrorLabel.setText("Error could not find User");
-				// System.out.println("User not found");
+
 			}
 
 		}
@@ -809,12 +816,8 @@ public class AppController  {
 			controller.ScheduleViewSat.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
 
 
-			//System.out.println(x.getUsername());
-
-
 		} catch (IOException ioe) {
-			//System.out.print(ioe);
-			//ioe.printStackTrace();
+			ioe.printStackTrace();
 		}
 	}
 	public String displayTable(int i) {

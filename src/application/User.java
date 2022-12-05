@@ -188,6 +188,7 @@ public class User {
 			writer.println(password);
 			writer.println("sun");
 
+			// Writes the user's schedule for each day in the timetable ArrayLists in the text file
 			for (Timeblock x : getSuntimeblocks()) {
 				writer.println(x.getSaveFileFormat(x));
 

@@ -3,6 +3,14 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+
+/**
+ * 
+ * This class is used to store the user's schedule 
+ * 
+ * @author Connor Ell and Jose Lorenzo Jacobe
+ *
+ */
 public class Timeblock {
 	
 	private LocalTime start;
@@ -96,7 +104,7 @@ public class Timeblock {
 	 */
 	public boolean overlappingTime(ArrayList<String> taskList) {
 		
-		// Returns true if there is a conflict and returns false if there is no conflict
+		// Set to true if there is a conflict and set to false if there is no conflict
 		boolean overlapStatus = false;
 		
 		// If the compare value is 0, it means that both start and end times are the same
