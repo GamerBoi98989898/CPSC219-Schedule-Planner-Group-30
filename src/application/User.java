@@ -31,6 +31,7 @@ public class User {
 	private ArrayList<Timeblock> satfreetime = new ArrayList<Timeblock>();
 
 
+
 	public User() {
 
 	}
@@ -168,6 +169,7 @@ public class User {
 			reader.close();
 			this.convertToTimeblock();
 		} catch (FileNotFoundException fnf) {
+			//
 			fnf.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
