@@ -717,6 +717,10 @@ public class AppController  {
 
 	}
 
+	/**
+	 * function to take the user to the comparison scene
+	 * @param Event
+	 */
 	public void showcomp(ActionEvent Event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowFreeTimeView.fxml"));
@@ -731,9 +735,15 @@ public class AppController  {
 
 
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
 		}
 	}
+
+	/**
+	 * This utilize the comparison class to find common freetime between users
+	 * @param Event
+	 */
 	public void compareName(ActionEvent Event) {
 		if (compareNameTField != null) {
 			try {
@@ -760,14 +770,17 @@ public class AppController  {
 				FreetimeErrorLabel.setText("");
 			} catch (IOException e) {
 				FreetimeErrorLabel.setText("Error could not find User");
-
+				// System.out.println("User not found");
 			}
 
 		}
 
 	}
 
-
+	/**
+	 * function to bring user back to the schedule view scene after comparing free time
+	 * @param Event
+	 */
 	public void finishViewingFreetime(ActionEvent Event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
@@ -776,7 +789,6 @@ public class AppController  {
 			AppController controller = loader.getController();
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
-
 			User currentUser = (User) applicationStage.getUserData();
 			controller.ScheduleViewSun.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
 			controller.ScheduleViewMon.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
@@ -785,17 +797,21 @@ public class AppController  {
 			controller.ScheduleViewThu.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
 			controller.ScheduleViewFri.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
 			controller.ScheduleViewSat.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
-
-
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			//System.out.print(ioe);
+			//ioe.printStackTrace();
 		}
 	}
+
+	/**
+	 * function to display the users schedule nicely in the window
+	 * @param i day of the week to display
+	 * @return the day of the week as a formatted string
+	 */
 	public String displayTable(int i) {
 		Stage stage = (Stage)applicationStage.getScene().getWindow();
 		User currentUser = (User) stage.getUserData();
 		String text = "";
-
 		if (i == 0) {
 			for (Timeblock x : currentUser.getSuntimeblocks()) {
 				text = text.concat(x.toString() + "\n");
