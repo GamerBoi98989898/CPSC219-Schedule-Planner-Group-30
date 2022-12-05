@@ -23,7 +23,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
 /**
  *
  * This class is the controller for the entire application which contains the action for all FXML components
@@ -211,11 +210,9 @@ public class AppController  {
 
 
 	/**
-	 *
 	 * Register new user and prompt their username and password upon button press
-	 *
 	 * @param event
-	 * @throws Exception
+	 * @throws Exception IO exception if fxml cant be found
 	 */
 
 	public void registerUser(ActionEvent event) throws Exception {
@@ -231,11 +228,8 @@ public class AppController  {
 
 
 	/**
-	 *
 	 * Once user has completed their registration, it will return to the main login screen for them to login
-	 *
 	 * @param event
-	 * @throws Exception
 	 */
 
 	public void completeRegister(ActionEvent event) {
@@ -247,7 +241,7 @@ public class AppController  {
 		//System.out.println(password);
 
 		// Find the file that matches the username and if it already exists, set label text to let user know
-		// If it does not exist, the registration will be completed and the user will be brought back to the
+		// If it does not exist, the registration will be completed and the user will be brough back to the
 		// main login scene
 		File doesExist = new File("src/" +filename+ ".txt");
 		if (!doesExist.isFile()) {
@@ -277,12 +271,8 @@ public class AppController  {
 
 
 	/**
-	 *
 	 * Brings user to a new scene to allow them to create their schedule
-	 * Going into this scene will clear the user's entire existing schedule
-	 *
 	 * @param event
-	 * @throws Exception
 	 */
 
 	public void createSchedule(ActionEvent event)  {
@@ -317,13 +307,10 @@ public class AppController  {
 
 
 	/**
-	 *
 	 * Button action for creating tasks in the create schedule scene
 	 * Displays a summary of the tasks created using a TextArea
 	 * Assigns value to name of task, start time, and end time of the Timeblock objects
-	 *
 	 * @param event
-	 * @throws Exception
 	 */
 	public void createTask(ActionEvent event) {
 

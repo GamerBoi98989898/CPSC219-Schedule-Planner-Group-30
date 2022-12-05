@@ -17,14 +17,22 @@ public class Timeblock {
 	private LocalTime end;
 	private long duration;
 	private String namelabel;
-	// possibly add a color
 
+	/**
+	 * Default constructor
+	 */
 	public Timeblock() {
 		this.start = LocalTime.MIN;
 		this.end = LocalTime.MAX;
 		this.duration = start.until(end, ChronoUnit.SECONDS);
 	}
-	
+
+	/**
+	 * Constructor to create a timeblock with specified start, end, and name
+	 * @param start the start of the timeblock
+	 * @param end the end of the timeblock
+	 * @param namelabel the name of the timeblock
+	 */
 	public Timeblock(LocalTime start, LocalTime end, String namelabel) {
 		if (start.isBefore(end)) {
 			this.start = start;
@@ -34,8 +42,12 @@ public class Timeblock {
 		}
 		else {System.out.println("Error making time block");}
 	}
-	
-	// function to convert our timeblocks in the .txt to a usable format
+
+	/**
+	 * This function is used to create a list of timeblocks from a list of strings
+	 * @param list the arraylist of strings to convert
+	 * @return Will return the new list as a arraylist of timeblocks
+	 */
 	public ArrayList<Timeblock> createTimeblocks(ArrayList<String> list ) {
 		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
 		
@@ -53,48 +65,24 @@ public class Timeblock {
 		}
 		return newList;
 	}
-	
+
+	/**
+	 * This is a custom toString method to print timeblocks in a user readable format
+	 * @return returns the timeblock as a string
+	 */
 	public String toString() {
-		
 		return "Task: " + namelabel + "\nStart Time: " + this.start.toString() + "\nEnd Time: " + this.end.toString() + "\n";
 	}
+
+	/**
+	 * Used to covert the timeblock to the proper format for writing to a savefile
+	 * @param x the timeblock to get the format of
+	 * @return returns the formatted timeblock string
+	 */
 	public String getSaveFileFormat(Timeblock x) {
-		String string = x.getStart() + "," + x.getNamelabel() + "," + x.getEnd();
-		return string;
+		return x.getStart() + "," + x.getNamelabel() + "," + x.getEnd();
 	}
 
-	LocalTime getStart() {
-		return start;
-	}
-
-	void setStart(LocalTime start) {
-		this.start = start;
-	}
-
-	LocalTime getEnd() {
-		return end;
-	}
-
-	void setEnd(LocalTime end) {
-		this.end = end;
-	}
-
-	long getDuration() {
-		return duration;
-	}
-
-	void setDuration(long duration) {
-		this.duration = duration;
-	}
-
-	String getNamelabel() {
-		return namelabel;
-	}
-
-	void setNamelabel(String namelabel) {
-		this.namelabel = namelabel;
-	}
-	
 	/**
 	 * 
 	 * Checks if there are overlapping times in taskList to avoid user from entering duplicates or conflicting times
@@ -143,6 +131,38 @@ public class Timeblock {
 		
 		return overlapStatus;
 
+	}
+	//Getters and setters below
+	LocalTime getStart() {
+		return start;
+	}
+
+	void setStart(LocalTime start) {
+		this.start = start;
+	}
+
+	LocalTime getEnd() {
+		return end;
+	}
+
+	void setEnd(LocalTime end) {
+		this.end = end;
+	}
+
+	long getDuration() {
+		return duration;
+	}
+
+	void setDuration(long duration) {
+		this.duration = duration;
+	}
+
+	String getNamelabel() {
+		return namelabel;
+	}
+
+	void setNamelabel(String namelabel) {
+		this.namelabel = namelabel;
 	}
 }
 
