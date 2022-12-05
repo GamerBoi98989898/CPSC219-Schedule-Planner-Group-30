@@ -23,7 +23,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
 /**
  *
  * This class is the controller for the entire application which contains the action for all FXML components
@@ -151,10 +150,6 @@ public class AppController  {
 	@FXML
 	TextArea FreeViewSat = new TextArea();
 	@FXML
-	TextArea TestArea = new TextArea();
-	@FXML
-	Button TestButton = new Button();
-	@FXML
 	Button showcomp = new Button();
 	@FXML
 	Button compareButton = new Button();
@@ -203,7 +198,6 @@ public class AppController  {
 						controller.ScheduleViewSat.setText(displayTable(6));
 						applicationStage.setScene(new Scene(root, 800, 600));
 						applicationStage.show();
-						controller.TestArea.setText("AAAAAg");
 
 
 					} catch (IOException ioe) {
@@ -219,17 +213,6 @@ public class AppController  {
 			} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
 		} else {LoginErrorLabel.setText("Please enter a username and password");}
 	}
-
-
-	public void TestButton(ActionEvent Event) {
-		Stage stage = (Stage)TestButton.getScene().getWindow();
-		User x = (User) stage.getUserData();
-		User y = new User(x);
-		System.out.println(y.getUsername());
-		TestArea.setText(y.getUsername());
-		//Comparison comp = new Comparison(comp1.getSunfreetime(), comp2.getSunfreetime());
-	}
-
 
 	/**
 	 *
@@ -728,8 +711,6 @@ public class AppController  {
 
 		catch(IOException e) {
 			e.printStackTrace();
-
-
 		}
 
 
@@ -760,10 +741,7 @@ public class AppController  {
 				String tocomparestr = compareNameTField.getText();
 				User tocompareusr = new User(tocomparestr);
 				Stage applicationStage = (Stage) compareButton.getScene().getWindow();
-
-				// ************************************************************
 				User currentUser = (User) applicationStage.getUserData();
-				// System.out.println(x.getUsername());
 				Comparison comp = new Comparison(currentUser, tocompareusr);
 				ArrayList<Timeblock> list = comp.getSunfreetimelist();
 				FreeViewSun.setText(timeblockToDisplay(list));
@@ -821,7 +799,6 @@ public class AppController  {
 		Stage stage = (Stage)applicationStage.getScene().getWindow();
 		User currentUser = (User) stage.getUserData();
 		String text = "";
-		//The stupid switch staement didn't work so im doing it this way
 		if (i == 0) {
 			for (Timeblock x : currentUser.getSuntimeblocks()) {
 				text = text.concat(x.toString() + "\n");

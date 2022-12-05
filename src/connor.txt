@@ -1,7 +1,7 @@
 connor
 ell
 sun
-01:00,a,02:00
+04:00,test,06:00
 mon
 tue
 wed

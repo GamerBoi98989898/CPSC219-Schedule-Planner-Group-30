@@ -31,11 +31,16 @@ public class User {
 	private ArrayList<Timeblock> satfreetime = new ArrayList<Timeblock>();
 
 
-
+	/**
+	 * default empty constructor
+	 */
 	public User() {
-
 	}
 
+	/**
+	 * This is a copy constructor for the User class
+	 * @param user The user to copy
+	 */
 	public User(User user) {
 		this.username = user.getUsername();
 		this.password = user.getPassword();
@@ -272,10 +277,6 @@ public class User {
 			BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 			String Thisfilename = reader.readLine();
 			String Thispassword = reader.readLine();
-			//System.out.println(Thisfilename);
-			//System.out.println(Thispassword);
-			//System.out.println(filename);
-			//System.out.println(password);
 			if (filename.equals(Thisfilename)) {
 				x+=1;}
 			if (password.equals(Thispassword)) {
@@ -285,6 +286,13 @@ public class User {
 			if (x == 2) {return true;}
 			return false;
 	}
+
+	/**
+	 * This is an overload function for making sure a user exists
+	 * @param filename the username of the file to validate
+	 * @return True if the user exists. False otherwise
+	 * @throws IOException Thrown if the file cannot be found
+	 */
 	public static boolean validateUser(String filename) throws IOException{
 		int x = 0;
 		BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
@@ -295,8 +303,10 @@ public class User {
 		return false;
 	}
 
-
-	public void createFreeTimeArrays() {
+	/**
+	 * This function creates an array that contains the users freetime as an arraylist of timeblocks
+	 */
+	private void createFreeTimeArrays() {
 		int i = 0;
 		if (suntimeblocks.size() == 1) {
 			LocalTime start1 = LocalTime.MIN;
