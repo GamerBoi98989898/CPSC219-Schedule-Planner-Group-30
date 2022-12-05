@@ -163,11 +163,8 @@ public class AppController  {
 	Label createErrorLabel = new Label();
 
 	/**
-	 *
 	 * Check if user already exists and if credentials are correct, proceed to show their current schedule
-	 *
-	 * @param
-	 * @throws
+	 * @param Event
 	 */
 
 	public void userLogin(ActionEvent Event) {
@@ -215,11 +212,9 @@ public class AppController  {
 	}
 
 	/**
-	 *
 	 * Register new user and prompt their username and password upon button press
-	 *
 	 * @param event
-	 * @throws Exception
+	 * @throws Exception IO exception if fxml cant be found
 	 */
 
 	public void registerUser(ActionEvent event) throws Exception {
@@ -235,11 +230,8 @@ public class AppController  {
 
 
 	/**
-	 *
 	 * Once user has completed their registration, it will return to the main login screen for them to login
-	 *
 	 * @param event
-	 * @throws Exception
 	 */
 
 	public void completeRegister(ActionEvent event) {
@@ -281,11 +273,8 @@ public class AppController  {
 
 
 	/**
-	 *
 	 * Brings user to a new scene to allow them to create their schedule
-	 *
 	 * @param event
-	 * @throws Exception
 	 */
 
 	public void createSchedule(ActionEvent event)  {
@@ -320,13 +309,10 @@ public class AppController  {
 
 
 	/**
-	 *
 	 * Button action for creating tasks in the create schedule scene
 	 * Displays a summary of the tasks created using a TextArea
 	 * Assigns value to name of task, start time, and end time of the Timeblock objects
-	 *
 	 * @param event
-	 * @throws Exception
 	 */
 	public void createTask(ActionEvent event) {
 
@@ -716,6 +702,10 @@ public class AppController  {
 
 	}
 
+	/**
+	 * function to take the user to the comparison scene
+	 * @param Event
+	 */
 	public void showcomp(ActionEvent Event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowFreeTimeView.fxml"));
@@ -734,6 +724,11 @@ public class AppController  {
 			//ioe.printStackTrace();
 		}
 	}
+
+	/**
+	 * This utilize the comparison class to find common freetime between users
+	 * @param Event
+	 */
 	public void compareName(ActionEvent Event) {
 		if (compareNameTField != null) {
 			try {
@@ -767,7 +762,10 @@ public class AppController  {
 
 	}
 
-
+	/**
+	 * function to bring user back to the schedule view scene after comparing free time
+	 * @param Event
+	 */
 	public void finishViewingFreetime(ActionEvent Event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ScheduleView.fxml"));
@@ -776,7 +774,6 @@ public class AppController  {
 			AppController controller = loader.getController();
 			applicationStage.setScene(new Scene(root, 800, 600));
 			applicationStage.show();
-
 			User currentUser = (User) applicationStage.getUserData();
 			controller.ScheduleViewSun.setText(timeblockToDisplay(currentUser.getSuntimeblocks()));
 			controller.ScheduleViewMon.setText(timeblockToDisplay(currentUser.getMontimeblocks()));
@@ -785,16 +782,17 @@ public class AppController  {
 			controller.ScheduleViewThu.setText(timeblockToDisplay(currentUser.getThutimeblocks()));
 			controller.ScheduleViewFri.setText(timeblockToDisplay(currentUser.getFritimeblocks()));
 			controller.ScheduleViewSat.setText(timeblockToDisplay(currentUser.getSattimeblocks()));
-
-
-			//System.out.println(x.getUsername());
-
-
 		} catch (IOException ioe) {
 			//System.out.print(ioe);
 			//ioe.printStackTrace();
 		}
 	}
+
+	/**
+	 * function to display the users scedule nicely in the window
+	 * @param i day of the week to display
+	 * @return the day of the week as a formatted string
+	 */
 	public String displayTable(int i) {
 		Stage stage = (Stage)applicationStage.getScene().getWindow();
 		User currentUser = (User) stage.getUserData();
