@@ -151,10 +151,6 @@ public class AppController  {
 	@FXML
 	TextArea FreeViewSat = new TextArea();
 	@FXML
-	TextArea TestArea = new TextArea();
-	@FXML
-	Button TestButton = new Button();
-	@FXML
 	Button showcomp = new Button();
 	@FXML
 	Button compareButton = new Button();
@@ -211,16 +207,6 @@ public class AppController  {
 				ioe.printStackTrace();
 			} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
 		} else {LoginErrorLabel.setText("Please enter a username and password");}
-	}
-
-
-	public void TestButton(ActionEvent Event) {
-		Stage stage = (Stage)TestButton.getScene().getWindow();
-		User x = (User) stage.getUserData();
-		User y = new User(x);
-		System.out.println(y.getUsername());
-		TestArea.setText(y.getUsername());
-		//Comparison comp = new Comparison(comp1.getSunfreetime(), comp2.getSunfreetime());
 	}
 
 
@@ -768,8 +754,6 @@ public class AppController  {
 				String tocomparestr = compareNameTField.getText();
 				User tocompareusr = new User(tocomparestr);
 				Stage applicationStage = (Stage) compareButton.getScene().getWindow();
-
-				// ************************************************************
 				User currentUser = (User) applicationStage.getUserData();
 				Comparison comp = new Comparison(currentUser, tocompareusr);
 				ArrayList<Timeblock> list = comp.getSunfreetimelist();
@@ -824,7 +808,7 @@ public class AppController  {
 		Stage stage = (Stage)applicationStage.getScene().getWindow();
 		User currentUser = (User) stage.getUserData();
 		String text = "";
-		//The stupid switch staement didn't work so im doing it this way
+
 		if (i == 0) {
 			for (Timeblock x : currentUser.getSuntimeblocks()) {
 				text = text.concat(x.toString() + "\n");
