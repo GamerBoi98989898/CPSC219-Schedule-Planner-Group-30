@@ -10,6 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	
+	/**
+	 * Open the main window of the app to the login scene, and prompts user to login or register
+	 * 
+	 */
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 
