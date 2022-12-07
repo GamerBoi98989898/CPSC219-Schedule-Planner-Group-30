@@ -6,6 +6,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.math.*;
 
+/**
+ * This class defines the comparison of 2
+ * Users to find common free time
+ * @author Connor Ell and Jose Lorenzo Jacobe
+ */
 public class Comparison {
 
 	private ArrayList<Timeblock> sunfreetimelist = new ArrayList<Timeblock>();
@@ -16,6 +21,12 @@ public class Comparison {
 	private ArrayList<Timeblock> frifreetimelist = new ArrayList<Timeblock>();
 	private ArrayList<Timeblock> satfreetimelist = new ArrayList<Timeblock>();
 
+	/**
+	 * This constructor will simply take 2 users and creates a comparison object
+	 * that will hold that data by calling the createcomparison function
+	 * @param user1 the first user to compare
+	 * @param user2 the second user to compare
+	 */
 	public Comparison(User user1, User user2) {
 		createcomparison(user1, user2);
 	}

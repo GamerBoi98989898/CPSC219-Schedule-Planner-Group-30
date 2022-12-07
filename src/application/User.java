@@ -3,6 +3,13 @@ import java.io.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+/**
+ *
+ * This class is used to store the user's schedule
+ *
+ * @author Connor Ell and Jose Lorenzo Jacobe
+ *
+ */
 public class User {
 	private String username;
 	private String password;
@@ -290,6 +297,9 @@ public class User {
 
 	/**
 	 * This is an overload function for making sure a user exists
+	 * made static because it is meant to validate a textfield
+	 * NOT to create an object or be used for any other
+	 * purpose
 	 * @param filename the username of the file to validate
 	 * @return True if the user exists. False otherwise
 	 * @throws IOException Thrown if the file cannot be found

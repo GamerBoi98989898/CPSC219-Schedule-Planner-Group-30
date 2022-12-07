@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 /**
  * 
- * This class is used to store the user's schedule 
- * 
+ * This class defines what a timeblock is for the
+ * purposes of our program
  * @author Connor Ell and Jose Lorenzo Jacobe
  *
  */
@@ -89,7 +89,7 @@ public class Timeblock {
 	 * Checks if there are overlapping times in taskList to avoid user from entering duplicates or conflicting times
 	 * 
 	 * @param taskList
-	 * @return
+	 * @return true if overlap is found
 	 */
 	public boolean overlappingTime(ArrayList<String> taskList) {
 		
