@@ -296,7 +296,7 @@ public class User {
 	}
 
 	/**
-	 * This is an overload function for making sure a user exists
+	 * This is an overload/polymorphic function for making sure a user exists
 	 * made static because it is meant to validate a textfield
 	 * NOT to create an object or be used for any other
 	 * purpose
@@ -305,7 +305,6 @@ public class User {
 	 * @throws IOException Thrown if the file cannot be found
 	 */
 	public static boolean validateUser(String filename) throws IOException{
-		int x = 0;
 		BufferedReader reader = new BufferedReader(new FileReader("src/" +filename+ ".txt"));
 		String Thisfilename = reader.readLine();
 		if (filename.equals(Thisfilename)) {return true;}
