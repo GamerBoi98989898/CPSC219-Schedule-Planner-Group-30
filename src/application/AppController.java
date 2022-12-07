@@ -161,6 +161,8 @@ public class AppController  {
 	Label FreetimeErrorLabel = new Label();
 	@FXML
 	Label createErrorLabel = new Label();
+	@FXML
+	Button goToLogin = new Button();
 
 	/**
 	 *
@@ -208,6 +210,22 @@ public class AppController  {
 		} else {LoginErrorLabel.setText("Please enter a username and password");}
 	}
 
+	/**
+	 *
+	 * @param Event
+	 */
+	public void goToLogin(ActionEvent Event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			Stage applicationStage = (Stage) goToLogin.getScene().getWindow();
+			Parent root = loader.load();
+			AppController controller = loader.getController();
+			applicationStage.setScene(new Scene(root, 800, 600));
+			applicationStage.show();
+		} catch (IOException e) {
+			//e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Register new user and prompt their username and password upon button press
