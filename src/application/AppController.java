@@ -809,7 +809,7 @@ public class AppController  {
 	 * @return the day of the week as a formatted string
 	 */
 	public String displayTable(int i) {
-		Stage stage = (Stage)applicationStage.getScene().getWindow();
+		Stage stage = (Stage)loginButton.getScene().getWindow();
 		User currentUser = (User) stage.getUserData();
 		String text = "";
 		if (i == 0) {
