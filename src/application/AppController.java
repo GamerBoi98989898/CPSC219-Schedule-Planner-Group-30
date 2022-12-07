@@ -219,8 +219,8 @@ public class AppController  {
 
 	public void registerUser(ActionEvent event) throws Exception {
 
-		Parent root = FXMLLoader.load(getClass().getResource("RegisterView.fxml"));
-
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterView.fxml"));
+		Parent root = loader.load();
 		Stage applicationStage = (Stage)registerButton.getScene().getWindow();
 
 		applicationStage.setScene(new Scene(root, 600, 400));
@@ -794,7 +794,7 @@ public class AppController  {
 	 * @return the day of the week as a formatted string
 	 */
 	public String displayTable(int i) {
-		Stage stage = (Stage)applicationStage.getScene().getWindow();
+		Stage stage = (Stage)loginButton.getScene().getWindow();
 		User currentUser = (User) stage.getUserData();
 		String text = "";
 		if (i == 0) {
