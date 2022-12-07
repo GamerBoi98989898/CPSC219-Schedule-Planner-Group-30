@@ -203,7 +203,7 @@ public class AppController  {
 			} catch (IOException ioe) {
 				username = "";
 				password = "";
-				ioe.printStackTrace();
+				//ioe.printStackTrace();
 			} LoginErrorLabel.setText("Error could not find user. Check Username and Password");
 		} else {LoginErrorLabel.setText("Please enter a username and password");}
 	}
