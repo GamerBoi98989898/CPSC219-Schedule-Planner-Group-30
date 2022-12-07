@@ -61,8 +61,8 @@ public class Comparison {
 
 
 		for (int i = 0; i < user1list.size(); i +=1) {
-			for (Timeblock t1 : user1list.get(i)) { // loop through sunday freetimes in first user
-				for (Timeblock t2 : user2list.get(i)) { // loop through sunday freetimes in second user
+			for (Timeblock t1 : user1list.get(i)) { // loop through freetimes in first user
+				for (Timeblock t2 : user2list.get(i)) { // loop through freetimes in second user
 					if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd()) //checks if start and end times are the same or at least within 5 minutes
 							|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) <= 5
 							&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) <= 5
@@ -101,7 +101,6 @@ public class Comparison {
 							case 6: satfreetimelist.add(block);
 								break;
 						}
-						//sunfreetimelist.add(block);
 					}
 				}
 			}
