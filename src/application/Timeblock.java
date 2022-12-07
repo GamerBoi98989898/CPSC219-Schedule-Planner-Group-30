@@ -45,10 +45,11 @@ public class Timeblock {
 
 	/**
 	 * This function is used to create a list of timeblocks from a list of strings
-	 * @param list the arraylist of strings to convert
+	 * @param inputList the arraylist of strings to convert
 	 * @return Will return the new list as a arraylist of timeblocks
 	 */
-	public ArrayList<Timeblock> createTimeblocks(ArrayList<String> list ) {
+	public ArrayList<Timeblock> createTimeblocks(ArrayList<String> inputList ) {
+		ArrayList<String> list = new ArrayList<String>(inputList);
 		ArrayList<Timeblock> newList = new ArrayList<Timeblock>();
 		
 		for (String i : list) {

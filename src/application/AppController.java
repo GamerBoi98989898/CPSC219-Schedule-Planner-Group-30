@@ -658,10 +658,10 @@ public class AppController  {
 	 * @return
 	 */
 	public String timeblockToDisplay(ArrayList<Timeblock> timeblockList) {
-		
+		ArrayList<Timeblock> List = new ArrayList<Timeblock>(timeblockList);
 		String result = "";
 
-		for (Timeblock i : timeblockList) {
+		for (Timeblock i : List) {
 			
 			result += i.toString() + "\n";
 			
@@ -731,7 +731,7 @@ public class AppController  {
 			applicationStage.show();
 
 			User x = (User) applicationStage.getUserData();
-			System.out.println(x.getUsername());
+			//System.out.println(x.getUsername());
 
 
 		} catch (IOException ioe) {

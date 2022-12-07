@@ -22,10 +22,12 @@ public class Comparison {
 
 	/**
 	 * takes 2 users and then finds common free times
-	 * @param user1 the first user to use
-	 * @param user2 the second user to use
+	 * @param usera the first user to use
+	 * @param userb the second user to use
 	 */
-	private void createcomparison (User user1, User user2) {
+	private void createcomparison (User usera, User userb) {
+		User user1 = new User(usera);
+		User user2= new User(userb);
 		ArrayList<ArrayList<Timeblock>> user1list = new ArrayList<>();
 		ArrayList<ArrayList<Timeblock>> user2list = new ArrayList<>();
 
@@ -49,8 +51,8 @@ public class Comparison {
 		for (Timeblock t1 : user1list.get(0)) {
 			for (Timeblock t2 : user2list.get(0)) {
 				if (t1.getStart().equals(t2.getStart()) && t1.getEnd().equals(t2.getEnd())
-						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) < 5
-						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) < 5
+						|| Math.abs(t1.getStart().getLong(ChronoField.MINUTE_OF_DAY) - t2.getStart().getLong(ChronoField.MINUTE_OF_DAY)) <= 5
+						&& Math.abs(t1.getEnd().getLong(ChronoField.MINUTE_OF_DAY) - t2.getEnd().getLong(ChronoField.MINUTE_OF_DAY)) <= 5
 				) {
 					LocalTime start = t2.getStart();
 					LocalTime end = t2.getEnd();
