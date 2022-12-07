@@ -10,9 +10,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="266.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppController">
     <children>
-        <VBox prefHeight="210.0" prefWidth="184.0">
+        <VBox prefHeight="129.0" prefWidth="273.0">
             <children>
                 <TextField fx:id="usernameTextField" prefHeight="53.0" prefWidth="164.0" promptText="Create Username">
                     <padding>
@@ -32,7 +32,7 @@
                 </PasswordField>
                 <Button fx:id="completeRegisterButton" mnemonicParsing="false" onAction="#completeRegister" prefHeight="25.0" prefWidth="186.0" text="Register">
                     <VBox.margin>
-                        <Insets />
+                        <Insets left="50.0" />
                     </VBox.margin>
                 </Button>
             </children>
