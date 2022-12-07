@@ -16,13 +16,13 @@
     <children>
         <HBox prefHeight="34.0" prefWidth="600.0">
          <children>
-                <Button fx:id="createScheduleButton" mnemonicParsing="false" onAction="#createSchedule" prefHeight="25.0" prefWidth="129.0" text="Create New Schedule">
+                <Button fx:id="createScheduleButton" mnemonicParsing="false" onAction="#createSchedule" prefHeight="25.0" prefWidth="298.0" text="Create New Schedule">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin></Button>
-            <Button fx:id="showcomp" mnemonicParsing="false" onAction="#showcomp" text="Show Comparison">
+            <Button fx:id="showcomp" mnemonicParsing="false" onAction="#showcomp" prefHeight="25.0" prefWidth="273.0" text="Show Comparison">
                <HBox.margin>
-                  <Insets bottom="10.0" left="330.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="300.0" right="10.0" top="10.0" />
                </HBox.margin></Button>
          </children></HBox>
       <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
