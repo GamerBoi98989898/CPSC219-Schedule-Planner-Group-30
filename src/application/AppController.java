@@ -685,6 +685,7 @@ public class AppController  {
 			// Get current user's data for saving into the text file
 			Stage stage = (Stage)doneButton.getScene().getWindow();
 			User currentUser = (User) stage.getUserData();
+			stage.setUserData(currentUser);
 
 			// Saves the user's schedule into the text file
 			currentUser.saveToFile(currentUser.getUsername());
@@ -751,7 +752,7 @@ public class AppController  {
 				String tocomparestr = compareNameTField.getText();
 				User tocompareusr = new User(tocomparestr);
 				Stage applicationStage = (Stage) compareButton.getScene().getWindow();
-				User currentUser = (User) applicationStage.getUserData();
+				User currentUser = new User(((User) applicationStage.getUserData()).getUsername());
 				Comparison comp = new Comparison(currentUser, tocompareusr);
 				ArrayList<Timeblock> list = comp.getSunfreetimelist();
 				FreeViewSun.setText(timeblockToDisplay(list));
